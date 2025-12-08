@@ -1,11 +1,14 @@
 <!DOCTYPE html>
 <html lang="en">
+
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Interactive Components Demo | Movers+Shakers Design System</title>
     <script src="https://cdn.tailwindcss.com"></script>
-    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&family=Oswald:wght@400;500;600;700&display=swap" rel="stylesheet">
+    <link
+        href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&family=Oswald:wght@400;500;600;700&display=swap"
+        rel="stylesheet">
     <script src="https://unpkg.com/lucide@latest"></script>
     <link rel="stylesheet" href="tokens/index.css">
     <style>
@@ -24,9 +27,9 @@
             --color-warning-light: #FEF3C7;
             --color-info: #3B82F6;
             --color-info-light: #DBEAFE;
-            --shadow-sm: 2px 2px 0px 0px rgba(0,0,0,1);
-            --shadow-md: 4px 4px 0px 0px rgba(0,0,0,1);
-            --shadow-lg: 8px 8px 0px 0px rgba(0,0,0,1);
+            --shadow-sm: 2px 2px 0px 0px rgba(0, 0, 0, 1);
+            --shadow-md: 4px 4px 0px 0px rgba(0, 0, 0, 1);
+            --shadow-lg: 8px 8px 0px 0px rgba(0, 0, 0, 1);
             --shadow-yellow-md: 4px 4px 0px 0px #FFF000;
             --shadow-yellow-lg: 8px 8px 0px 0px #FFF000;
         }
@@ -36,60 +39,129 @@
             color: var(--color-brand-black);
             line-height: 1.6;
         }
-        h1, h2, h3, h4, h5, h6, .brand-font {
+
+        h1,
+        h2,
+        h3,
+        h4,
+        h5,
+        h6,
+        .brand-font {
             font-family: 'Oswald', sans-serif;
             text-transform: uppercase;
             line-height: 1.1;
         }
-        .bg-brand-yellow { background-color: var(--color-brand-yellow); }
-        .text-brand-yellow { color: var(--color-brand-yellow); }
-        .border-brand-yellow { border-color: var(--color-brand-yellow); }
-        .bg-brand-black { background-color: var(--color-brand-black); }
-        .text-brand-black { color: var(--color-brand-black); }
-        .shadow-brand-sm { box-shadow: var(--shadow-sm); }
-        .shadow-brand-md { box-shadow: var(--shadow-md); }
-        .shadow-brand-lg { box-shadow: var(--shadow-lg); }
-        .shadow-brand-yellow-md { box-shadow: var(--shadow-yellow-md); }
-        .shadow-brand-yellow-lg { box-shadow: var(--shadow-yellow-lg); }
-        .bg-success { background-color: var(--color-success); }
-        .bg-success-light { background-color: var(--color-success-light); }
-        .text-success { color: var(--color-success); }
-        .bg-error { background-color: var(--color-error); }
-        .bg-error-light { background-color: var(--color-error-light); }
-        .text-error { color: var(--color-error); }
-        .bg-warning { background-color: var(--color-warning); }
-        .bg-warning-light { background-color: var(--color-warning-light); }
-        .text-warning { color: var(--color-warning); }
-        .bg-info { background-color: var(--color-info); }
-        .bg-info-light { background-color: var(--color-info-light); }
-        .text-info { color: var(--color-info); }
+
+        .bg-brand-yellow {
+            background-color: var(--color-brand-yellow);
+        }
+
+        .text-brand-yellow {
+            color: var(--color-brand-yellow);
+        }
+
+        .border-brand-yellow {
+            border-color: var(--color-brand-yellow);
+        }
+
+        .bg-brand-black {
+            background-color: var(--color-brand-black);
+        }
+
+        .text-brand-black {
+            color: var(--color-brand-black);
+        }
+
+        .shadow-brand-sm {
+            box-shadow: var(--shadow-sm);
+        }
+
+        .shadow-brand-md {
+            box-shadow: var(--shadow-md);
+        }
+
+        .shadow-brand-lg {
+            box-shadow: var(--shadow-lg);
+        }
+
+        .shadow-brand-yellow-md {
+            box-shadow: var(--shadow-yellow-md);
+        }
+
+        .shadow-brand-yellow-lg {
+            box-shadow: var(--shadow-yellow-lg);
+        }
+
+        .bg-success {
+            background-color: var(--color-success);
+        }
+
+        .bg-success-light {
+            background-color: var(--color-success-light);
+        }
+
+        .text-success {
+            color: var(--color-success);
+        }
+
+        .bg-error {
+            background-color: var(--color-error);
+        }
+
+        .bg-error-light {
+            background-color: var(--color-error-light);
+        }
+
+        .text-error {
+            color: var(--color-error);
+        }
+
+        .bg-warning {
+            background-color: var(--color-warning);
+        }
+
+        .bg-warning-light {
+            background-color: var(--color-warning-light);
+        }
+
+        .text-warning {
+            color: var(--color-warning);
+        }
+
+        .bg-info {
+            background-color: var(--color-info);
+        }
+
+        .bg-info-light {
+            background-color: var(--color-info-light);
+        }
+
+        .text-info {
+            color: var(--color-info);
+        }
     </style>
 </head>
+
 <body class="bg-gray-50 min-h-screen">
 
     <!-- Header -->
-    <header class="bg-brand-black text-white border-b-4 border-brand-yellow sticky top-0 z-50">
-        <div class="container mx-auto px-6 py-4 flex items-center justify-between">
-            <a href="index.html" class="text-xl font-bold tracking-widest brand-font">
+    <header class="bg-brand-black text-white py-4 border-b-8 border-brand-yellow sticky top-0 z-50">
+        <div class="container mx-auto px-6 flex justify-between items-center">
+            <a href="index.html" class="text-2xl font-bold tracking-widest brand-font">
                 MOVERS<span class="text-brand-yellow">+</span>SHAKERS
             </a>
-            <div class="hidden md:flex items-center gap-6">
-                <a href="index.html" class="text-sm font-bold uppercase tracking-wider hover:text-brand-yellow transition-colors">Design System</a>
-                <span class="text-brand-yellow font-bold text-sm uppercase tracking-wider">Interactive Demo</span>
-            </div>
-            <!-- Mobile Menu Toggle -->
-            <button data-mobile-menu-trigger="main-menu" class="md:hidden">
-                <i data-lucide="menu" class="w-6 h-6" data-menu-icon-open></i>
-                <i data-lucide="x" class="w-6 h-6 hidden" data-menu-icon-close></i>
-            </button>
-        </div>
-
-        <!-- Mobile Menu -->
-        <div data-mobile-menu="main-menu" class="hidden md:hidden absolute top-full left-0 right-0 bg-brand-black border-t border-white/10">
-            <div class="container mx-auto px-6 py-4 flex flex-col gap-4">
-                <a href="index.html" class="text-sm font-bold uppercase tracking-wider hover:text-brand-yellow transition-colors">Design System</a>
-                <a href="#" class="text-sm font-bold uppercase tracking-wider text-brand-yellow">Interactive Demo</a>
-            </div>
+            <nav class="hidden md:flex items-center gap-8">
+                <a href="index.html#atoms"
+                    class="text-sm font-bold uppercase tracking-wider hover:text-brand-yellow transition-colors">Atoms</a>
+                <a href="index.html#molecules"
+                    class="text-sm font-bold uppercase tracking-wider hover:text-brand-yellow transition-colors">Molecules</a>
+                <a href="index.html#organisms"
+                    class="text-sm font-bold uppercase tracking-wider hover:text-brand-yellow transition-colors">Organisms</a>
+                <span class="text-gray-600">|</span>
+                <a href="docs/index.html"
+                    class="text-sm font-bold uppercase tracking-wider hover:text-brand-yellow transition-colors">Docs</a>
+                <a href="demo.html" class="text-sm font-bold uppercase tracking-wider text-brand-yellow">Demo</a>
+            </nav>
         </div>
     </header>
 
@@ -116,16 +188,20 @@
                 <p class="text-gray-600 mb-6">Click any button to open a modal dialog:</p>
 
                 <div class="flex flex-wrap gap-4">
-                    <button data-modal-trigger="basic-modal" class="bg-brand-yellow text-black px-6 py-3 font-bold uppercase tracking-wider text-sm border-2 border-black shadow-brand-sm hover:bg-white transition-colors">
+                    <button data-modal-trigger="basic-modal"
+                        class="bg-brand-yellow text-black px-6 py-3 font-bold uppercase tracking-wider text-sm border-2 border-black shadow-brand-sm hover:bg-white transition-colors">
                         Basic Modal
                     </button>
-                    <button data-modal-trigger="confirm-modal" class="bg-brand-black text-white px-6 py-3 font-bold uppercase tracking-wider text-sm border-2 border-black shadow-brand-yellow-md hover:bg-brand-yellow hover:text-black transition-colors">
+                    <button data-modal-trigger="confirm-modal"
+                        class="bg-brand-black text-white px-6 py-3 font-bold uppercase tracking-wider text-sm border-2 border-black shadow-brand-yellow-md hover:bg-brand-yellow hover:text-black transition-colors">
                         Confirmation
                     </button>
-                    <button data-modal-trigger="form-modal" class="bg-white text-black px-6 py-3 font-bold uppercase tracking-wider text-sm border-2 border-black hover:bg-brand-yellow transition-colors">
+                    <button data-modal-trigger="form-modal"
+                        class="bg-white text-black px-6 py-3 font-bold uppercase tracking-wider text-sm border-2 border-black hover:bg-brand-yellow transition-colors">
                         Form Modal
                     </button>
-                    <button data-modal-trigger="success-modal" class="bg-success text-white px-6 py-3 font-bold uppercase tracking-wider text-sm border-2 border-success hover:opacity-90 transition-opacity">
+                    <button data-modal-trigger="success-modal"
+                        class="bg-success text-white px-6 py-3 font-bold uppercase tracking-wider text-sm border-2 border-success hover:opacity-90 transition-opacity">
                         Success Modal
                     </button>
                 </div>
@@ -137,20 +213,24 @@
             <div class="bg-white border-2 border-black shadow-brand-lg max-w-md w-full">
                 <div class="flex items-center justify-between p-4 border-b-2 border-black">
                     <h3 class="font-bold uppercase text-lg tracking-wider">Modal Title</h3>
-                    <button data-modal-close class="w-8 h-8 flex items-center justify-center hover:bg-gray-100 transition-colors">
+                    <button data-modal-close
+                        class="w-8 h-8 flex items-center justify-center hover:bg-gray-100 transition-colors">
                         <i data-lucide="x" class="w-5 h-5"></i>
                     </button>
                 </div>
                 <div class="p-6">
                     <p class="text-gray-600 leading-relaxed">
-                        This is a basic modal dialog. It supports keyboard navigation (press Escape to close) and closes when clicking the backdrop.
+                        This is a basic modal dialog. It supports keyboard navigation (press Escape to close) and closes
+                        when clicking the backdrop.
                     </p>
                 </div>
                 <div class="flex gap-3 p-4 border-t border-gray-200 bg-gray-50">
-                    <button data-modal-close class="flex-1 border-2 border-black px-4 py-2 font-bold uppercase text-sm tracking-wider hover:bg-gray-100 transition-colors">
+                    <button data-modal-close
+                        class="flex-1 border-2 border-black px-4 py-2 font-bold uppercase text-sm tracking-wider hover:bg-gray-100 transition-colors">
                         Cancel
                     </button>
-                    <button class="flex-1 bg-brand-yellow border-2 border-black px-4 py-2 font-bold uppercase text-sm tracking-wider hover:bg-white transition-colors">
+                    <button
+                        class="flex-1 bg-brand-yellow border-2 border-black px-4 py-2 font-bold uppercase text-sm tracking-wider hover:bg-white transition-colors">
                         Confirm
                     </button>
                 </div>
@@ -170,10 +250,12 @@
                     </p>
                 </div>
                 <div class="flex gap-3 p-4 border-t border-gray-200 bg-gray-50">
-                    <button data-modal-close class="flex-1 border-2 border-black px-4 py-2 font-bold uppercase text-sm tracking-wider hover:bg-gray-100 transition-colors">
+                    <button data-modal-close
+                        class="flex-1 border-2 border-black px-4 py-2 font-bold uppercase text-sm tracking-wider hover:bg-gray-100 transition-colors">
                         Cancel
                     </button>
-                    <button data-modal-close class="flex-1 bg-error text-white border-2 border-error px-4 py-2 font-bold uppercase text-sm tracking-wider hover:bg-red-600 transition-colors">
+                    <button data-modal-close
+                        class="flex-1 bg-error text-white border-2 border-error px-4 py-2 font-bold uppercase text-sm tracking-wider hover:bg-red-600 transition-colors">
                         Delete
                     </button>
                 </div>
@@ -185,29 +267,37 @@
             <div class="bg-white border-2 border-black shadow-brand-lg max-w-md w-full">
                 <div class="flex items-center justify-between p-4 border-b-2 border-black bg-brand-black text-white">
                     <h3 class="font-bold uppercase text-lg tracking-wider">Create Project</h3>
-                    <button data-modal-close class="w-8 h-8 flex items-center justify-center hover:bg-white/10 transition-colors">
+                    <button data-modal-close
+                        class="w-8 h-8 flex items-center justify-center hover:bg-white/10 transition-colors">
                         <i data-lucide="x" class="w-5 h-5"></i>
                     </button>
                 </div>
                 <form data-validate class="p-6 space-y-4">
                     <div data-field class="space-y-2">
-                        <label class="block text-xs font-bold uppercase tracking-widest text-gray-600">Project Name *</label>
-                        <input type="text" data-rules="required|minLength:3" placeholder="Enter project name" class="w-full border-2 border-gray-300 p-3 focus:border-black focus:outline-none transition-colors">
+                        <label class="block text-xs font-bold uppercase tracking-widest text-gray-600">Project Name
+                            *</label>
+                        <input type="text" data-rules="required|minLength:3" placeholder="Enter project name"
+                            class="w-full border-2 border-gray-300 p-3 focus:border-black focus:outline-none transition-colors">
                     </div>
                     <div data-field class="space-y-2">
                         <label class="block text-xs font-bold uppercase tracking-widest text-gray-600">Email *</label>
-                        <input type="email" data-rules="required|email" placeholder="your@email.com" class="w-full border-2 border-gray-300 p-3 focus:border-black focus:outline-none transition-colors">
+                        <input type="email" data-rules="required|email" placeholder="your@email.com"
+                            class="w-full border-2 border-gray-300 p-3 focus:border-black focus:outline-none transition-colors">
                     </div>
                     <div data-field class="space-y-2">
-                        <label class="block text-xs font-bold uppercase tracking-widest text-gray-600">Description</label>
-                        <textarea rows="3" placeholder="Brief description..." class="w-full border-2 border-gray-300 p-3 focus:border-black focus:outline-none transition-colors resize-none"></textarea>
+                        <label
+                            class="block text-xs font-bold uppercase tracking-widest text-gray-600">Description</label>
+                        <textarea rows="3" placeholder="Brief description..."
+                            class="w-full border-2 border-gray-300 p-3 focus:border-black focus:outline-none transition-colors resize-none"></textarea>
                     </div>
                 </form>
                 <div class="flex gap-3 p-4 border-t border-gray-200 bg-gray-50">
-                    <button data-modal-close class="flex-1 border-2 border-black px-4 py-2 font-bold uppercase text-sm tracking-wider hover:bg-gray-100 transition-colors">
+                    <button data-modal-close
+                        class="flex-1 border-2 border-black px-4 py-2 font-bold uppercase text-sm tracking-wider hover:bg-gray-100 transition-colors">
                         Cancel
                     </button>
-                    <button class="flex-1 bg-brand-yellow border-2 border-black px-4 py-2 font-bold uppercase text-sm tracking-wider hover:bg-white transition-colors">
+                    <button
+                        class="flex-1 bg-brand-yellow border-2 border-black px-4 py-2 font-bold uppercase text-sm tracking-wider hover:bg-white transition-colors">
                         Create
                     </button>
                 </div>
@@ -218,7 +308,8 @@
         <div data-modal="success-modal" class="hidden fixed inset-0 z-50 items-center justify-center p-4 bg-black/50">
             <div class="bg-white border-2 border-black shadow-brand-yellow-lg max-w-sm w-full text-center">
                 <div class="p-6">
-                    <div class="w-16 h-16 bg-brand-yellow rounded-full flex items-center justify-center mx-auto mb-4 border-2 border-black">
+                    <div
+                        class="w-16 h-16 bg-brand-yellow rounded-full flex items-center justify-center mx-auto mb-4 border-2 border-black">
                         <i data-lucide="check" class="w-8 h-8 text-black"></i>
                     </div>
                     <h3 class="font-bold uppercase text-xl tracking-wider mb-2">Success!</h3>
@@ -227,7 +318,8 @@
                     </p>
                 </div>
                 <div class="p-4 border-t border-gray-200 bg-gray-50">
-                    <button data-modal-close class="w-full bg-brand-yellow border-2 border-black px-4 py-3 font-bold uppercase text-sm tracking-wider hover:bg-white transition-colors">
+                    <button data-modal-close
+                        class="w-full bg-brand-yellow border-2 border-black px-4 py-3 font-bold uppercase text-sm tracking-wider hover:bg-white transition-colors">
                         Get Started
                     </button>
                 </div>
@@ -249,25 +341,31 @@
                 <div class="flex flex-wrap gap-4">
                     <!-- Basic Dropdown -->
                     <div class="relative">
-                        <button data-dropdown-trigger="basic-dropdown" class="bg-brand-yellow text-black px-6 py-3 font-bold uppercase tracking-wider text-sm border-2 border-black shadow-brand-sm flex items-center gap-2 hover:bg-white transition-colors">
+                        <button data-dropdown-trigger="basic-dropdown"
+                            class="bg-brand-yellow text-black px-6 py-3 font-bold uppercase tracking-wider text-sm border-2 border-black shadow-brand-sm flex items-center gap-2 hover:bg-white transition-colors">
                             Options
                             <i data-lucide="chevron-down" class="w-4 h-4"></i>
                         </button>
-                        <div data-dropdown="basic-dropdown" class="hidden absolute top-full left-0 mt-2 w-48 bg-white border-2 border-black shadow-brand-md z-40">
-                            <button data-dropdown-item class="w-full px-4 py-3 text-left text-sm font-medium hover:bg-brand-yellow transition-colors flex items-center gap-2">
+                        <div data-dropdown="basic-dropdown"
+                            class="hidden absolute top-full left-0 mt-2 w-48 bg-white border-2 border-black shadow-brand-md z-40">
+                            <button data-dropdown-item
+                                class="w-full px-4 py-3 text-left text-sm font-medium hover:bg-brand-yellow transition-colors flex items-center gap-2">
                                 <i data-lucide="edit-2" class="w-4 h-4"></i>
                                 Edit
                             </button>
-                            <button data-dropdown-item class="w-full px-4 py-3 text-left text-sm font-medium hover:bg-brand-yellow transition-colors flex items-center gap-2">
+                            <button data-dropdown-item
+                                class="w-full px-4 py-3 text-left text-sm font-medium hover:bg-brand-yellow transition-colors flex items-center gap-2">
                                 <i data-lucide="copy" class="w-4 h-4"></i>
                                 Duplicate
                             </button>
-                            <button data-dropdown-item class="w-full px-4 py-3 text-left text-sm font-medium hover:bg-brand-yellow transition-colors flex items-center gap-2">
+                            <button data-dropdown-item
+                                class="w-full px-4 py-3 text-left text-sm font-medium hover:bg-brand-yellow transition-colors flex items-center gap-2">
                                 <i data-lucide="archive" class="w-4 h-4"></i>
                                 Archive
                             </button>
                             <div class="border-t border-gray-200"></div>
-                            <button data-dropdown-item class="w-full px-4 py-3 text-left text-sm font-medium text-error hover:bg-error-light transition-colors flex items-center gap-2">
+                            <button data-dropdown-item
+                                class="w-full px-4 py-3 text-left text-sm font-medium text-error hover:bg-error-light transition-colors flex items-center gap-2">
                                 <i data-lucide="trash-2" class="w-4 h-4"></i>
                                 Delete
                             </button>
@@ -276,32 +374,39 @@
 
                     <!-- User Menu -->
                     <div class="relative">
-                        <button data-dropdown-trigger="user-dropdown" class="flex items-center gap-3 px-4 py-2 border-2 border-black hover:bg-gray-100 transition-colors">
-                            <div class="w-8 h-8 rounded-full bg-brand-yellow text-black flex items-center justify-center font-bold text-sm border-2 border-black">
+                        <button data-dropdown-trigger="user-dropdown"
+                            class="flex items-center gap-3 px-4 py-2 border-2 border-black hover:bg-gray-100 transition-colors">
+                            <div
+                                class="w-8 h-8 rounded-full bg-brand-yellow text-black flex items-center justify-center font-bold text-sm border-2 border-black">
                                 JD
                             </div>
                             <span class="font-bold text-sm uppercase tracking-wider">John Doe</span>
                             <i data-lucide="chevron-down" class="w-4 h-4"></i>
                         </button>
-                        <div data-dropdown="user-dropdown" class="hidden absolute top-full right-0 mt-2 w-56 bg-white border-2 border-black shadow-brand-md z-40">
+                        <div data-dropdown="user-dropdown"
+                            class="hidden absolute top-full right-0 mt-2 w-56 bg-white border-2 border-black shadow-brand-md z-40">
                             <div class="px-4 py-3 border-b border-gray-200">
                                 <p class="font-bold text-sm">John Doe</p>
                                 <p class="text-gray-500 text-xs">john@example.com</p>
                             </div>
-                            <button data-dropdown-item class="w-full px-4 py-3 text-left text-sm font-medium hover:bg-brand-yellow transition-colors flex items-center gap-2">
+                            <button data-dropdown-item
+                                class="w-full px-4 py-3 text-left text-sm font-medium hover:bg-brand-yellow transition-colors flex items-center gap-2">
                                 <i data-lucide="user" class="w-4 h-4"></i>
                                 Profile
                             </button>
-                            <button data-dropdown-item class="w-full px-4 py-3 text-left text-sm font-medium hover:bg-brand-yellow transition-colors flex items-center gap-2">
+                            <button data-dropdown-item
+                                class="w-full px-4 py-3 text-left text-sm font-medium hover:bg-brand-yellow transition-colors flex items-center gap-2">
                                 <i data-lucide="settings" class="w-4 h-4"></i>
                                 Settings
                             </button>
-                            <button data-dropdown-item class="w-full px-4 py-3 text-left text-sm font-medium hover:bg-brand-yellow transition-colors flex items-center gap-2">
+                            <button data-dropdown-item
+                                class="w-full px-4 py-3 text-left text-sm font-medium hover:bg-brand-yellow transition-colors flex items-center gap-2">
                                 <i data-lucide="help-circle" class="w-4 h-4"></i>
                                 Help
                             </button>
                             <div class="border-t border-gray-200"></div>
-                            <button data-dropdown-item class="w-full px-4 py-3 text-left text-sm font-medium hover:bg-gray-100 transition-colors flex items-center gap-2">
+                            <button data-dropdown-item
+                                class="w-full px-4 py-3 text-left text-sm font-medium hover:bg-gray-100 transition-colors flex items-center gap-2">
                                 <i data-lucide="log-out" class="w-4 h-4"></i>
                                 Sign Out
                             </button>
@@ -327,23 +432,28 @@
                     <p class="text-xs font-bold tracking-widest text-gray-400 uppercase mb-4">Underline Style</p>
                     <div data-tabs>
                         <div class="border-b-2 border-gray-200 flex gap-0 mb-6">
-                            <button data-tab="tab1" aria-selected="true" class="px-6 py-3 font-bold uppercase text-sm tracking-wider border-b-4 border-brand-yellow -mb-0.5 bg-brand-yellow/10">
+                            <button data-tab="tab1" aria-selected="true"
+                                class="px-6 py-3 font-bold uppercase text-sm tracking-wider border-b-4 border-brand-yellow -mb-0.5 bg-brand-yellow/10">
                                 Overview
                             </button>
-                            <button data-tab="tab2" class="px-6 py-3 font-bold uppercase text-sm tracking-wider text-gray-500 border-b-4 border-transparent -mb-0.5 hover:text-black hover:border-gray-300 transition-colors">
+                            <button data-tab="tab2"
+                                class="px-6 py-3 font-bold uppercase text-sm tracking-wider text-gray-500 border-b-4 border-transparent -mb-0.5 hover:text-black hover:border-gray-300 transition-colors">
                                 Features
                             </button>
-                            <button data-tab="tab3" class="px-6 py-3 font-bold uppercase text-sm tracking-wider text-gray-500 border-b-4 border-transparent -mb-0.5 hover:text-black hover:border-gray-300 transition-colors">
+                            <button data-tab="tab3"
+                                class="px-6 py-3 font-bold uppercase text-sm tracking-wider text-gray-500 border-b-4 border-transparent -mb-0.5 hover:text-black hover:border-gray-300 transition-colors">
                                 Pricing
                             </button>
                         </div>
                         <div data-tab-panel="tab1" class="bg-gray-50 p-6 border border-gray-200">
                             <h4 class="font-bold text-lg mb-2">Overview Content</h4>
-                            <p class="text-gray-600">This is the overview tab content. Tabs support keyboard navigation with arrow keys.</p>
+                            <p class="text-gray-600">This is the overview tab content. Tabs support keyboard navigation
+                                with arrow keys.</p>
                         </div>
                         <div data-tab-panel="tab2" class="hidden bg-gray-50 p-6 border border-gray-200">
                             <h4 class="font-bold text-lg mb-2">Features Content</h4>
-                            <p class="text-gray-600">This is the features tab content with all the amazing features listed here.</p>
+                            <p class="text-gray-600">This is the features tab content with all the amazing features
+                                listed here.</p>
                         </div>
                         <div data-tab-panel="tab3" class="hidden bg-gray-50 p-6 border border-gray-200">
                             <h4 class="font-bold text-lg mb-2">Pricing Content</h4>
@@ -357,13 +467,16 @@
                     <p class="text-xs font-bold tracking-widest text-gray-400 uppercase mb-4">Boxed Style</p>
                     <div data-tabs data-tabs-style="boxed">
                         <div class="inline-flex border-2 border-black mb-6">
-                            <button data-tab="boxed1" aria-selected="true" class="px-6 py-3 font-bold uppercase text-sm tracking-wider bg-brand-yellow border-r-2 border-black">
+                            <button data-tab="boxed1" aria-selected="true"
+                                class="px-6 py-3 font-bold uppercase text-sm tracking-wider bg-brand-yellow border-r-2 border-black">
                                 Tab One
                             </button>
-                            <button data-tab="boxed2" class="px-6 py-3 font-bold uppercase text-sm tracking-wider bg-white border-r-2 border-black hover:bg-gray-100 transition-colors">
+                            <button data-tab="boxed2"
+                                class="px-6 py-3 font-bold uppercase text-sm tracking-wider bg-white border-r-2 border-black hover:bg-gray-100 transition-colors">
                                 Tab Two
                             </button>
-                            <button data-tab="boxed3" class="px-6 py-3 font-bold uppercase text-sm tracking-wider bg-white hover:bg-gray-100 transition-colors">
+                            <button data-tab="boxed3"
+                                class="px-6 py-3 font-bold uppercase text-sm tracking-wider bg-white hover:bg-gray-100 transition-colors">
                                 Tab Three
                             </button>
                         </div>
@@ -397,33 +510,41 @@
                 <div class="grid md:grid-cols-2 gap-8">
                     <!-- Single Open -->
                     <div>
-                        <p class="text-xs font-bold tracking-widest text-gray-400 uppercase mb-4">Single Open (Default)</p>
+                        <p class="text-xs font-bold tracking-widest text-gray-400 uppercase mb-4">Single Open (Default)
+                        </p>
                         <div data-accordion class="border-2 border-black divide-y-2 divide-black">
                             <div>
-                                <button data-accordion-trigger="acc1" aria-expanded="true" class="w-full flex items-center justify-between p-4 font-bold uppercase text-sm tracking-wider hover:bg-brand-yellow/10 transition-colors text-left">
+                                <button data-accordion-trigger="acc1" aria-expanded="true"
+                                    class="w-full flex items-center justify-between p-4 font-bold uppercase text-sm tracking-wider hover:bg-brand-yellow/10 transition-colors text-left">
                                     <span>Section One</span>
-                                    <i data-lucide="chevron-down" data-accordion-icon class="w-5 h-5" style="transform: rotate(180deg)"></i>
+                                    <i data-lucide="chevron-down" data-accordion-icon class="w-5 h-5"
+                                        style="transform: rotate(180deg)"></i>
                                 </button>
                                 <div data-accordion-panel="acc1" class="p-4 pt-0 bg-gray-50">
-                                    <p class="text-gray-600 text-sm">Content for section one. Only one panel can be open at a time in this mode.</p>
+                                    <p class="text-gray-600 text-sm">Content for section one. Only one panel can be open
+                                        at a time in this mode.</p>
                                 </div>
                             </div>
                             <div>
-                                <button data-accordion-trigger="acc2" aria-expanded="false" class="w-full flex items-center justify-between p-4 font-bold uppercase text-sm tracking-wider hover:bg-brand-yellow/10 transition-colors text-left">
+                                <button data-accordion-trigger="acc2" aria-expanded="false"
+                                    class="w-full flex items-center justify-between p-4 font-bold uppercase text-sm tracking-wider hover:bg-brand-yellow/10 transition-colors text-left">
                                     <span>Section Two</span>
                                     <i data-lucide="chevron-down" data-accordion-icon class="w-5 h-5"></i>
                                 </button>
                                 <div data-accordion-panel="acc2" class="hidden p-4 pt-0 bg-gray-50">
-                                    <p class="text-gray-600 text-sm">Content for section two. Click another section to close this one.</p>
+                                    <p class="text-gray-600 text-sm">Content for section two. Click another section to
+                                        close this one.</p>
                                 </div>
                             </div>
                             <div>
-                                <button data-accordion-trigger="acc3" aria-expanded="false" class="w-full flex items-center justify-between p-4 font-bold uppercase text-sm tracking-wider hover:bg-brand-yellow/10 transition-colors text-left">
+                                <button data-accordion-trigger="acc3" aria-expanded="false"
+                                    class="w-full flex items-center justify-between p-4 font-bold uppercase text-sm tracking-wider hover:bg-brand-yellow/10 transition-colors text-left">
                                     <span>Section Three</span>
                                     <i data-lucide="chevron-down" data-accordion-icon class="w-5 h-5"></i>
                                 </button>
                                 <div data-accordion-panel="acc3" class="hidden p-4 pt-0 bg-gray-50">
-                                    <p class="text-gray-600 text-sm">Content for section three with additional information.</p>
+                                    <p class="text-gray-600 text-sm">Content for section three with additional
+                                        information.</p>
                                 </div>
                             </div>
                         </div>
@@ -434,38 +555,46 @@
                         <p class="text-xs font-bold tracking-widest text-gray-400 uppercase mb-4">Multiple Open</p>
                         <div data-accordion data-accordion-multiple class="space-y-3">
                             <div class="border-2 border-black shadow-brand-sm">
-                                <button data-accordion-trigger="multi1" aria-expanded="false" class="w-full flex items-center justify-between p-4 font-bold uppercase text-sm tracking-wider hover:bg-brand-yellow/10 transition-colors text-left">
+                                <button data-accordion-trigger="multi1" aria-expanded="false"
+                                    class="w-full flex items-center justify-between p-4 font-bold uppercase text-sm tracking-wider hover:bg-brand-yellow/10 transition-colors text-left">
                                     <span class="flex items-center gap-2">
                                         <i data-lucide="package" class="w-5 h-5 text-brand-yellow"></i>
                                         Shipping
                                     </span>
                                     <i data-lucide="chevron-down" data-accordion-icon class="w-5 h-5"></i>
                                 </button>
-                                <div data-accordion-panel="multi1" class="hidden p-4 border-t-2 border-black bg-gray-50">
-                                    <p class="text-gray-600 text-sm">Multiple panels can be open simultaneously in this mode.</p>
+                                <div data-accordion-panel="multi1"
+                                    class="hidden p-4 border-t-2 border-black bg-gray-50">
+                                    <p class="text-gray-600 text-sm">Multiple panels can be open simultaneously in this
+                                        mode.</p>
                                 </div>
                             </div>
                             <div class="border-2 border-black shadow-brand-sm">
-                                <button data-accordion-trigger="multi2" aria-expanded="false" class="w-full flex items-center justify-between p-4 font-bold uppercase text-sm tracking-wider hover:bg-brand-yellow/10 transition-colors text-left">
+                                <button data-accordion-trigger="multi2" aria-expanded="false"
+                                    class="w-full flex items-center justify-between p-4 font-bold uppercase text-sm tracking-wider hover:bg-brand-yellow/10 transition-colors text-left">
                                     <span class="flex items-center gap-2">
                                         <i data-lucide="credit-card" class="w-5 h-5 text-brand-yellow"></i>
                                         Payment
                                     </span>
                                     <i data-lucide="chevron-down" data-accordion-icon class="w-5 h-5"></i>
                                 </button>
-                                <div data-accordion-panel="multi2" class="hidden p-4 border-t-2 border-black bg-gray-50">
-                                    <p class="text-gray-600 text-sm">Each section operates independently of the others.</p>
+                                <div data-accordion-panel="multi2"
+                                    class="hidden p-4 border-t-2 border-black bg-gray-50">
+                                    <p class="text-gray-600 text-sm">Each section operates independently of the others.
+                                    </p>
                                 </div>
                             </div>
                             <div class="border-2 border-black shadow-brand-sm">
-                                <button data-accordion-trigger="multi3" aria-expanded="false" class="w-full flex items-center justify-between p-4 font-bold uppercase text-sm tracking-wider hover:bg-brand-yellow/10 transition-colors text-left">
+                                <button data-accordion-trigger="multi3" aria-expanded="false"
+                                    class="w-full flex items-center justify-between p-4 font-bold uppercase text-sm tracking-wider hover:bg-brand-yellow/10 transition-colors text-left">
                                     <span class="flex items-center gap-2">
                                         <i data-lucide="refresh-cw" class="w-5 h-5 text-brand-yellow"></i>
                                         Returns
                                     </span>
                                     <i data-lucide="chevron-down" data-accordion-icon class="w-5 h-5"></i>
                                 </button>
-                                <div data-accordion-panel="multi3" class="hidden p-4 border-t-2 border-black bg-gray-50">
+                                <div data-accordion-panel="multi3"
+                                    class="hidden p-4 border-t-2 border-black bg-gray-50">
                                     <p class="text-gray-600 text-sm">Open any combination of panels as needed.</p>
                                 </div>
                             </div>
@@ -488,19 +617,25 @@
                 <p class="text-gray-600 mb-6">Click buttons to trigger toast notifications (appear in bottom-right):</p>
 
                 <div class="flex flex-wrap gap-4">
-                    <button onclick="MSDesignSystem.Toast.info('This is an informational message.')" class="bg-info text-white px-6 py-3 font-bold uppercase tracking-wider text-sm border-2 border-info hover:opacity-90 transition-opacity">
+                    <button onclick="MSDesignSystem.Toast.info('This is an informational message.')"
+                        class="bg-info text-white px-6 py-3 font-bold uppercase tracking-wider text-sm border-2 border-info hover:opacity-90 transition-opacity">
                         Info Toast
                     </button>
-                    <button onclick="MSDesignSystem.Toast.success('Operation completed successfully!')" class="bg-success text-white px-6 py-3 font-bold uppercase tracking-wider text-sm border-2 border-success hover:opacity-90 transition-opacity">
+                    <button onclick="MSDesignSystem.Toast.success('Operation completed successfully!')"
+                        class="bg-success text-white px-6 py-3 font-bold uppercase tracking-wider text-sm border-2 border-success hover:opacity-90 transition-opacity">
                         Success Toast
                     </button>
-                    <button onclick="MSDesignSystem.Toast.warning('Please review your input.')" class="bg-warning text-white px-6 py-3 font-bold uppercase tracking-wider text-sm border-2 border-warning hover:opacity-90 transition-opacity">
+                    <button onclick="MSDesignSystem.Toast.warning('Please review your input.')"
+                        class="bg-warning text-white px-6 py-3 font-bold uppercase tracking-wider text-sm border-2 border-warning hover:opacity-90 transition-opacity">
                         Warning Toast
                     </button>
-                    <button onclick="MSDesignSystem.Toast.error('An error occurred. Please try again.')" class="bg-error text-white px-6 py-3 font-bold uppercase tracking-wider text-sm border-2 border-error hover:opacity-90 transition-opacity">
+                    <button onclick="MSDesignSystem.Toast.error('An error occurred. Please try again.')"
+                        class="bg-error text-white px-6 py-3 font-bold uppercase tracking-wider text-sm border-2 border-error hover:opacity-90 transition-opacity">
                         Error Toast
                     </button>
-                    <button onclick="MSDesignSystem.Toast.show({ message: 'Item deleted', type: 'brand', action: { label: 'Undo', onClick: () => alert('Undone!') }})" class="bg-brand-yellow text-black px-6 py-3 font-bold uppercase tracking-wider text-sm border-2 border-black shadow-brand-sm hover:bg-white transition-colors">
+                    <button
+                        onclick="MSDesignSystem.Toast.show({ message: 'Item deleted', type: 'brand', action: { label: 'Undo', onClick: () => alert('Undone!') }})"
+                        class="bg-brand-yellow text-black px-6 py-3 font-bold uppercase tracking-wider text-sm border-2 border-black shadow-brand-sm hover:bg-white transition-colors">
                         With Action
                     </button>
                 </div>
@@ -522,19 +657,27 @@
                 <form data-validate class="max-w-md space-y-6">
                     <div data-field class="space-y-2">
                         <label class="block text-xs font-bold uppercase tracking-widest text-gray-600">Name *</label>
-                        <input type="text" data-rules="required|minLength:2" data-error-required="Please enter your name" placeholder="Your name" class="w-full border-2 border-gray-300 p-3 focus:border-black focus:outline-none transition-colors">
+                        <input type="text" data-rules="required|minLength:2"
+                            data-error-required="Please enter your name" placeholder="Your name"
+                            class="w-full border-2 border-gray-300 p-3 focus:border-black focus:outline-none transition-colors">
                     </div>
 
                     <div data-field class="space-y-2">
                         <label class="block text-xs font-bold uppercase tracking-widest text-gray-600">Email *</label>
-                        <input type="email" data-rules="required|email" placeholder="your@email.com" class="w-full border-2 border-gray-300 p-3 focus:border-black focus:outline-none transition-colors">
+                        <input type="email" data-rules="required|email" placeholder="your@email.com"
+                            class="w-full border-2 border-gray-300 p-3 focus:border-black focus:outline-none transition-colors">
                     </div>
 
                     <div data-field class="space-y-2">
-                        <label class="block text-xs font-bold uppercase tracking-widest text-gray-600">Password *</label>
+                        <label class="block text-xs font-bold uppercase tracking-widest text-gray-600">Password
+                            *</label>
                         <div class="relative">
-                            <input type="password" id="password" data-rules="required|minLength:8" placeholder="Min 8 characters" class="w-full border-2 border-gray-300 p-3 pr-12 focus:border-black focus:outline-none transition-colors">
-                            <button type="button" data-password-toggle="password" class="absolute right-3 top-3.5 text-gray-400 hover:text-black" aria-label="Show password">
+                            <input type="password" id="password" data-rules="required|minLength:8"
+                                placeholder="Min 8 characters"
+                                class="w-full border-2 border-gray-300 p-3 pr-12 focus:border-black focus:outline-none transition-colors">
+                            <button type="button" data-password-toggle="password"
+                                class="absolute right-3 top-3.5 text-gray-400 hover:text-black"
+                                aria-label="Show password">
                                 <i data-lucide="eye" class="w-5 h-5"></i>
                                 <i data-lucide="eye-off" class="w-5 h-5 hidden"></i>
                             </button>
@@ -542,11 +685,15 @@
                     </div>
 
                     <div data-field class="space-y-2">
-                        <label class="block text-xs font-bold uppercase tracking-widest text-gray-600">Confirm Password *</label>
-                        <input type="password" data-rules="required|match:password" data-error-match="Passwords do not match" placeholder="Confirm password" class="w-full border-2 border-gray-300 p-3 focus:border-black focus:outline-none transition-colors">
+                        <label class="block text-xs font-bold uppercase tracking-widest text-gray-600">Confirm Password
+                            *</label>
+                        <input type="password" data-rules="required|match:password"
+                            data-error-match="Passwords do not match" placeholder="Confirm password"
+                            class="w-full border-2 border-gray-300 p-3 focus:border-black focus:outline-none transition-colors">
                     </div>
 
-                    <button type="submit" class="w-full bg-brand-yellow text-black px-6 py-4 font-bold uppercase tracking-wider text-sm border-2 border-black shadow-brand-md hover:bg-white transition-colors">
+                    <button type="submit"
+                        class="w-full bg-brand-yellow text-black px-6 py-4 font-bold uppercase tracking-wider text-sm border-2 border-black shadow-brand-md hover:bg-white transition-colors">
                         Submit Form
                     </button>
                 </form>
@@ -566,19 +713,24 @@
                 <p class="text-gray-600 mb-6">Hover over elements to see tooltips:</p>
 
                 <div class="flex flex-wrap gap-6 items-center">
-                    <button data-tooltip="Tooltip on top" data-tooltip-position="top" class="bg-brand-yellow text-black px-6 py-3 font-bold uppercase tracking-wider text-sm border-2 border-black shadow-brand-sm">
+                    <button data-tooltip="Tooltip on top" data-tooltip-position="top"
+                        class="bg-brand-yellow text-black px-6 py-3 font-bold uppercase tracking-wider text-sm border-2 border-black shadow-brand-sm">
                         Top
                     </button>
-                    <button data-tooltip="Tooltip on bottom" data-tooltip-position="bottom" class="bg-brand-yellow text-black px-6 py-3 font-bold uppercase tracking-wider text-sm border-2 border-black shadow-brand-sm">
+                    <button data-tooltip="Tooltip on bottom" data-tooltip-position="bottom"
+                        class="bg-brand-yellow text-black px-6 py-3 font-bold uppercase tracking-wider text-sm border-2 border-black shadow-brand-sm">
                         Bottom
                     </button>
-                    <button data-tooltip="Tooltip on left" data-tooltip-position="left" class="bg-brand-yellow text-black px-6 py-3 font-bold uppercase tracking-wider text-sm border-2 border-black shadow-brand-sm">
+                    <button data-tooltip="Tooltip on left" data-tooltip-position="left"
+                        class="bg-brand-yellow text-black px-6 py-3 font-bold uppercase tracking-wider text-sm border-2 border-black shadow-brand-sm">
                         Left
                     </button>
-                    <button data-tooltip="Tooltip on right" data-tooltip-position="right" class="bg-brand-yellow text-black px-6 py-3 font-bold uppercase tracking-wider text-sm border-2 border-black shadow-brand-sm">
+                    <button data-tooltip="Tooltip on right" data-tooltip-position="right"
+                        class="bg-brand-yellow text-black px-6 py-3 font-bold uppercase tracking-wider text-sm border-2 border-black shadow-brand-sm">
                         Right
                     </button>
-                    <span data-tooltip="Helpful information about this feature" class="inline-flex items-center gap-1 text-gray-600 cursor-help">
+                    <span data-tooltip="Helpful information about this feature"
+                        class="inline-flex items-center gap-1 text-gray-600 cursor-help">
                         <i data-lucide="help-circle" class="w-5 h-5"></i>
                         Hover for help
                     </span>
@@ -600,7 +752,7 @@
                         <p class="text-gray-500 text-sm mt-2">Interactive Components Demo</p>
                     </div>
                     <p class="text-gray-500 text-sm">
-                        &copy; 2024 Movers+Shakers. All rights reserved.
+                        &copy; 2025 Movers+Shakers. All rights reserved.
                     </p>
                 </div>
             </div>
@@ -616,4 +768,5 @@
     </script>
 
 </body>
+
 </html>
