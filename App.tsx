@@ -1,8 +1,10 @@
 import React, { useState, useRef } from 'react';
 import { initialContacts } from './data/initialContacts';
-import { Contact, PrioritizationResult, Priority } from './types';
+import { Contact, PrioritizationResult, Priority, OutreachTask, OutreachStatus } from './types';
 import ContactList from './components/ContactList';
 import DetailPanel from './components/DetailPanel';
+import KanbanBoard from './components/KanbanBoard';
+import PillSlider from './components/PillSlider';
 import { prioritizeContacts } from './services/geminiService';
 import { Navbar, Card, Button, Modal, Input, Loader, useToast, Typography } from '@welovejeff/movers-react';
 
@@ -26,6 +28,19 @@ const App: React.FC = () => {
     // Filter State
     const [filterOpen, setFilterOpen] = useState(false);
     const [activeFilter, setActiveFilter] = useState<string>('all');
+
+    // View Toggle State
+    const [activeView, setActiveView] = useState<'Contact View' | 'Kanban Board'>('Contact View');
+
+    // Kanban Tasks State
+    const [outreachTasks, setOutreachTasks] = useState<OutreachTask[]>([]);
+
+    // Kanban Column Names
+    const [columnNames, setColumnNames] = useState<Record<OutreachStatus, string>>({
+        [OutreachStatus.Queued]: 'QUEUED',
+        [OutreachStatus.Sent]: 'SENT / AWAITING',
+        [OutreachStatus.Followup]: 'FOLLOW UP'
+    });
 
     const selectedContact = contacts.find(c => c.id === selectedId) || null;
 
@@ -209,6 +224,56 @@ const App: React.FC = () => {
         e.preventDefault();
     };
 
+    // Kanban Handlers
+    const handleTaskMove = (taskId: string, newStatus: OutreachStatus) => {
+        setOutreachTasks(prev => prev.map(task =>
+            task.id === taskId ? { ...task, status: newStatus } : task
+        ));
+    };
+
+    const handleDropProspect = (e: React.DragEvent, status: OutreachStatus) => {
+        const contactId = e.dataTransfer.getData('contactId');
+        const contactName = e.dataTransfer.getData('contactName');
+        const contactCompany = e.dataTransfer.getData('contactCompany');
+        const contactPriority = e.dataTransfer.getData('contactPriority');
+
+        if (!contactId) return;
+
+        // Check if task already exists for this contact
+        const exists = outreachTasks.some(t => t.contactId === contactId);
+        if (exists) {
+            toast.warning('Task already exists for this contact');
+            return;
+        }
+
+        const newTask: OutreachTask = {
+            id: `task-${Date.now()}`,
+            contactId,
+            title: contactName || 'Outreach Task',
+            description: contactCompany ? `Reach out to ${contactCompany}` : undefined,
+            priority: contactPriority === 'High' ? 'HIGH' : contactPriority === 'Low' ? 'LOW' : 'MEDIUM',
+            status,
+            tags: ['Outreach'],
+            assignees: ['JD']
+        };
+
+        setOutreachTasks(prev => [...prev, newTask]);
+        toast.success(`Added task for ${contactName}`);
+    };
+
+    const handleAddTask = (status: OutreachStatus) => {
+        // For now, just show a toast - could open a modal for full task creation
+        toast.info('Select a prospect from the list and drag it here');
+    };
+
+    const handleRenameColumn = (status: OutreachStatus, newName: string) => {
+        setColumnNames(prev => ({
+            ...prev,
+            [status]: newName
+        }));
+        toast.success(`Column renamed to "${newName}"`);
+    };
+
     const navItems = [
         { id: 'contacts', label: `${contacts.length} Contacts`, href: '#' }
     ];
@@ -310,11 +375,26 @@ const App: React.FC = () => {
                 </div>
             </Modal>
 
-            {/* Navbar */}
-            <Navbar
-                logo="MOVERS+SHAKERS CRM"
-                items={navItems}
-            />
+            {/* Navbar with View Toggle */}
+            <div style={{ position: 'relative' }}>
+                <Navbar
+                    logo="MOVERS+SHAKERS CRM"
+                    items={navItems}
+                />
+                <div style={{
+                    position: 'absolute',
+                    left: '50%',
+                    top: '50%',
+                    transform: 'translate(-50%, -50%)',
+                    zIndex: 100
+                }}>
+                    <PillSlider
+                        options={['Contact View', 'Kanban Board']}
+                        value={activeView}
+                        onChange={(v) => setActiveView(v as 'Contact View' | 'Kanban Board')}
+                    />
+                </div>
+            </div>
 
             {/* Main Layout */}
             <main style={{
@@ -459,13 +539,22 @@ const App: React.FC = () => {
                             contacts={filteredContacts}
                             selectedId={selectedId}
                             onSelect={setSelectedId}
+                            kanbanMode={activeView === 'Kanban Board'}
                         />
                     </div>
                 </aside>
 
-                {/* Right Content: Detail Panel */}
+                {/* Right Content: Detail Panel or Kanban Board */}
                 <section style={{ flex: 1, minWidth: 0 }}>
-                    {selectedContact ? (
+                    {activeView === 'Kanban Board' ? (
+                        <KanbanBoard
+                            tasks={outreachTasks}
+                            columnNames={columnNames}
+                            onTaskMove={handleTaskMove}
+                            onRenameColumn={handleRenameColumn}
+                            onDropProspect={handleDropProspect}
+                        />
+                    ) : selectedContact ? (
                         <DetailPanel
                             contact={selectedContact}
                             onUpdateContact={handleUpdateContact}

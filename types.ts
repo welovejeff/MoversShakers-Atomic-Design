@@ -17,13 +17,13 @@ export interface Contact {
   familiarity: string;
   comments: string;
   category: string;
-  
+
   // AI Enrichment Fields
   priority: Priority;
   priorityReasoning?: string;
   researchNotes?: string;
   draftMessage?: string;
-  researchSources?: Array<{uri: string, title: string}>;
+  researchSources?: Array<{ uri: string, title: string }>;
 }
 
 export interface PrioritizationResult {
@@ -34,5 +34,29 @@ export interface PrioritizationResult {
 
 export interface ResearchResult {
   notes: string;
-  sources: Array<{uri: string, title: string}>;
+  sources: Array<{ uri: string, title: string }>;
+}
+
+// Kanban column status for outreach tracking
+export enum OutreachStatus {
+  Queued = 'Queued',
+  Sent = 'Sent',
+  Followup = 'Followup'
+}
+
+// Kanban task representing outreach to a contact
+export interface OutreachTask {
+  id: string;
+  contactId: string;
+  title: string;
+  description?: string;
+  priority: 'HIGH' | 'MEDIUM' | 'LOW';
+  status: OutreachStatus;
+  tags?: string[];
+  progress?: number; // 0-100 for progress bar
+  dueDate?: string;
+  assignees?: string[];
+  attachmentCount?: number;
+  subtaskCount?: number;
+  subtasksCompleted?: number;
 }
