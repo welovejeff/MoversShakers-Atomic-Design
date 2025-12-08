@@ -23,7 +23,25 @@ const App: React.FC = () => {
     const [strategy, setStrategy] = useState("Target VPs of Marketing in Fashion/Retail companies. Ignore companies smaller than 50 employees or with 'Remove' tags.");
     const [isPrioritizing, setIsPrioritizing] = useState(false);
 
+    // Filter State
+    const [filterOpen, setFilterOpen] = useState(false);
+    const [activeFilter, setActiveFilter] = useState<string>('all');
+
     const selectedContact = contacts.find(c => c.id === selectedId) || null;
+
+    // Get unique categories from contacts
+    const categories = [...new Set(contacts.map(c => c.category).filter(Boolean))];
+
+    // Filter contacts based on active filter
+    const filteredContacts = contacts.filter(contact => {
+        if (activeFilter === 'all') return true;
+        if (activeFilter === 'high') return contact.priority === Priority.High;
+        if (activeFilter === 'medium') return contact.priority === Priority.Medium;
+        if (activeFilter === 'low') return contact.priority === Priority.Low;
+        if (activeFilter === 'unprocessed') return contact.priority === Priority.Unprocessed;
+        // Category filters
+        return contact.category === activeFilter;
+    });
 
     const handleRunPrioritization = async () => {
         setIsPrioritizing(true);
@@ -352,16 +370,93 @@ const App: React.FC = () => {
                     <div style={{ flex: 1, display: 'flex', flexDirection: 'column', minHeight: 0, overflow: 'hidden' }}>
                         <div style={{ display: 'flex', alignItems: 'center', justifyContent: 'space-between', marginBottom: '0.75rem' }}>
                             <Typography variant="h4">PROSPECTS</Typography>
-                            <Button
-                                variant="outline"
-                                onClick={handleOpenImportModal}
-                                size="small"
-                            >
-                                + Add CSV
-                            </Button>
+                            <div style={{ display: 'flex', gap: '0.5rem', alignItems: 'center' }}>
+                                {/* Filter Dropdown */}
+                                <div style={{ position: 'relative' }}>
+                                    <Button
+                                        variant="ghost"
+                                        size="small"
+                                        onClick={() => setFilterOpen(!filterOpen)}
+                                    >
+                                        🔍 {activeFilter === 'all' ? 'Filter' : activeFilter} ▾
+                                    </Button>
+                                    {filterOpen && (
+                                        <div style={{
+                                            position: 'absolute',
+                                            top: '100%',
+                                            right: 0,
+                                            marginTop: '0.25rem',
+                                            background: '#fff',
+                                            border: '2px solid #111',
+                                            boxShadow: '3px 3px 0 #111',
+                                            zIndex: 100,
+                                            minWidth: '140px'
+                                        }}>
+                                            <div
+                                                onClick={() => { setActiveFilter('all'); setFilterOpen(false); }}
+                                                style={{
+                                                    padding: '0.5rem 0.75rem',
+                                                    cursor: 'pointer',
+                                                    background: activeFilter === 'all' ? '#FFF000' : '#fff',
+                                                    fontWeight: activeFilter === 'all' ? 600 : 400,
+                                                    fontSize: '0.875rem',
+                                                    borderBottom: '1px solid #eee'
+                                                }}
+                                            >
+                                                All Contacts
+                                            </div>
+                                            <div style={{ padding: '0.25rem 0.75rem', fontSize: '0.7rem', color: '#666', background: '#f9f9f9', fontWeight: 600 }}>PRIORITY</div>
+                                            {['high', 'medium', 'low', 'unprocessed'].map(p => (
+                                                <div
+                                                    key={p}
+                                                    onClick={() => { setActiveFilter(p); setFilterOpen(false); }}
+                                                    style={{
+                                                        padding: '0.5rem 0.75rem',
+                                                        cursor: 'pointer',
+                                                        background: activeFilter === p ? '#FFF000' : '#fff',
+                                                        fontWeight: activeFilter === p ? 600 : 400,
+                                                        fontSize: '0.875rem',
+                                                        borderBottom: '1px solid #eee'
+                                                    }}
+                                                >
+                                                    {p.charAt(0).toUpperCase() + p.slice(1)}
+                                                </div>
+                                            ))}
+                                            {categories.length > 0 && (
+                                                <>
+                                                    <div style={{ padding: '0.25rem 0.75rem', fontSize: '0.7rem', color: '#666', background: '#f9f9f9', fontWeight: 600 }}>CATEGORY</div>
+                                                    {categories.map(cat => (
+                                                        <div
+                                                            key={cat}
+                                                            onClick={() => { setActiveFilter(cat!); setFilterOpen(false); }}
+                                                            style={{
+                                                                padding: '0.5rem 0.75rem',
+                                                                cursor: 'pointer',
+                                                                background: activeFilter === cat ? '#FFF000' : '#fff',
+                                                                fontWeight: activeFilter === cat ? 600 : 400,
+                                                                fontSize: '0.875rem',
+                                                                borderBottom: '1px solid #eee'
+                                                            }}
+                                                        >
+                                                            {cat}
+                                                        </div>
+                                                    ))}
+                                                </>
+                                            )}
+                                        </div>
+                                    )}
+                                </div>
+                                <Button
+                                    variant="outline"
+                                    onClick={handleOpenImportModal}
+                                    size="small"
+                                >
+                                    + Add CSV
+                                </Button>
+                            </div>
                         </div>
                         <ContactList
-                            contacts={contacts}
+                            contacts={filteredContacts}
                             selectedId={selectedId}
                             onSelect={setSelectedId}
                         />

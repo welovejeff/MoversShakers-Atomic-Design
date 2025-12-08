@@ -66,18 +66,11 @@ const ContactList: React.FC<ContactListProps> = ({ contacts, selectedId, onSelec
                   {contact.position}
                 </Typography>
 
-                {(contact.familiarity && contact.familiarity !== 'Unfamiliar') || contact.comments ? (
+                {contact.comments ? (
                   <div style={{ marginTop: '0.5rem', display: 'flex', flexWrap: 'wrap', gap: '0.25rem' }}>
-                    {contact.familiarity && contact.familiarity !== 'Unfamiliar' && (
-                      <Badge variant="warning" size="small">
-                        {contact.familiarity}
-                      </Badge>
-                    )}
-                    {contact.comments && (
-                      <Badge size="small" style={{ maxWidth: '200px', overflow: 'hidden', textOverflow: 'ellipsis', whiteSpace: 'nowrap' }}>
-                        📝 {contact.comments}
-                      </Badge>
-                    )}
+                    <Badge size="small" style={{ maxWidth: '200px', overflow: 'hidden', textOverflow: 'ellipsis', whiteSpace: 'nowrap' }}>
+                      📝 {contact.comments}
+                    </Badge>
                   </div>
                 ) : null}
               </div>

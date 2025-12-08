@@ -14,6 +14,12 @@ const DetailPanel: React.FC<DetailPanelProps> = ({ contact, onUpdateContact }) =
     const [draftPrompt, setDraftPrompt] = useState("Highlight our shared focus on retail innovation.");
     const [isEditingCategory, setIsEditingCategory] = useState(false);
     const [categoryValue, setCategoryValue] = useState(contact.category || "");
+    const [commentsValue, setCommentsValue] = useState(contact.comments || "");
+    const [isEditingComments, setIsEditingComments] = useState(false);
+    const [isStatusDropdownOpen, setIsStatusDropdownOpen] = useState(false);
+    const [activeTab, setActiveTab] = useState<'notes' | 'research' | 'writer'>('notes');
+
+    const statusOptions = ['Familiar', 'Unfamiliar', 'Remove', 'Hot Lead', 'Warm', 'Cold'];
 
     const handleResearch = async () => {
         setResearching(true);
@@ -131,6 +137,53 @@ const DetailPanel: React.FC<DetailPanelProps> = ({ contact, onUpdateContact }) =
                                         + Add Tag
                                     </Button>
                                 )}
+
+                                {/* Status Dropdown Chip */}
+                                <div style={{ position: 'relative' }}>
+                                    <Badge
+                                        variant={contact.familiarity === 'Familiar' || contact.familiarity === 'Hot Lead' ? 'success' :
+                                            contact.familiarity === 'Remove' || contact.familiarity === 'Cold' ? 'error' : 'warning'}
+                                        style={{ cursor: 'pointer' }}
+                                        onClick={() => setIsStatusDropdownOpen(!isStatusDropdownOpen)}
+                                    >
+                                        {contact.familiarity || 'Status'} ▾
+                                    </Badge>
+                                    {isStatusDropdownOpen && (
+                                        <div style={{
+                                            position: 'absolute',
+                                            top: '100%',
+                                            left: 0,
+                                            marginTop: '0.25rem',
+                                            background: '#fff',
+                                            border: '2px solid #111',
+                                            boxShadow: '3px 3px 0 #111',
+                                            zIndex: 100,
+                                            minWidth: '120px'
+                                        }}>
+                                            {statusOptions.map((status) => (
+                                                <div
+                                                    key={status}
+                                                    onClick={() => {
+                                                        onUpdateContact({ ...contact, familiarity: status });
+                                                        setIsStatusDropdownOpen(false);
+                                                    }}
+                                                    style={{
+                                                        padding: '0.5rem 0.75rem',
+                                                        cursor: 'pointer',
+                                                        background: contact.familiarity === status ? '#FFF000' : '#fff',
+                                                        fontWeight: contact.familiarity === status ? 600 : 400,
+                                                        fontSize: '0.875rem',
+                                                        borderBottom: '1px solid #eee'
+                                                    }}
+                                                    onMouseEnter={(e) => (e.currentTarget.style.background = '#f5f5f5')}
+                                                    onMouseLeave={(e) => (e.currentTarget.style.background = contact.familiarity === status ? '#FFF000' : '#fff')}
+                                                >
+                                                    {status}
+                                                </div>
+                                            ))}
+                                        </div>
+                                    )}
+                                </div>
                             </div>
                             <Typography variant="body1" style={{ fontWeight: 500, margin: '0.5rem 0' }}>
                                 {contact.position}
@@ -178,126 +231,252 @@ const DetailPanel: React.FC<DetailPanelProps> = ({ contact, onUpdateContact }) =
                 )}
             </div>
 
+            {/* Tab Navigation */}
+            <div style={{
+                display: 'flex',
+                borderBottom: '2px solid #e5e5e5',
+                padding: '0 1.5rem',
+                background: '#fff'
+            }}>
+                {[
+                    { id: 'notes', label: '📋 NOTES', icon: '' },
+                    { id: 'research', label: '🔍 RESEARCH', icon: '' },
+                    { id: 'writer', label: '✍️ WRITER', icon: '' }
+                ].map((tab) => (
+                    <button
+                        key={tab.id}
+                        onClick={() => setActiveTab(tab.id as 'notes' | 'research' | 'writer')}
+                        style={{
+                            padding: '0.75rem 1.25rem',
+                            border: 'none',
+                            background: 'transparent',
+                            cursor: 'pointer',
+                            fontFamily: 'Inter, sans-serif',
+                            fontWeight: 600,
+                            fontSize: '0.875rem',
+                            color: activeTab === tab.id ? '#111' : '#666',
+                            borderBottom: activeTab === tab.id ? '3px solid #FFF000' : '3px solid transparent',
+                            marginBottom: '-2px',
+                            transition: 'all 0.2s ease'
+                        }}
+                    >
+                        {tab.label}
+                    </button>
+                ))}
+            </div>
+
             <div style={{ flex: 1, overflowY: 'auto', padding: '1.5rem' }}>
 
-                {/* Agent 1: Deep Research */}
-                <section style={{ marginBottom: '2rem' }}>
-                    <div style={{ display: 'flex', alignItems: 'center', justifyContent: 'space-between', marginBottom: '1rem' }}>
-                        <Typography variant="h4" style={{ display: 'flex', alignItems: 'center', gap: '0.5rem' }}>
-                            🔍 DEEP RESEARCH AGENT
-                        </Typography>
-                        <Button
-                            variant="secondary"
-                            onClick={handleResearch}
-                            disabled={researching}
-                            size="small"
-                        >
-                            {researching ? (
-                                <span style={{ display: 'flex', alignItems: 'center', gap: '0.5rem' }}>
-                                    <Loader size="small" /> Researching...
-                                </span>
-                            ) : 'Run Deep Research'}
-                        </Button>
-                    </div>
-
-                    <div style={{
+                {/* Notes Tab */}
+                {activeTab === 'notes' && (
+                    <section style={{
+                        padding: '1rem',
                         background: '#f5f5f5',
-                        border: '2px solid #111',
-                        padding: '1.25rem',
-                        minHeight: '120px'
+                        border: '2px solid #111'
                     }}>
-                        {contact.researchNotes ? (
-                            <div>
-                                <Typography variant="body1" style={{ whiteSpace: 'pre-line' }}>
-                                    {contact.researchNotes}
+                        <div style={{ display: 'flex', flexDirection: 'column', gap: '0.75rem' }}>
+                            <div style={{ display: 'flex', alignItems: 'flex-start', gap: '0.5rem' }}>
+                                <Typography variant="caption" style={{ fontWeight: 600, minWidth: '100px', paddingTop: '0.5rem' }}>
+                                    Comments:
                                 </Typography>
-                                {contact.researchSources && contact.researchSources.length > 0 && (
-                                    <div style={{ marginTop: '1rem', paddingTop: '1rem', borderTop: '1px solid #ddd' }}>
-                                        <Typography variant="caption" style={{ fontWeight: 600, marginBottom: '0.5rem', display: 'block' }}>
-                                            Sources:
+                                {isEditingComments ? (
+                                    <div style={{ flex: 1, display: 'flex', flexDirection: 'column', gap: '0.5rem' }}>
+                                        <textarea
+                                            value={commentsValue}
+                                            onChange={(e) => setCommentsValue(e.target.value)}
+                                            placeholder="Add notes about this contact..."
+                                            style={{
+                                                width: '100%',
+                                                padding: '0.5rem',
+                                                border: '2px solid #111',
+                                                fontFamily: 'Inter, sans-serif',
+                                                fontSize: '0.875rem',
+                                                resize: 'vertical',
+                                                minHeight: '60px'
+                                            }}
+                                            autoFocus
+                                        />
+                                        <div style={{ display: 'flex', gap: '0.5rem' }}>
+                                            <Button
+                                                variant="primary"
+                                                size="small"
+                                                onClick={() => {
+                                                    onUpdateContact({ ...contact, comments: commentsValue.trim() });
+                                                    setIsEditingComments(false);
+                                                }}
+                                            >
+                                                Save
+                                            </Button>
+                                            <Button
+                                                variant="ghost"
+                                                size="small"
+                                                onClick={() => {
+                                                    setCommentsValue(contact.comments || "");
+                                                    setIsEditingComments(false);
+                                                }}
+                                            >
+                                                Cancel
+                                            </Button>
+                                        </div>
+                                    </div>
+                                ) : (
+                                    <div
+                                        style={{
+                                            flex: 1,
+                                            padding: '0.5rem',
+                                            background: '#fff',
+                                            border: '2px solid #ddd',
+                                            cursor: 'pointer',
+                                            minHeight: '40px'
+                                        }}
+                                        onClick={() => {
+                                            setCommentsValue(contact.comments || "");
+                                            setIsEditingComments(true);
+                                        }}
+                                    >
+                                        <Typography variant="body1" style={{ color: contact.comments ? '#333' : '#999' }}>
+                                            {contact.comments || 'Click to add notes...'}
                                         </Typography>
-                                        <ul style={{ margin: 0, paddingLeft: '1rem' }}>
-                                            {contact.researchSources.map((source, idx) => (
-                                                <li key={idx}>
-                                                    <a
-                                                        href={source.uri}
-                                                        target="_blank"
-                                                        rel="noreferrer"
-                                                        style={{ fontSize: '0.75rem', color: '#111' }}
-                                                    >
-                                                        {source.title || source.uri}
-                                                    </a>
-                                                </li>
-                                            ))}
-                                        </ul>
                                     </div>
                                 )}
                             </div>
-                        ) : (
-                            <Typography variant="body1" style={{ color: '#888', textAlign: 'center', paddingTop: '2rem' }}>
-                                Click "Run Deep Research" to analyze this company and individual using Google Search.
-                            </Typography>
-                        )}
-                    </div>
-                </section>
+                        </div>
+                    </section>
+                )}
 
-                {/* Agent 2: Drafting */}
-                <section>
-                    <div style={{ display: 'flex', alignItems: 'center', justifyContent: 'space-between', marginBottom: '1rem' }}>
-                        <Typography variant="h4" style={{ display: 'flex', alignItems: 'center', gap: '0.5rem' }}>
-                            ✍️ OUTREACH WRITER
-                        </Typography>
-                    </div>
+                {/* Research Tab */}
+                {activeTab === 'research' && (
+                    <section>
+                        <div style={{ display: 'flex', alignItems: 'center', justifyContent: 'space-between', marginBottom: '1rem' }}>
+                            <Button
+                                variant="secondary"
+                                onClick={handleResearch}
+                                disabled={researching}
+                                size="small"
+                            >
+                                {researching ? (
+                                    <span style={{ display: 'flex', alignItems: 'center', gap: '0.5rem' }}>
+                                        <Loader size="small" /> Researching...
+                                    </span>
+                                ) : 'Run Deep Research'}
+                            </Button>
+                        </div>
 
-                    <div style={{ display: 'flex', gap: '0.75rem', marginBottom: '1rem' }}>
-                        <Input
-                            value={draftPrompt}
-                            onChange={(e) => setDraftPrompt(e.target.value)}
-                            placeholder="E.g., Focus on their recent funding round..."
-                            style={{ flex: 1 }}
-                        />
-                        <Button
-                            variant="primary"
-                            onClick={handleDraft}
-                            disabled={drafting}
-                        >
-                            {drafting ? (
-                                <span style={{ display: 'flex', alignItems: 'center', gap: '0.5rem' }}>
-                                    <Loader size="small" /> Writing...
-                                </span>
-                            ) : 'Draft Message'}
-                        </Button>
-                    </div>
+                        {/* Status Tracker Stepper */}
+                        <div style={{
+                            display: 'flex',
+                            alignItems: 'center',
+                            justifyContent: 'space-between',
+                            padding: '1rem',
+                            background: '#f5f5f5',
+                            border: '2px solid #111'
+                        }}>
+                            {[
+                                { num: 1, label: 'COMPANY', done: !!contact.researchNotes },
+                                { num: 2, label: 'PERSON', done: !!contact.researchNotes },
+                                { num: 3, label: 'HOOKS', done: !!contact.researchNotes },
+                                { num: 4, label: 'INSIGHTS', done: !!contact.researchNotes }
+                            ].map((step, idx, arr) => (
+                                <React.Fragment key={step.num}>
+                                    <div style={{ display: 'flex', alignItems: 'center', gap: '0.5rem' }}>
+                                        <div style={{
+                                            width: '28px',
+                                            height: '28px',
+                                            borderRadius: '50%',
+                                            background: step.done ? '#FFF000' : '#fff',
+                                            border: '2px solid #111',
+                                            display: 'flex',
+                                            alignItems: 'center',
+                                            justifyContent: 'center',
+                                            fontWeight: 700,
+                                            fontSize: '0.75rem'
+                                        }}>
+                                            {step.done ? '✓' : step.num}
+                                        </div>
+                                        <Typography variant="caption" style={{ fontWeight: 600 }}>
+                                            {step.label}
+                                        </Typography>
+                                    </div>
+                                    {idx < arr.length - 1 && (
+                                        <div style={{
+                                            flex: 1,
+                                            height: '2px',
+                                            background: step.done ? '#FFF000' : '#ddd',
+                                            margin: '0 0.5rem',
+                                            border: step.done ? '1px solid #111' : 'none'
+                                        }} />
+                                    )}
+                                </React.Fragment>
+                            ))}
+                        </div>
+                    </section>
+                )}
 
-                    <div style={{
-                        background: '#fff',
-                        border: '2px solid #111',
-                        boxShadow: '4px 4px 0 #111',
-                        padding: '1.25rem',
-                        minHeight: '150px'
-                    }}>
-                        {contact.draftMessage ? (
-                            <textarea
-                                style={{
-                                    width: '100%',
-                                    minHeight: '150px',
-                                    border: 'none',
-                                    outline: 'none',
-                                    resize: 'none',
-                                    fontFamily: 'Inter, sans-serif',
-                                    fontSize: '0.875rem',
-                                    lineHeight: 1.6
-                                }}
-                                value={contact.draftMessage}
-                                onChange={(e) => onUpdateContact({ ...contact, draftMessage: e.target.value })}
-                            />
-                        ) : (
-                            <Typography variant="body1" style={{ color: '#888', textAlign: 'center', paddingTop: '3rem' }}>
-                                Generated message drafts will appear here.
-                            </Typography>
-                        )}
-                    </div>
-                </section>
+                {/* Writer Tab */}
+                {activeTab === 'writer' && (
+                    <section style={{ width: '100%' }}>
+
+                        <div style={{ display: 'flex', gap: '0.75rem', marginBottom: '1rem', width: '100%' }}>
+                            <div style={{ flex: 1 }}>
+                                <input
+                                    type="text"
+                                    value={draftPrompt}
+                                    onChange={(e) => setDraftPrompt(e.target.value)}
+                                    placeholder="E.g., Focus on their recent funding round..."
+                                    style={{
+                                        width: '100%',
+                                        padding: '0.75rem 1rem',
+                                        border: '2px solid #111',
+                                        fontFamily: 'Inter, sans-serif',
+                                        fontSize: '0.875rem',
+                                        boxSizing: 'border-box'
+                                    }}
+                                />
+                            </div>
+                            <Button
+                                variant="primary"
+                                onClick={handleDraft}
+                                disabled={drafting}
+                                style={{ whiteSpace: 'nowrap', flexShrink: 0 }}
+                            >
+                                {drafting ? (
+                                    <span style={{ display: 'flex', alignItems: 'center', gap: '0.5rem' }}>
+                                        <Loader size="small" /> Writing...
+                                    </span>
+                                ) : 'Draft Message'}
+                            </Button>
+                        </div>
+
+                        <div style={{
+                            background: '#fff',
+                            border: '2px solid #111',
+                            boxShadow: '4px 4px 0 #111',
+                            padding: '1.25rem',
+                            minHeight: '150px'
+                        }}>
+                            {contact.draftMessage ? (
+                                <textarea
+                                    style={{
+                                        width: '100%',
+                                        minHeight: '150px',
+                                        border: 'none',
+                                        outline: 'none',
+                                        resize: 'none',
+                                        fontFamily: 'Inter, sans-serif',
+                                        fontSize: '0.875rem',
+                                        lineHeight: 1.6
+                                    }}
+                                    value={contact.draftMessage}
+                                    onChange={(e) => onUpdateContact({ ...contact, draftMessage: e.target.value })}
+                                />
+                            ) : (
+                                <Typography variant="body1" style={{ color: '#888', textAlign: 'center', paddingTop: '3rem' }}>
+                                    Generated message drafts will appear here.
+                                </Typography>
+                            )}
+                        </div>
+                    </section>
+                )}
 
             </div>
         </Card>
