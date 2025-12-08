@@ -1,0 +1,420 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>New Business Research | Strategic Research | Movers+Shakers</title>
+    <script src="https://cdn.tailwindcss.com"></script>
+    <link
+        href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&family=Oswald:wght@400;500;600;700&display=swap"
+        rel="stylesheet">
+    <script src="https://unpkg.com/lucide@latest"></script>
+    <!-- Design System Tokens -->
+    <link rel="stylesheet" href="../../tokens/index.css">
+    <style>
+        body {
+            font-family: 'Inter', sans-serif;
+        }
+
+        h1,
+        h2,
+        h3,
+        h4,
+        .brand-font {
+            font-family: 'Oswald', sans-serif;
+            text-transform: uppercase;
+        }
+
+        @keyframes thinking {
+
+            0%,
+            100% {
+                opacity: 0.3;
+            }
+
+            50% {
+                opacity: 1;
+            }
+        }
+
+        .thinking-dot {
+            animation: thinking 1.5s infinite;
+        }
+
+        .thinking-dot:nth-child(2) {
+            animation-delay: 0.3s;
+        }
+
+        .thinking-dot:nth-child(3) {
+            animation-delay: 0.6s;
+        }
+    </style>
+</head>
+
+<body class="bg-gray-50 min-h-screen flex flex-col">
+
+    <!-- Header -->
+    <header class="bg-brand-black text-white py-4 border-b-8 border-brand-yellow flex-shrink-0">
+        <div class="container mx-auto px-6 flex justify-between items-center">
+            <div class="flex items-center gap-6">
+                <a href="index.html" class="text-gray-400 hover:text-white transition-colors">
+                    <i data-lucide="arrow-left" class="w-5 h-5"></i>
+                </a>
+                <div class="text-xl font-bold tracking-widest brand-font">
+                    <span class="text-brand-yellow">New Business</span> Research
+                </div>
+            </div>
+            <div class="flex items-center gap-4">
+                <button
+                    class="px-4 py-2 bg-white/10 border border-white/20 text-sm font-bold uppercase hover:bg-white/20 transition-colors">
+                    <i data-lucide="save" class="w-4 h-4 inline mr-1"></i> Save Project
+                </button>
+                <button
+                    class="px-4 py-2 bg-brand-yellow text-black border border-black text-sm font-bold uppercase hover:bg-white transition-colors">
+                    <i data-lucide="download" class="w-4 h-4 inline mr-1"></i> Export Report
+                </button>
+            </div>
+        </div>
+    </header>
+
+    <div class="flex flex-1 overflow-hidden">
+
+        <!-- Left Panel: Brand Input -->
+        <aside class="w-80 bg-white border-r-2 border-black flex-shrink-0 flex flex-col">
+            <div class="p-4 border-b-2 border-black bg-brand-black text-white">
+                <h3 class="text-sm font-bold uppercase tracking-wider">Research Target</h3>
+            </div>
+            <div class="p-4 flex-1 overflow-y-auto">
+                <div class="space-y-4">
+                    <div>
+                        <label class="block text-xs font-bold uppercase tracking-wider text-gray-500 mb-2">Brand
+                            Name</label>
+                        <input type="text" value="Acme Corporation"
+                            class="w-full px-3 py-2 bg-gray-50 border-2 border-black text-sm focus:border-brand-yellow focus:outline-none">
+                    </div>
+                    <div>
+                        <label
+                            class="block text-xs font-bold uppercase tracking-wider text-gray-500 mb-2">Industry</label>
+                        <select
+                            class="w-full px-3 py-2 bg-gray-50 border-2 border-black text-sm focus:border-brand-yellow focus:outline-none">
+                            <option>Technology</option>
+                            <option>Retail</option>
+                            <option>Food & Beverage</option>
+                            <option>Entertainment</option>
+                            <option>Finance</option>
+                        </select>
+                    </div>
+                    <div>
+                        <label class="block text-xs font-bold uppercase tracking-wider text-gray-500 mb-2">Website
+                            URL</label>
+                        <input type="url" value="https://acme.com"
+                            class="w-full px-3 py-2 bg-gray-50 border-2 border-black text-sm focus:border-brand-yellow focus:outline-none">
+                    </div>
+                    <div>
+                        <label class="block text-xs font-bold uppercase tracking-wider text-gray-500 mb-2">Social
+                            Handles</label>
+                        <div class="space-y-2">
+                            <div class="flex items-center gap-2">
+                                <span class="text-gray-400 text-sm w-6">IG</span>
+                                <input type="text" value="@acmecorp"
+                                    class="flex-1 px-3 py-1.5 bg-gray-50 border-2 border-black text-sm focus:border-brand-yellow focus:outline-none">
+                            </div>
+                            <div class="flex items-center gap-2">
+                                <span class="text-gray-400 text-sm w-6">TT</span>
+                                <input type="text" value="@acme"
+                                    class="flex-1 px-3 py-1.5 bg-gray-50 border-2 border-black text-sm focus:border-brand-yellow focus:outline-none">
+                            </div>
+                            <div class="flex items-center gap-2">
+                                <span class="text-gray-400 text-sm w-6">X</span>
+                                <input type="text" value="@AcmeCorp"
+                                    class="flex-1 px-3 py-1.5 bg-gray-50 border-2 border-black text-sm focus:border-brand-yellow focus:outline-none">
+                            </div>
+                        </div>
+                    </div>
+                    <div>
+                        <label class="block text-xs font-bold uppercase tracking-wider text-gray-500 mb-2">Research
+                            Focus</label>
+                        <div class="space-y-2">
+                            <label class="flex items-center gap-2 cursor-pointer">
+                                <input type="checkbox" checked class="w-4 h-4 accent-brand-yellow">
+                                <span class="text-sm">Brand Positioning</span>
+                            </label>
+                            <label class="flex items-center gap-2 cursor-pointer">
+                                <input type="checkbox" checked class="w-4 h-4 accent-brand-yellow">
+                                <span class="text-sm">Audience Demographics</span>
+                            </label>
+                            <label class="flex items-center gap-2 cursor-pointer">
+                                <input type="checkbox" checked class="w-4 h-4 accent-brand-yellow">
+                                <span class="text-sm">Content Strategy</span>
+                            </label>
+                            <label class="flex items-center gap-2 cursor-pointer">
+                                <input type="checkbox" class="w-4 h-4 accent-brand-yellow">
+                                <span class="text-sm">Competitor Landscape</span>
+                            </label>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <div class="p-4 border-t-2 border-black">
+                <button
+                    class="w-full py-3 bg-brand-yellow text-black font-bold uppercase tracking-wider text-sm border-2 border-black shadow-brand-sm hover:shadow-brand-md transition-all">
+                    <i data-lucide="play" class="w-4 h-4 inline mr-2"></i> Start Research
+                </button>
+            </div>
+        </aside>
+
+        <!-- Main Content -->
+        <main class="flex-1 flex flex-col overflow-hidden">
+
+            <!-- AI Orchestration Panel -->
+            <div class="bg-brand-black text-white p-4 border-b-2 border-black">
+                <div class="flex items-center justify-between mb-3">
+                    <h4 class="text-xs font-bold uppercase tracking-wider text-brand-yellow">AI Research Agents</h4>
+                    <span class="text-xs text-gray-400">3 of 4 complete</span>
+                </div>
+                <div class="flex gap-4">
+                    <!-- Agent 1: Brand Analyst -->
+                    <div class="flex-1 bg-white/10 border border-white/20 p-3 rounded-none">
+                        <div class="flex items-center gap-2 mb-2">
+                            <div
+                                class="w-8 h-8 rounded-full bg-green-500 border-2 border-white flex items-center justify-center">
+                                <i data-lucide="check" class="w-4 h-4 text-white"></i>
+                            </div>
+                            <div>
+                                <p class="text-sm font-bold">Brand Analyst</p>
+                                <p class="text-xs text-green-400">Complete</p>
+                            </div>
+                        </div>
+                        <div class="h-1 bg-green-500 w-full"></div>
+                    </div>
+                    <!-- Agent 2: Social Scanner -->
+                    <div class="flex-1 bg-white/10 border border-white/20 p-3 rounded-none">
+                        <div class="flex items-center gap-2 mb-2">
+                            <div
+                                class="w-8 h-8 rounded-full bg-green-500 border-2 border-white flex items-center justify-center">
+                                <i data-lucide="check" class="w-4 h-4 text-white"></i>
+                            </div>
+                            <div>
+                                <p class="text-sm font-bold">Social Scanner</p>
+                                <p class="text-xs text-green-400">Complete</p>
+                            </div>
+                        </div>
+                        <div class="h-1 bg-green-500 w-full"></div>
+                    </div>
+                    <!-- Agent 3: Audience Researcher -->
+                    <div class="flex-1 bg-white/10 border border-white/20 p-3 rounded-none">
+                        <div class="flex items-center gap-2 mb-2">
+                            <div
+                                class="w-8 h-8 rounded-full bg-green-500 border-2 border-white flex items-center justify-center">
+                                <i data-lucide="check" class="w-4 h-4 text-white"></i>
+                            </div>
+                            <div>
+                                <p class="text-sm font-bold">Audience Researcher</p>
+                                <p class="text-xs text-green-400">Complete</p>
+                            </div>
+                        </div>
+                        <div class="h-1 bg-green-500 w-full"></div>
+                    </div>
+                    <!-- Agent 4: Opportunity Mapper -->
+                    <div class="flex-1 bg-brand-yellow/20 border border-brand-yellow p-3 rounded-none">
+                        <div class="flex items-center gap-2 mb-2">
+                            <div
+                                class="w-8 h-8 rounded-full bg-brand-yellow border-2 border-white flex items-center justify-center animate-pulse">
+                                <i data-lucide="sparkles" class="w-4 h-4 text-black"></i>
+                            </div>
+                            <div>
+                                <p class="text-sm font-bold">Opportunity Mapper</p>
+                                <p class="text-xs text-brand-yellow flex items-center gap-1">
+                                    Thinking
+                                    <span class="flex gap-0.5">
+                                        <span class="w-1 h-1 bg-brand-yellow rounded-full thinking-dot"></span>
+                                        <span class="w-1 h-1 bg-brand-yellow rounded-full thinking-dot"></span>
+                                        <span class="w-1 h-1 bg-brand-yellow rounded-full thinking-dot"></span>
+                                    </span>
+                                </p>
+                            </div>
+                        </div>
+                        <div class="h-1 bg-white/20 w-full">
+                            <div class="h-full bg-brand-yellow w-2/3 animate-pulse"></div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Research Results -->
+            <div class="flex-1 overflow-y-auto p-6">
+                <div class="max-w-4xl mx-auto space-y-6">
+
+                    <!-- Executive Summary -->
+                    <div class="bg-brand-yellow border-2 border-black p-6 shadow-brand-md">
+                        <div class="flex items-center gap-2 mb-4">
+                            <i data-lucide="sparkles" class="w-5 h-5"></i>
+                            <h3 class="font-bold uppercase tracking-wider">AI Executive Summary</h3>
+                        </div>
+                        <p class="leading-relaxed mb-4">
+                            <strong>Acme Corporation</strong> is a mid-market technology company with strong B2B
+                            positioning
+                            but underutilized social presence. Their Instagram shows 34% lower engagement than industry
+                            average, presenting a significant opportunity for content strategy improvement. Key audience
+                            segments show high affinity for behind-the-scenes and thought leadership content.
+                        </p>
+                        <div class="flex gap-4 text-sm">
+                            <span class="bg-black text-white px-3 py-1">Opportunity Score:
+                                <strong>8.2/10</strong></span>
+                            <span class="bg-white border border-black px-3 py-1">Est. Retainer:
+                                <strong>$25-40k/mo</strong></span>
+                        </div>
+                    </div>
+
+                    <!-- Brand Positioning -->
+                    <div class="bg-white border-2 border-black shadow-brand-sm">
+                        <div class="p-4 border-b-2 border-black flex items-center justify-between bg-gray-50">
+                            <div class="flex items-center gap-2">
+                                <i data-lucide="target" class="w-5 h-5 text-brand-black"></i>
+                                <h3 class="font-bold uppercase tracking-wider">Brand Positioning</h3>
+                            </div>
+                            <span class="text-xs px-2 py-1 bg-green-500 text-white font-bold">COMPLETE</span>
+                        </div>
+                        <div class="p-4">
+                            <div class="grid md:grid-cols-2 gap-4">
+                                <div>
+                                    <h4 class="text-xs font-bold uppercase text-gray-500 mb-2">Current Positioning</h4>
+                                    <p class="text-sm text-gray-700">"Enterprise solutions for modern businesses"</p>
+                                    <p class="text-xs text-gray-500 mt-1">Generic, doesn't differentiate from
+                                        competitors</p>
+                                </div>
+                                <div>
+                                    <h4 class="text-xs font-bold uppercase text-gray-500 mb-2">Brand Voice</h4>
+                                    <div class="flex flex-wrap gap-2">
+                                        <span
+                                            class="px-2 py-1 bg-gray-100 border border-gray-300 text-xs">Professional</span>
+                                        <span
+                                            class="px-2 py-1 bg-gray-100 border border-gray-300 text-xs">Corporate</span>
+                                        <span
+                                            class="px-2 py-1 bg-gray-100 border border-gray-300 text-xs">Technical</span>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+
+                    <!-- Social Presence -->
+                    <div class="bg-white border-2 border-black shadow-brand-sm">
+                        <div class="p-4 border-b-2 border-black flex items-center justify-between bg-gray-50">
+                            <div class="flex items-center gap-2">
+                                <i data-lucide="share-2" class="w-5 h-5 text-brand-black"></i>
+                                <h3 class="font-bold uppercase tracking-wider">Social Presence Analysis</h3>
+                            </div>
+                            <span class="text-xs px-2 py-1 bg-green-500 text-white font-bold">COMPLETE</span>
+                        </div>
+                        <div class="p-4">
+                            <div class="grid md:grid-cols-3 gap-4 mb-4">
+                                <div class="text-center p-3 bg-gray-50 border border-gray-200">
+                                    <div class="text-2xl font-bold">24.5K</div>
+                                    <div class="text-xs text-gray-500">Instagram Followers</div>
+                                    <div class="text-xs text-red-500 mt-1">↓ 12% vs industry avg</div>
+                                </div>
+                                <div class="text-center p-3 bg-gray-50 border border-gray-200">
+                                    <div class="text-2xl font-bold">1.2%</div>
+                                    <div class="text-xs text-gray-500">Engagement Rate</div>
+                                    <div class="text-xs text-red-500 mt-1">↓ 34% vs industry avg</div>
+                                </div>
+                                <div class="text-center p-3 bg-gray-50 border border-gray-200">
+                                    <div class="text-2xl font-bold">3.2</div>
+                                    <div class="text-xs text-gray-500">Posts/Week</div>
+                                    <div class="text-xs text-green-500 mt-1">↑ On track</div>
+                                </div>
+                            </div>
+                            <div class="p-3 bg-red-50 border border-red-200">
+                                <p class="text-sm text-red-800"><strong>🚨 Gap Identified:</strong> Low engagement
+                                    despite consistent posting suggests content-strategy mismatch with audience
+                                    interests.</p>
+                            </div>
+                        </div>
+                    </div>
+
+                    <!-- Audience Insights -->
+                    <div class="bg-white border-2 border-black shadow-brand-sm">
+                        <div class="p-4 border-b-2 border-black flex items-center justify-between bg-gray-50">
+                            <div class="flex items-center gap-2">
+                                <i data-lucide="users" class="w-5 h-5 text-brand-black"></i>
+                                <h3 class="font-bold uppercase tracking-wider">Audience Insights</h3>
+                            </div>
+                            <span class="text-xs px-2 py-1 bg-green-500 text-white font-bold">COMPLETE</span>
+                        </div>
+                        <div class="p-4">
+                            <div class="grid md:grid-cols-2 gap-4">
+                                <div>
+                                    <h4 class="text-xs font-bold uppercase text-gray-500 mb-2">Top Demographics</h4>
+                                    <ul class="space-y-2 text-sm">
+                                        <li class="flex items-center justify-between">
+                                            <span>25-34 year olds</span>
+                                            <span class="font-bold">42%</span>
+                                        </li>
+                                        <li class="flex items-center justify-between">
+                                            <span>35-44 year olds</span>
+                                            <span class="font-bold">28%</span>
+                                        </li>
+                                        <li class="flex items-center justify-between">
+                                            <span>Tech Industry</span>
+                                            <span class="font-bold">67%</span>
+                                        </li>
+                                    </ul>
+                                </div>
+                                <div>
+                                    <h4 class="text-xs font-bold uppercase text-gray-500 mb-2">Content Affinities</h4>
+                                    <div class="flex flex-wrap gap-2">
+                                        <span
+                                            class="px-2 py-1 bg-brand-yellow text-xs font-bold border border-black">Behind-the-scenes</span>
+                                        <span
+                                            class="px-2 py-1 bg-brand-yellow text-xs font-bold border border-black">Thought
+                                            leadership</span>
+                                        <span class="px-2 py-1 bg-gray-100 text-xs border border-gray-300">Team
+                                            culture</span>
+                                        <span class="px-2 py-1 bg-gray-100 text-xs border border-gray-300">Industry
+                                            news</span>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+
+                    <!-- Opportunities (In Progress) -->
+                    <div class="bg-white border-2 border-brand-yellow shadow-brand-sm opacity-80">
+                        <div
+                            class="p-4 border-b-2 border-brand-yellow flex items-center justify-between bg-brand-yellow/10">
+                            <div class="flex items-center gap-2">
+                                <i data-lucide="lightbulb" class="w-5 h-5 text-brand-black"></i>
+                                <h3 class="font-bold uppercase tracking-wider">Opportunities</h3>
+                            </div>
+                            <span
+                                class="text-xs px-2 py-1 bg-brand-yellow text-black font-bold flex items-center gap-1">
+                                GENERATING
+                                <span class="flex gap-0.5">
+                                    <span class="w-1 h-1 bg-black rounded-full thinking-dot"></span>
+                                    <span class="w-1 h-1 bg-black rounded-full thinking-dot"></span>
+                                    <span class="w-1 h-1 bg-black rounded-full thinking-dot"></span>
+                                </span>
+                            </span>
+                        </div>
+                        <div class="p-8 text-center text-gray-500">
+                            <div class="animate-pulse">
+                                <i data-lucide="sparkles" class="w-8 h-8 mx-auto mb-2 text-brand-yellow"></i>
+                                <p class="text-sm">AI is analyzing findings and generating strategic opportunities...
+                                </p>
+                            </div>
+                        </div>
+                    </div>
+
+                </div>
+            </div>
+
+        </main>
+
+    </div>
+
+    <script>lucide.createIcons();</script>
+</body>
+
+</html>

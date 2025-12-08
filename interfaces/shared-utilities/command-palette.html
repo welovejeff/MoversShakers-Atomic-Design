@@ -1,0 +1,355 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Command Palette | Shared Utilities | Movers+Shakers</title>
+    <script src="https://cdn.tailwindcss.com"></script>
+    <link
+        href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&family=Oswald:wght@400;500;600;700&display=swap"
+        rel="stylesheet">
+    <script src="https://unpkg.com/lucide@latest"></script>
+    <!-- Design System Tokens -->
+    <link rel="stylesheet" href="../../tokens/index.css">
+    <style>
+        body {
+            font-family: 'Inter', sans-serif;
+        }
+
+        h1,
+        h2,
+        h3,
+        h4,
+        .brand-font {
+            font-family: 'Oswald', sans-serif;
+            text-transform: uppercase;
+        }
+    </style>
+</head>
+
+<body class="bg-gray-50 min-h-screen">
+
+    <!-- Header -->
+    <header class="bg-brand-black text-white py-4 border-b-8 border-brand-yellow">
+        <div class="container mx-auto px-6 flex justify-between items-center">
+            <div class="flex items-center gap-6">
+                <a href="index.html" class="text-gray-400 hover:text-white transition-colors">
+                    <i data-lucide="arrow-left" class="w-5 h-5"></i>
+                </a>
+                <div class="text-xl font-bold tracking-widest brand-font">
+                    <span class="text-brand-yellow">Command</span> Palette
+                </div>
+            </div>
+            <div class="flex items-center gap-2 bg-white/10 border border-white/20 px-3 py-1.5 text-sm">
+                <span class="text-gray-400">Try it:</span>
+                <kbd class="px-2 py-0.5 bg-white/20 text-white text-xs font-mono">⌘</kbd>
+                <kbd class="px-2 py-0.5 bg-white/20 text-white text-xs font-mono">K</kbd>
+            </div>
+        </div>
+    </header>
+
+    <main class="container mx-auto px-6 py-12">
+
+        <!-- Demo Section -->
+        <section class="max-w-4xl mx-auto mb-16">
+            <div class="text-center mb-8">
+                <h2 class="text-3xl font-bold mb-2">Interactive Demo</h2>
+                <p class="text-gray-600">Click below or press <kbd
+                        class="px-2 py-0.5 bg-gray-200 text-xs font-mono">⌘K</kbd> to open</p>
+            </div>
+
+            <!-- Demo Trigger -->
+            <button id="openPalette"
+                class="w-full max-w-xl mx-auto block bg-white border-2 border-black shadow-brand-md hover:shadow-brand-lg transition-all p-4">
+                <div class="flex items-center gap-3 text-gray-400">
+                    <i data-lucide="search" class="w-5 h-5"></i>
+                    <span>Search commands, files, or actions...</span>
+                    <div class="flex items-center gap-1 ml-auto">
+                        <kbd class="px-2 py-0.5 bg-gray-100 border border-gray-300 text-xs font-mono">⌘</kbd>
+                        <kbd class="px-2 py-0.5 bg-gray-100 border border-gray-300 text-xs font-mono">K</kbd>
+                    </div>
+                </div>
+            </button>
+        </section>
+
+        <!-- Palette States -->
+        <section class="mb-16">
+            <h2 class="text-2xl font-bold mb-6 pb-2 border-b-2 border-black">Palette States</h2>
+            <div class="grid md:grid-cols-2 gap-8">
+
+                <!-- Default State -->
+                <div>
+                    <h3 class="text-sm font-bold uppercase text-gray-500 mb-3">Default / Recent Actions</h3>
+                    <div class="bg-white border-2 border-black shadow-brand-lg">
+                        <div class="border-b-2 border-black p-3">
+                            <div class="flex items-center gap-3">
+                                <i data-lucide="search" class="w-5 h-5 text-gray-400"></i>
+                                <input type="text" placeholder="Type a command or search..."
+                                    class="flex-1 bg-transparent outline-none text-sm">
+                            </div>
+                        </div>
+                        <div class="p-2">
+                            <div class="text-xs font-bold uppercase text-gray-400 px-3 py-2">Recent</div>
+                            <div class="space-y-1">
+                                <div class="flex items-center gap-3 px-3 py-2 bg-brand-yellow">
+                                    <i data-lucide="file-text" class="w-4 h-4"></i>
+                                    <span class="text-sm font-medium">Open File</span>
+                                    <kbd class="ml-auto px-2 py-0.5 bg-black/10 text-xs font-mono">⌘O</kbd>
+                                </div>
+                                <div class="flex items-center gap-3 px-3 py-2 hover:bg-gray-100">
+                                    <i data-lucide="save" class="w-4 h-4 text-gray-500"></i>
+                                    <span class="text-sm">Save All</span>
+                                    <kbd
+                                        class="ml-auto px-2 py-0.5 bg-gray-100 text-xs font-mono text-gray-400">⌘⇧S</kbd>
+                                </div>
+                                <div class="flex items-center gap-3 px-3 py-2 hover:bg-gray-100">
+                                    <i data-lucide="git-branch" class="w-4 h-4 text-gray-500"></i>
+                                    <span class="text-sm">Switch Branch</span>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Search Results -->
+                <div>
+                    <h3 class="text-sm font-bold uppercase text-gray-500 mb-3">Search Results</h3>
+                    <div class="bg-white border-2 border-black shadow-brand-lg">
+                        <div class="border-b-2 border-black p-3">
+                            <div class="flex items-center gap-3">
+                                <i data-lucide="search" class="w-5 h-5 text-brand-yellow"></i>
+                                <input type="text" value="export" class="flex-1 bg-transparent outline-none text-sm"
+                                    readonly>
+                                <i data-lucide="x" class="w-4 h-4 text-gray-400 cursor-pointer"></i>
+                            </div>
+                        </div>
+                        <div class="p-2 max-h-64 overflow-y-auto">
+                            <div class="text-xs font-bold uppercase text-gray-400 px-3 py-2">Commands</div>
+                            <div class="space-y-1">
+                                <div class="flex items-center gap-3 px-3 py-2 bg-brand-yellow">
+                                    <i data-lucide="download" class="w-4 h-4"></i>
+                                    <span class="text-sm font-medium"><mark
+                                            class="bg-transparent font-bold">Export</mark> as PDF</span>
+                                </div>
+                                <div class="flex items-center gap-3 px-3 py-2 hover:bg-gray-100">
+                                    <i data-lucide="file-spreadsheet" class="w-4 h-4 text-gray-500"></i>
+                                    <span class="text-sm"><mark class="bg-transparent font-bold">Export</mark> as
+                                        CSV</span>
+                                </div>
+                                <div class="flex items-center gap-3 px-3 py-2 hover:bg-gray-100">
+                                    <i data-lucide="image" class="w-4 h-4 text-gray-500"></i>
+                                    <span class="text-sm"><mark class="bg-transparent font-bold">Export</mark> as
+                                        PNG</span>
+                                </div>
+                            </div>
+                            <div class="text-xs font-bold uppercase text-gray-400 px-3 py-2 mt-2">Files</div>
+                            <div class="space-y-1">
+                                <div class="flex items-center gap-3 px-3 py-2 hover:bg-gray-100">
+                                    <i data-lucide="file" class="w-4 h-4 text-gray-500"></i>
+                                    <span class="text-sm"><mark
+                                            class="bg-transparent font-bold">export</mark>-utils.ts</span>
+                                    <span class="ml-auto text-xs text-gray-400">src/utils/</span>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Category Filter -->
+                <div>
+                    <h3 class="text-sm font-bold uppercase text-gray-500 mb-3">Category Filter</h3>
+                    <div class="bg-white border-2 border-black shadow-brand-lg">
+                        <div class="border-b-2 border-black p-3">
+                            <div class="flex items-center gap-3">
+                                <span
+                                    class="px-2 py-0.5 bg-brand-yellow text-xs font-bold border border-black">Files</span>
+                                <input type="text" placeholder="Search files..."
+                                    class="flex-1 bg-transparent outline-none text-sm">
+                            </div>
+                        </div>
+                        <div class="flex border-b border-gray-200">
+                            <button
+                                class="flex-1 px-3 py-2 text-xs font-bold uppercase bg-brand-yellow border-r border-gray-200">Files</button>
+                            <button
+                                class="flex-1 px-3 py-2 text-xs font-bold uppercase text-gray-500 hover:bg-gray-100 border-r border-gray-200">Commands</button>
+                            <button
+                                class="flex-1 px-3 py-2 text-xs font-bold uppercase text-gray-500 hover:bg-gray-100">Settings</button>
+                        </div>
+                        <div class="p-2">
+                            <div class="space-y-1">
+                                <div class="flex items-center gap-3 px-3 py-2 bg-brand-yellow">
+                                    <i data-lucide="file" class="w-4 h-4"></i>
+                                    <span class="text-sm font-medium">index.html</span>
+                                    <span class="ml-auto text-xs text-gray-500">root/</span>
+                                </div>
+                                <div class="flex items-center gap-3 px-3 py-2 hover:bg-gray-100">
+                                    <i data-lucide="file" class="w-4 h-4 text-gray-500"></i>
+                                    <span class="text-sm">styles.css</span>
+                                    <span class="ml-auto text-xs text-gray-400">root/</span>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- No Results -->
+                <div>
+                    <h3 class="text-sm font-bold uppercase text-gray-500 mb-3">No Results</h3>
+                    <div class="bg-white border-2 border-black shadow-brand-lg">
+                        <div class="border-b-2 border-black p-3">
+                            <div class="flex items-center gap-3">
+                                <i data-lucide="search" class="w-5 h-5 text-gray-400"></i>
+                                <input type="text" value="xyzabc123" class="flex-1 bg-transparent outline-none text-sm"
+                                    readonly>
+                            </div>
+                        </div>
+                        <div class="p-8 text-center text-gray-500">
+                            <i data-lucide="search-x" class="w-8 h-8 mx-auto mb-2 text-gray-300"></i>
+                            <p class="text-sm">No results for "xyzabc123"</p>
+                            <p class="text-xs text-gray-400 mt-1">Try searching for something else</p>
+                        </div>
+                    </div>
+                </div>
+
+            </div>
+        </section>
+
+        <!-- Keyboard Navigation -->
+        <section>
+            <h2 class="text-2xl font-bold mb-6 pb-2 border-b-2 border-black">Keyboard Navigation</h2>
+            <div class="bg-white border-2 border-black shadow-brand-md overflow-hidden">
+                <table class="w-full">
+                    <thead class="bg-brand-black text-white">
+                        <tr>
+                            <th class="px-4 py-3 text-left text-sm font-bold uppercase">Key</th>
+                            <th class="px-4 py-3 text-left text-sm font-bold uppercase">Action</th>
+                        </tr>
+                    </thead>
+                    <tbody class="divide-y divide-gray-100">
+                        <tr>
+                            <td class="px-4 py-3"><kbd
+                                    class="px-2 py-1 bg-gray-100 border border-gray-300 text-sm font-mono">↑</kbd> <kbd
+                                    class="px-2 py-1 bg-gray-100 border border-gray-300 text-sm font-mono">↓</kbd></td>
+                            <td class="px-4 py-3 text-sm">Navigate between items</td>
+                        </tr>
+                        <tr class="bg-gray-50">
+                            <td class="px-4 py-3"><kbd
+                                    class="px-2 py-1 bg-gray-100 border border-gray-300 text-sm font-mono">Enter</kbd>
+                            </td>
+                            <td class="px-4 py-3 text-sm">Select highlighted item</td>
+                        </tr>
+                        <tr>
+                            <td class="px-4 py-3"><kbd
+                                    class="px-2 py-1 bg-gray-100 border border-gray-300 text-sm font-mono">Esc</kbd>
+                            </td>
+                            <td class="px-4 py-3 text-sm">Close palette</td>
+                        </tr>
+                        <tr class="bg-gray-50">
+                            <td class="px-4 py-3"><kbd
+                                    class="px-2 py-1 bg-gray-100 border border-gray-300 text-sm font-mono">Tab</kbd>
+                            </td>
+                            <td class="px-4 py-3 text-sm">Switch category filter</td>
+                        </tr>
+                        <tr>
+                            <td class="px-4 py-3"><kbd
+                                    class="px-2 py-1 bg-gray-100 border border-gray-300 text-sm font-mono">⌘</kbd> +
+                                <kbd
+                                    class="px-2 py-1 bg-gray-100 border border-gray-300 text-sm font-mono">Backspace</kbd>
+                            </td>
+                            <td class="px-4 py-3 text-sm">Clear search and filters</td>
+                        </tr>
+                    </tbody>
+                </table>
+            </div>
+        </section>
+
+    </main>
+
+    <!-- Command Palette Overlay (Demo) -->
+    <div id="paletteOverlay" class="fixed inset-0 bg-black/50 hidden items-center justify-center z-50 p-4">
+        <div class="w-full max-w-xl bg-white border-2 border-black shadow-2xl">
+            <div class="border-b-2 border-black p-4">
+                <div class="flex items-center gap-3">
+                    <i data-lucide="search" class="w-5 h-5 text-gray-400"></i>
+                    <input id="paletteInput" type="text" placeholder="Type a command or search..."
+                        class="flex-1 bg-transparent outline-none">
+                </div>
+            </div>
+            <div class="p-2 max-h-80 overflow-y-auto">
+                <div class="text-xs font-bold uppercase text-gray-400 px-3 py-2">Quick Actions</div>
+                <div class="space-y-1">
+                    <div class="flex items-center gap-3 px-3 py-2 bg-brand-yellow cursor-pointer">
+                        <i data-lucide="plus" class="w-4 h-4"></i>
+                        <span class="font-medium">New Project</span>
+                        <kbd class="ml-auto px-2 py-0.5 bg-black/10 text-xs font-mono">⌘N</kbd>
+                    </div>
+                    <div class="flex items-center gap-3 px-3 py-2 hover:bg-gray-100 cursor-pointer">
+                        <i data-lucide="folder-open" class="w-4 h-4 text-gray-500"></i>
+                        <span>Open Project</span>
+                        <kbd class="ml-auto px-2 py-0.5 bg-gray-100 text-xs font-mono text-gray-400">⌘O</kbd>
+                    </div>
+                    <div class="flex items-center gap-3 px-3 py-2 hover:bg-gray-100 cursor-pointer">
+                        <i data-lucide="save" class="w-4 h-4 text-gray-500"></i>
+                        <span>Save</span>
+                        <kbd class="ml-auto px-2 py-0.5 bg-gray-100 text-xs font-mono text-gray-400">⌘S</kbd>
+                    </div>
+                </div>
+                <div class="text-xs font-bold uppercase text-gray-400 px-3 py-2 mt-2">Navigate</div>
+                <div class="space-y-1">
+                    <div class="flex items-center gap-3 px-3 py-2 hover:bg-gray-100 cursor-pointer">
+                        <i data-lucide="layout-dashboard" class="w-4 h-4 text-gray-500"></i>
+                        <span>Go to Dashboard</span>
+                    </div>
+                    <div class="flex items-center gap-3 px-3 py-2 hover:bg-gray-100 cursor-pointer">
+                        <i data-lucide="settings" class="w-4 h-4 text-gray-500"></i>
+                        <span>Open Settings</span>
+                        <kbd class="ml-auto px-2 py-0.5 bg-gray-100 text-xs font-mono text-gray-400">⌘,</kbd>
+                    </div>
+                </div>
+            </div>
+            <div class="border-t border-gray-200 px-4 py-2 flex items-center justify-between text-xs text-gray-400">
+                <span><kbd class="px-1 bg-gray-100">↑↓</kbd> to navigate</span>
+                <span><kbd class="px-1 bg-gray-100">Enter</kbd> to select</span>
+                <span><kbd class="px-1 bg-gray-100">Esc</kbd> to close</span>
+            </div>
+        </div>
+    </div>
+
+    <script>
+        lucide.createIcons();
+
+        // Simple demo interaction
+        const openBtn = document.getElementById('openPalette');
+        const overlay = document.getElementById('paletteOverlay');
+        const input = document.getElementById('paletteInput');
+
+        openBtn.addEventListener('click', () => {
+            overlay.classList.remove('hidden');
+            overlay.classList.add('flex');
+            input.focus();
+        });
+
+        overlay.addEventListener('click', (e) => {
+            if (e.target === overlay) {
+                overlay.classList.add('hidden');
+                overlay.classList.remove('flex');
+            }
+        });
+
+        document.addEventListener('keydown', (e) => {
+            if ((e.metaKey || e.ctrlKey) && e.key === 'k') {
+                e.preventDefault();
+                overlay.classList.remove('hidden');
+                overlay.classList.add('flex');
+                input.focus();
+            }
+            if (e.key === 'Escape') {
+                overlay.classList.add('hidden');
+                overlay.classList.remove('flex');
+            }
+        });
+    </script>
+</body>
+
+</html>

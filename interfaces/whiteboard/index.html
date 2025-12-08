@@ -1,0 +1,229 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Whiteboard Interface | Movers+Shakers</title>
+    <script src="https://cdn.tailwindcss.com"></script>
+    <link
+        href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&family=Oswald:wght@400;500;600;700&display=swap"
+        rel="stylesheet">
+    <script src="https://unpkg.com/lucide@latest"></script>
+    <!-- Design System Tokens -->
+    <link rel="stylesheet" href="../../tokens/index.css">
+    <style>
+        body {
+            font-family: 'Inter', sans-serif;
+        }
+
+        h1,
+        h2,
+        h3,
+        h4,
+        .brand-font {
+            font-family: 'Oswald', sans-serif;
+            text-transform: uppercase;
+        }
+    </style>
+</head>
+
+<body class="bg-gray-50 min-h-screen">
+
+    <!-- Header -->
+    <header class="bg-brand-black text-white py-4 border-b-8 border-brand-yellow">
+        <div class="container mx-auto px-6 flex justify-between items-center">
+            <div class="text-2xl font-bold tracking-widest brand-font">
+                MOVERS<span class="text-brand-yellow">+</span>SHAKERS
+            </div>
+            <nav class="hidden md:flex items-center gap-8">
+                <a href="../../index.html"
+                    class="text-sm font-bold uppercase tracking-wider hover:text-brand-yellow transition-colors">Design
+                    System</a>
+                <a href="../../interfaces.html"
+                    class="text-sm font-bold uppercase tracking-wider hover:text-brand-yellow transition-colors">Interfaces</a>
+                <span class="text-brand-yellow font-bold">|</span>
+                <span class="text-brand-yellow text-sm font-bold uppercase tracking-wider">Whiteboard</span>
+            </nav>
+        </div>
+    </header>
+
+    <main class="container mx-auto px-6 py-12">
+
+        <!-- Breadcrumb & Title -->
+        <section class="max-w-4xl mb-12">
+            <nav class="text-sm text-gray-500 mb-4">
+                <a href="../../index.html" class="hover:text-black">Design System</a> /
+                <a href="../../interfaces.html" class="hover:text-black">Interfaces</a> /
+                <span class="text-black font-medium">Whiteboard</span>
+            </nav>
+            <h1 class="text-5xl font-bold mb-4">Whiteboard Interface</h1>
+            <p class="text-xl text-gray-600 leading-relaxed">
+                FigJam-style collaborative whiteboard with infinite canvas, shape tools,
+                sticky notes, and presentation mode for brainstorming and planning.
+            </p>
+        </section>
+
+        <!-- Layout Cards -->
+        <section class="mb-16">
+            <h2 class="text-2xl font-bold mb-6 pb-2 border-b-2 border-black">Main Layouts</h2>
+            <div class="grid md:grid-cols-3 gap-6">
+
+                <!-- Infinite Canvas -->
+                <a href="/interfaces/whiteboard/canvas.html"
+                    class="group block border-2 border-black bg-white shadow-brand-md hover:shadow-brand-lg transition-all">
+                    <div class="h-48 bg-brand-black p-4 relative overflow-hidden">
+                        <!-- Mini canvas preview -->
+                        <div class="absolute inset-4 border-2 border-dashed border-white/30">
+                            <div class="absolute top-4 left-4 w-16 h-12 bg-brand-yellow"></div>
+                            <div class="absolute top-8 right-8 w-12 h-12 bg-white/20 rounded-full"></div>
+                            <div class="absolute bottom-6 left-1/2 w-20 h-8 bg-blue-500/50"></div>
+                            <div class="absolute bottom-4 right-4 w-10 h-10 bg-pink-500/50"></div>
+                            <div class="absolute top-1/2 left-1/4 w-24 h-1 bg-white/30"></div>
+                        </div>
+                    </div>
+                    <div class="p-4">
+                        <h3 class="text-xl font-bold mb-2 group-hover:text-brand-yellow transition-colors">Infinite
+                            Canvas</h3>
+                        <p class="text-gray-600 text-sm mb-3">Full whiteboard with all tools, layers, and collaboration
+                            features.</p>
+                        <div
+                            class="flex items-center gap-2 text-sm font-bold uppercase tracking-wider text-brand-black">
+                            View Layout <i data-lucide="arrow-right"
+                                class="w-4 h-4 group-hover:translate-x-1 transition-transform"></i>
+                        </div>
+                    </div>
+                </a>
+
+                <!-- Templates Gallery -->
+                <a href="/interfaces/whiteboard/templates.html"
+                    class="group block border-2 border-black bg-white shadow-brand-md hover:shadow-brand-lg transition-all">
+                    <div class="h-48 bg-brand-black p-4 relative overflow-hidden">
+                        <!-- Mini templates preview -->
+                        <div class="grid grid-cols-2 gap-2 h-full">
+                            <div class="bg-white/10 p-2">
+                                <div class="h-3 w-3/4 bg-white/30 mb-1"></div>
+                                <div class="h-8 bg-brand-yellow/50"></div>
+                            </div>
+                            <div class="bg-white/10 p-2">
+                                <div class="h-3 w-1/2 bg-white/30 mb-1"></div>
+                                <div class="grid grid-cols-2 gap-1 h-8">
+                                    <div class="bg-blue-500/50"></div>
+                                    <div class="bg-pink-500/50"></div>
+                                </div>
+                            </div>
+                            <div class="bg-white/10 p-2">
+                                <div class="h-3 w-2/3 bg-white/30 mb-1"></div>
+                                <div class="flex gap-1 h-8">
+                                    <div class="flex-1 bg-green-500/50"></div>
+                                    <div class="flex-1 bg-purple-500/50"></div>
+                                    <div class="flex-1 bg-orange-500/50"></div>
+                                </div>
+                            </div>
+                            <div class="bg-white/10 p-2">
+                                <div class="h-3 w-1/2 bg-white/30 mb-1"></div>
+                                <div class="h-8 bg-white/20 rounded-full"></div>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="p-4">
+                        <h3 class="text-xl font-bold mb-2 group-hover:text-brand-yellow transition-colors">Templates
+                            Gallery</h3>
+                        <p class="text-gray-600 text-sm mb-3">Pre-built templates for brainstorming, flowcharts, and
+                            planning.</p>
+                        <div
+                            class="flex items-center gap-2 text-sm font-bold uppercase tracking-wider text-brand-black">
+                            View Layout <i data-lucide="arrow-right"
+                                class="w-4 h-4 group-hover:translate-x-1 transition-transform"></i>
+                        </div>
+                    </div>
+                </a>
+
+                <!-- Presentation Mode -->
+                <a href="/interfaces/whiteboard/presentation.html"
+                    class="group block border-2 border-black bg-white shadow-brand-md hover:shadow-brand-lg transition-all">
+                    <div class="h-48 bg-brand-black p-4 relative overflow-hidden flex items-center justify-center">
+                        <!-- Mini presentation preview -->
+                        <div class="w-32 h-20 bg-white/10 border-2 border-white/30 relative">
+                            <div class="absolute top-2 left-2 w-8 h-2 bg-brand-yellow"></div>
+                            <div class="absolute top-6 left-2 right-2 h-1 bg-white/30"></div>
+                            <div class="absolute top-8 left-2 right-4 h-1 bg-white/20"></div>
+                            <div class="absolute bottom-2 right-2 text-white/50 text-xs">1/5</div>
+                        </div>
+                        <div class="absolute bottom-4 left-1/2 -translate-x-1/2 flex gap-1">
+                            <div class="w-2 h-2 bg-brand-yellow"></div>
+                            <div class="w-2 h-2 bg-white/30"></div>
+                            <div class="w-2 h-2 bg-white/30"></div>
+                            <div class="w-2 h-2 bg-white/30"></div>
+                            <div class="w-2 h-2 bg-white/30"></div>
+                        </div>
+                    </div>
+                    <div class="p-4">
+                        <h3 class="text-xl font-bold mb-2 group-hover:text-brand-yellow transition-colors">Presentation
+                            Mode</h3>
+                        <p class="text-gray-600 text-sm mb-3">Fullscreen slides with frame navigation and speaker notes.
+                        </p>
+                        <div
+                            class="flex items-center gap-2 text-sm font-bold uppercase tracking-wider text-brand-black">
+                            View Layout <i data-lucide="arrow-right"
+                                class="w-4 h-4 group-hover:translate-x-1 transition-transform"></i>
+                        </div>
+                    </div>
+                </a>
+
+            </div>
+        </section>
+
+        <!-- Component Showcase -->
+        <section>
+            <h2 class="text-2xl font-bold mb-6 pb-2 border-b-2 border-black">Tools & Components</h2>
+            <div class="grid md:grid-cols-2 lg:grid-cols-4 gap-4">
+                <div class="bg-white border-2 border-black p-4 shadow-brand-sm">
+                    <i data-lucide="sticky-note" class="w-8 h-8 text-brand-black mb-3"></i>
+                    <h4 class="font-bold mb-1">Sticky Notes</h4>
+                    <p class="text-gray-500 text-sm">Colorful notes with text</p>
+                </div>
+                <div class="bg-white border-2 border-black p-4 shadow-brand-sm">
+                    <i data-lucide="shapes" class="w-8 h-8 text-brand-black mb-3"></i>
+                    <h4 class="font-bold mb-1">Shape Tools</h4>
+                    <p class="text-gray-500 text-sm">Rectangles, circles, arrows</p>
+                </div>
+                <div class="bg-white border-2 border-black p-4 shadow-brand-sm">
+                    <i data-lucide="pencil" class="w-8 h-8 text-brand-black mb-3"></i>
+                    <h4 class="font-bold mb-1">Freehand Draw</h4>
+                    <p class="text-gray-500 text-sm">Pen and highlighter</p>
+                </div>
+                <div class="bg-white border-2 border-black p-4 shadow-brand-sm">
+                    <i data-lucide="type" class="w-8 h-8 text-brand-black mb-3"></i>
+                    <h4 class="font-bold mb-1">Text Blocks</h4>
+                    <p class="text-gray-500 text-sm">Rich text with formatting</p>
+                </div>
+                <div class="bg-white border-2 border-black p-4 shadow-brand-sm">
+                    <i data-lucide="image" class="w-8 h-8 text-brand-black mb-3"></i>
+                    <h4 class="font-bold mb-1">Image Upload</h4>
+                    <p class="text-gray-500 text-sm">Embed images and GIFs</p>
+                </div>
+                <div class="bg-white border-2 border-black p-4 shadow-brand-sm">
+                    <i data-lucide="git-branch" class="w-8 h-8 text-brand-black mb-3"></i>
+                    <h4 class="font-bold mb-1">Connectors</h4>
+                    <p class="text-gray-500 text-sm">Lines and arrows</p>
+                </div>
+                <div class="bg-white border-2 border-black p-4 shadow-brand-sm">
+                    <i data-lucide="frame" class="w-8 h-8 text-brand-black mb-3"></i>
+                    <h4 class="font-bold mb-1">Frames</h4>
+                    <p class="text-gray-500 text-sm">Presentation sections</p>
+                </div>
+                <div class="bg-white border-2 border-black p-4 shadow-brand-sm">
+                    <i data-lucide="users" class="w-8 h-8 text-brand-black mb-3"></i>
+                    <h4 class="font-bold mb-1">Collaboration</h4>
+                    <p class="text-gray-500 text-sm">Real-time cursors</p>
+                </div>
+            </div>
+        </section>
+
+    </main>
+
+    <script>lucide.createIcons();</script>
+</body>
+
+</html>

@@ -1,0 +1,327 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Shared Utilities | Movers+Shakers</title>
+    <script src="https://cdn.tailwindcss.com"></script>
+    <link
+        href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&family=Oswald:wght@400;500;600;700&display=swap"
+        rel="stylesheet">
+    <script src="https://unpkg.com/lucide@latest"></script>
+    <!-- Design System Tokens -->
+    <link rel="stylesheet" href="../../tokens/index.css">
+    <style>
+        body {
+            font-family: 'Inter', sans-serif;
+        }
+
+        h1,
+        h2,
+        h3,
+        h4,
+        .brand-font {
+            font-family: 'Oswald', sans-serif;
+            text-transform: uppercase;
+        }
+    </style>
+</head>
+
+<body class="bg-gray-50 min-h-screen">
+
+    <!-- Header -->
+    <header class="bg-brand-black text-white py-4 border-b-8 border-brand-yellow">
+        <div class="container mx-auto px-6 flex justify-between items-center">
+            <div class="text-2xl font-bold tracking-widest brand-font">
+                MOVERS<span class="text-brand-yellow">+</span>SHAKERS
+            </div>
+            <nav class="hidden md:flex items-center gap-8">
+                <a href="../../index.html"
+                    class="text-sm font-bold uppercase tracking-wider hover:text-brand-yellow transition-colors">Design
+                    System</a>
+                <a href="../../interfaces.html"
+                    class="text-sm font-bold uppercase tracking-wider hover:text-brand-yellow transition-colors">Interfaces</a>
+                <span class="text-brand-yellow font-bold">|</span>
+                <span class="text-brand-yellow text-sm font-bold uppercase tracking-wider">Shared Utilities</span>
+            </nav>
+        </div>
+    </header>
+
+    <main class="container mx-auto px-6 py-12">
+
+        <!-- Breadcrumb & Title -->
+        <section class="max-w-4xl mb-12">
+            <nav class="text-sm text-gray-500 mb-4">
+                <a href="../../index.html" class="hover:text-black">Design System</a> /
+                <a href="../../interfaces.html" class="hover:text-black">Interfaces</a> /
+                <span class="text-black font-medium">Shared Utilities</span>
+            </nav>
+            <h1 class="text-5xl font-bold mb-4">Shared Utilities</h1>
+            <p class="text-xl text-gray-600 leading-relaxed">
+                Reusable interaction patterns and components used across all interfaces: command palettes,
+                context menus, drag-and-drop, toasts, modals, and real-time presence indicators.
+            </p>
+        </section>
+
+        <!-- Utility Components -->
+        <section class="mb-16">
+            <h2 class="text-2xl font-bold mb-6 pb-2 border-b-2 border-black">Utility Components</h2>
+            <div class="grid md:grid-cols-2 lg:grid-cols-3 gap-6">
+
+                <!-- Command Palette -->
+                <a href="/interfaces/shared-utilities/command-palette.html"
+                    class="group block border-2 border-black bg-white shadow-brand-md hover:shadow-brand-lg transition-all">
+                    <div class="h-40 bg-brand-black p-4 relative overflow-hidden flex items-center justify-center">
+                        <div class="w-64 bg-white/10 border border-white/30 p-3">
+                            <div class="flex items-center gap-2 pb-2 border-b border-white/20 mb-2">
+                                <i data-lucide="search" class="w-4 h-4 text-white/50"></i>
+                                <div class="h-2 bg-white/30 w-24"></div>
+                            </div>
+                            <div class="space-y-1">
+                                <div class="flex items-center gap-2 p-1 bg-brand-yellow/30">
+                                    <div class="w-3 h-3 bg-brand-yellow"></div>
+                                    <div class="h-2 bg-white/30 w-16"></div>
+                                </div>
+                                <div class="flex items-center gap-2 p-1">
+                                    <div class="w-3 h-3 bg-white/20"></div>
+                                    <div class="h-2 bg-white/20 w-20"></div>
+                                </div>
+                                <div class="flex items-center gap-2 p-1">
+                                    <div class="w-3 h-3 bg-white/20"></div>
+                                    <div class="h-2 bg-white/20 w-14"></div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="p-4">
+                        <h3 class="text-xl font-bold mb-2 group-hover:text-brand-yellow transition-colors">Command
+                            Palette</h3>
+                        <p class="text-gray-600 text-sm mb-3">Keyboard-first navigation with fuzzy search, shortcuts,
+                            and quick actions.</p>
+                        <div
+                            class="flex items-center gap-2 text-sm font-bold uppercase tracking-wider text-brand-black">
+                            View Component <i data-lucide="arrow-right"
+                                class="w-4 h-4 group-hover:translate-x-1 transition-transform"></i>
+                        </div>
+                    </div>
+                </a>
+
+                <!-- Context Menu -->
+                <a href="/interfaces/shared-utilities/context-menu.html"
+                    class="group block border-2 border-black bg-white shadow-brand-md hover:shadow-brand-lg transition-all">
+                    <div class="h-40 bg-brand-black p-4 relative overflow-hidden flex items-center justify-center">
+                        <div class="w-40 bg-white border-2 border-black shadow-lg p-1">
+                            <div class="flex items-center gap-2 px-2 py-1.5 hover:bg-brand-yellow text-xs">
+                                <i data-lucide="copy" class="w-3 h-3"></i>
+                                <span>Copy</span>
+                                <span class="ml-auto text-gray-400 text-[10px]">⌘C</span>
+                            </div>
+                            <div class="flex items-center gap-2 px-2 py-1.5 hover:bg-brand-yellow text-xs">
+                                <i data-lucide="scissors" class="w-3 h-3"></i>
+                                <span>Cut</span>
+                                <span class="ml-auto text-gray-400 text-[10px]">⌘X</span>
+                            </div>
+                            <div class="border-t border-gray-200 my-1"></div>
+                            <div class="flex items-center gap-2 px-2 py-1.5 text-red-500 text-xs">
+                                <i data-lucide="trash-2" class="w-3 h-3"></i>
+                                <span>Delete</span>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="p-4">
+                        <h3 class="text-xl font-bold mb-2 group-hover:text-brand-yellow transition-colors">Context Menu
+                        </h3>
+                        <p class="text-gray-600 text-sm mb-3">Right-click menus with nested submenus, icons, and
+                            keyboard shortcuts.</p>
+                        <div
+                            class="flex items-center gap-2 text-sm font-bold uppercase tracking-wider text-brand-black">
+                            View Component <i data-lucide="arrow-right"
+                                class="w-4 h-4 group-hover:translate-x-1 transition-transform"></i>
+                        </div>
+                    </div>
+                </a>
+
+                <!-- Drag and Drop -->
+                <a href="/interfaces/shared-utilities/drag-drop.html"
+                    class="group block border-2 border-black bg-white shadow-brand-md hover:shadow-brand-lg transition-all">
+                    <div class="h-40 bg-brand-black p-4 relative overflow-hidden flex items-center justify-center">
+                        <div class="flex gap-3">
+                            <div class="w-20 space-y-2">
+                                <div class="h-6 bg-white/20 border border-white/30"></div>
+                                <div
+                                    class="h-6 bg-brand-yellow border-2 border-white transform rotate-2 translate-x-4 shadow-lg">
+                                </div>
+                                <div class="h-6 bg-white/20 border border-white/30"></div>
+                            </div>
+                            <div class="w-20 space-y-2 border-2 border-dashed border-white/50 p-2">
+                                <div class="h-6 bg-white/10"></div>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="p-4">
+                        <h3 class="text-xl font-bold mb-2 group-hover:text-brand-yellow transition-colors">Drag and Drop
+                        </h3>
+                        <p class="text-gray-600 text-sm mb-3">Sortable lists, file upload zones, and cross-container
+                            drag operations.</p>
+                        <div
+                            class="flex items-center gap-2 text-sm font-bold uppercase tracking-wider text-brand-black">
+                            View Component <i data-lucide="arrow-right"
+                                class="w-4 h-4 group-hover:translate-x-1 transition-transform"></i>
+                        </div>
+                    </div>
+                </a>
+
+                <!-- Toasts & Notifications -->
+                <a href="/interfaces/shared-utilities/toasts.html"
+                    class="group block border-2 border-black bg-white shadow-brand-md hover:shadow-brand-lg transition-all">
+                    <div class="h-40 bg-brand-black p-4 relative overflow-hidden">
+                        <div class="absolute top-4 right-4 space-y-2">
+                            <div
+                                class="w-48 bg-green-500 text-white px-3 py-2 text-xs flex items-center gap-2 border border-black shadow-lg">
+                                <i data-lucide="check-circle" class="w-4 h-4"></i>
+                                <span>Changes saved!</span>
+                            </div>
+                            <div
+                                class="w-48 bg-brand-yellow text-black px-3 py-2 text-xs flex items-center gap-2 border border-black shadow-lg">
+                                <i data-lucide="info" class="w-4 h-4"></i>
+                                <span>Processing...</span>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="p-4">
+                        <h3 class="text-xl font-bold mb-2 group-hover:text-brand-yellow transition-colors">Toasts &
+                            Notifications</h3>
+                        <p class="text-gray-600 text-sm mb-3">Success, error, warning, and info notifications with
+                            auto-dismiss.</p>
+                        <div
+                            class="flex items-center gap-2 text-sm font-bold uppercase tracking-wider text-brand-black">
+                            View Component <i data-lucide="arrow-right"
+                                class="w-4 h-4 group-hover:translate-x-1 transition-transform"></i>
+                        </div>
+                    </div>
+                </a>
+
+                <!-- Modal Dialogs -->
+                <a href="/interfaces/shared-utilities/modals.html"
+                    class="group block border-2 border-black bg-white shadow-brand-md hover:shadow-brand-lg transition-all">
+                    <div class="h-40 bg-brand-black/80 p-4 relative overflow-hidden flex items-center justify-center">
+                        <div class="w-48 bg-white border-2 border-black shadow-brand-md p-3">
+                            <div class="flex items-center justify-between mb-2">
+                                <div class="h-2 bg-black w-16"></div>
+                                <i data-lucide="x" class="w-3 h-3 text-gray-400"></i>
+                            </div>
+                            <div class="h-2 bg-gray-200 w-full mb-1"></div>
+                            <div class="h-2 bg-gray-200 w-3/4 mb-3"></div>
+                            <div class="flex gap-2">
+                                <div class="flex-1 h-5 bg-gray-200 border border-gray-300"></div>
+                                <div class="flex-1 h-5 bg-brand-yellow border border-black"></div>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="p-4">
+                        <h3 class="text-xl font-bold mb-2 group-hover:text-brand-yellow transition-colors">Modal Dialogs
+                        </h3>
+                        <p class="text-gray-600 text-sm mb-3">Confirmation dialogs, form modals, and full-screen
+                            overlays.</p>
+                        <div
+                            class="flex items-center gap-2 text-sm font-bold uppercase tracking-wider text-brand-black">
+                            View Component <i data-lucide="arrow-right"
+                                class="w-4 h-4 group-hover:translate-x-1 transition-transform"></i>
+                        </div>
+                    </div>
+                </a>
+
+                <!-- Presence Indicators -->
+                <a href="/interfaces/shared-utilities/presence.html"
+                    class="group block border-2 border-black bg-white shadow-brand-md hover:shadow-brand-lg transition-all">
+                    <div class="h-40 bg-brand-black p-4 relative overflow-hidden flex items-center justify-center">
+                        <div class="flex -space-x-3">
+                            <div
+                                class="w-12 h-12 rounded-full bg-brand-yellow border-2 border-white flex items-center justify-center font-bold relative">
+                                JD
+                                <div
+                                    class="absolute bottom-0 right-0 w-3 h-3 bg-green-500 border-2 border-white rounded-full">
+                                </div>
+                            </div>
+                            <div
+                                class="w-12 h-12 rounded-full bg-blue-500 border-2 border-white flex items-center justify-center font-bold text-white relative">
+                                AK
+                                <div
+                                    class="absolute bottom-0 right-0 w-3 h-3 bg-green-500 border-2 border-white rounded-full">
+                                </div>
+                            </div>
+                            <div
+                                class="w-12 h-12 rounded-full bg-purple-500 border-2 border-white flex items-center justify-center font-bold text-white relative">
+                                SM
+                                <div
+                                    class="absolute bottom-0 right-0 w-3 h-3 bg-yellow-500 border-2 border-white rounded-full">
+                                </div>
+                            </div>
+                            <div
+                                class="w-12 h-12 rounded-full bg-gray-400 border-2 border-white flex items-center justify-center font-bold text-white relative">
+                                +3
+                            </div>
+                        </div>
+                    </div>
+                    <div class="p-4">
+                        <h3 class="text-xl font-bold mb-2 group-hover:text-brand-yellow transition-colors">Presence
+                            Indicators</h3>
+                        <p class="text-gray-600 text-sm mb-3">Live cursors, user avatars, online status, and activity
+                            indicators.</p>
+                        <div
+                            class="flex items-center gap-2 text-sm font-bold uppercase tracking-wider text-brand-black">
+                            View Component <i data-lucide="arrow-right"
+                                class="w-4 h-4 group-hover:translate-x-1 transition-transform"></i>
+                        </div>
+                    </div>
+                </a>
+
+            </div>
+        </section>
+
+        <!-- Usage Guidelines -->
+        <section>
+            <h2 class="text-2xl font-bold mb-6 pb-2 border-b-2 border-black">Usage Guidelines</h2>
+            <div class="grid md:grid-cols-2 gap-6">
+                <div class="bg-white border-2 border-black p-6 shadow-brand-sm">
+                    <h3 class="font-bold mb-3 flex items-center gap-2">
+                        <i data-lucide="keyboard" class="w-5 h-5 text-brand-yellow"></i>
+                        Keyboard First
+                    </h3>
+                    <p class="text-gray-600 text-sm">All utilities support keyboard navigation. Users should be able to
+                        complete any action without a mouse.</p>
+                </div>
+                <div class="bg-white border-2 border-black p-6 shadow-brand-sm">
+                    <h3 class="font-bold mb-3 flex items-center gap-2">
+                        <i data-lucide="accessibility" class="w-5 h-5 text-brand-yellow"></i>
+                        Accessible
+                    </h3>
+                    <p class="text-gray-600 text-sm">ARIA labels, focus management, and screen reader announcements are
+                        built into every component.</p>
+                </div>
+                <div class="bg-white border-2 border-black p-6 shadow-brand-sm">
+                    <h3 class="font-bold mb-3 flex items-center gap-2">
+                        <i data-lucide="zap" class="w-5 h-5 text-brand-yellow"></i>
+                        Performant
+                    </h3>
+                    <p class="text-gray-600 text-sm">Optimized for 60fps animations. Virtualized lists for large
+                        datasets. Debounced search inputs.</p>
+                </div>
+                <div class="bg-white border-2 border-black p-6 shadow-brand-sm">
+                    <h3 class="font-bold mb-3 flex items-center gap-2">
+                        <i data-lucide="puzzle" class="w-5 h-5 text-brand-yellow"></i>
+                        Composable
+                    </h3>
+                    <p class="text-gray-600 text-sm">Each utility is a standalone component that can be composed with
+                        others to build complex interactions.</p>
+                </div>
+            </div>
+        </section>
+
+    </main>
+
+    <script>lucide.createIcons();</script>
+</body>
+
+</html>
