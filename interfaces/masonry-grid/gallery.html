@@ -1,0 +1,332 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Gallery | Masonry Grid | Movers+Shakers</title>
+    <script src="https://cdn.tailwindcss.com"></script>
+    <link
+        href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&family=Oswald:wght@400;500;600;700&display=swap"
+        rel="stylesheet">
+    <script src="https://unpkg.com/lucide@latest"></script>
+    <!-- Design System Tokens -->
+    <link rel="stylesheet" href="../../tokens/index.css">
+    <style>
+        body {
+            font-family: 'Inter', sans-serif;
+        }
+
+        h1,
+        h2,
+        h3,
+        h4,
+        .brand-font {
+            font-family: 'Oswald', sans-serif;
+            text-transform: uppercase;
+        }
+
+        .gallery-item:hover .gallery-overlay {
+            opacity: 1;
+        }
+
+        /* Lightbox */
+        .lightbox {
+            display: none;
+        }
+
+        .lightbox.active {
+            display: flex;
+        }
+    </style>
+</head>
+
+<body class="bg-gray-50 min-h-screen">
+
+    <!-- Header -->
+    <header class="bg-brand-black text-white py-4 border-b-8 border-brand-yellow sticky top-0 z-50">
+        <div class="container mx-auto px-6 flex justify-between items-center">
+            <div class="flex items-center gap-6">
+                <a href="index.html" class="text-gray-400 hover:text-white transition-colors">
+                    <i data-lucide="arrow-left" class="w-5 h-5"></i>
+                </a>
+                <div class="text-xl font-bold tracking-widest brand-font">
+                    <span class="text-brand-yellow">Justified</span> Gallery
+                </div>
+            </div>
+            <div class="flex items-center gap-4">
+                <!-- View Toggle -->
+                <div class="flex border border-white/20">
+                    <a href="pinterest.html"
+                        class="px-3 py-2 text-xs font-bold uppercase hover:bg-white/10 transition-colors">Masonry</a>
+                    <a href="gallery.html"
+                        class="px-3 py-2 text-xs font-bold uppercase bg-brand-yellow text-black">Gallery</a>
+                    <a href="feed.html"
+                        class="px-3 py-2 text-xs font-bold uppercase hover:bg-white/10 transition-colors">Feed</a>
+                </div>
+            </div>
+        </div>
+    </header>
+
+    <!-- Gallery Info -->
+    <div class="bg-white border-b-2 border-black">
+        <div class="container mx-auto px-6 py-6 flex items-center justify-between">
+            <div>
+                <h1 class="text-2xl font-bold mb-1">Photography Collection</h1>
+                <p class="text-gray-500">124 images • Updated 2 hours ago</p>
+            </div>
+            <div class="flex items-center gap-3">
+                <button
+                    class="flex items-center gap-2 px-4 py-2 bg-white border-2 border-black text-sm font-bold hover:bg-brand-yellow transition-colors shadow-brand-sm">
+                    <i data-lucide="share-2" class="w-4 h-4"></i> Share
+                </button>
+                <button
+                    class="flex items-center gap-2 px-4 py-2 bg-brand-yellow border-2 border-black text-sm font-bold hover:bg-brand-black hover:text-white transition-colors shadow-brand-sm">
+                    <i data-lucide="download" class="w-4 h-4"></i> Download All
+                </button>
+            </div>
+        </div>
+    </div>
+
+    <!-- Justified Gallery -->
+    <main class="container mx-auto px-6 py-8">
+
+        <!-- Row 1 -->
+        <div class="flex gap-2 mb-2">
+            <div class="gallery-item flex-[2] h-64 relative cursor-pointer group">
+                <div class="absolute inset-0 bg-gradient-to-br from-purple-600 to-pink-500"></div>
+                <div
+                    class="gallery-overlay absolute inset-0 bg-black/50 opacity-0 transition-opacity flex items-end p-4">
+                    <div class="flex-1">
+                        <h4 class="text-white font-bold">Purple Haze</h4>
+                        <p class="text-white/70 text-sm">By John Doe</p>
+                    </div>
+                    <div class="flex gap-2">
+                        <button
+                            class="w-10 h-10 bg-white text-black flex items-center justify-center hover:bg-brand-yellow transition-colors border-2 border-black">
+                            <i data-lucide="maximize" class="w-5 h-5"></i>
+                        </button>
+                        <button
+                            class="w-10 h-10 bg-white text-black flex items-center justify-center hover:bg-brand-yellow transition-colors border-2 border-black">
+                            <i data-lucide="download" class="w-5 h-5"></i>
+                        </button>
+                    </div>
+                </div>
+            </div>
+            <div class="gallery-item flex-[1] h-64 relative cursor-pointer group">
+                <div class="absolute inset-0 bg-gradient-to-br from-blue-500 to-cyan-400"></div>
+                <div
+                    class="gallery-overlay absolute inset-0 bg-black/50 opacity-0 transition-opacity flex items-end p-4">
+                    <div class="flex-1">
+                        <h4 class="text-white font-bold">Ocean Blue</h4>
+                    </div>
+                    <button
+                        class="w-10 h-10 bg-white text-black flex items-center justify-center hover:bg-brand-yellow transition-colors border-2 border-black">
+                        <i data-lucide="maximize" class="w-5 h-5"></i>
+                    </button>
+                </div>
+            </div>
+            <div class="gallery-item flex-[1.5] h-64 relative cursor-pointer group">
+                <div class="absolute inset-0 bg-gradient-to-br from-yellow-400 to-orange-500"></div>
+                <div
+                    class="gallery-overlay absolute inset-0 bg-black/50 opacity-0 transition-opacity flex items-end p-4">
+                    <div class="flex-1">
+                        <h4 class="text-white font-bold">Sunset Glow</h4>
+                    </div>
+                    <button
+                        class="w-10 h-10 bg-white text-black flex items-center justify-center hover:bg-brand-yellow transition-colors border-2 border-black">
+                        <i data-lucide="maximize" class="w-5 h-5"></i>
+                    </button>
+                </div>
+            </div>
+        </div>
+
+        <!-- Row 2 -->
+        <div class="flex gap-2 mb-2">
+            <div class="gallery-item flex-[1] h-56 relative cursor-pointer group">
+                <div class="absolute inset-0 bg-gradient-to-br from-green-500 to-teal-400"></div>
+                <div
+                    class="gallery-overlay absolute inset-0 bg-black/50 opacity-0 transition-opacity flex items-end p-4">
+                    <div class="flex-1">
+                        <h4 class="text-white font-bold">Forest</h4>
+                    </div>
+                    <button
+                        class="w-10 h-10 bg-white text-black flex items-center justify-center hover:bg-brand-yellow transition-colors border-2 border-black">
+                        <i data-lucide="maximize" class="w-5 h-5"></i>
+                    </button>
+                </div>
+            </div>
+            <div class="gallery-item flex-[1.8] h-56 relative cursor-pointer group">
+                <div class="absolute inset-0 bg-gradient-to-br from-red-500 to-rose-400"></div>
+                <div
+                    class="gallery-overlay absolute inset-0 bg-black/50 opacity-0 transition-opacity flex items-end p-4">
+                    <div class="flex-1">
+                        <h4 class="text-white font-bold">Rose Garden</h4>
+                        <p class="text-white/70 text-sm">By Sarah M.</p>
+                    </div>
+                    <div class="flex gap-2">
+                        <button
+                            class="w-10 h-10 bg-white text-black flex items-center justify-center hover:bg-brand-yellow transition-colors border-2 border-black">
+                            <i data-lucide="maximize" class="w-5 h-5"></i>
+                        </button>
+                        <button
+                            class="w-10 h-10 bg-white text-black flex items-center justify-center hover:bg-brand-yellow transition-colors border-2 border-black">
+                            <i data-lucide="download" class="w-5 h-5"></i>
+                        </button>
+                    </div>
+                </div>
+            </div>
+            <div class="gallery-item flex-[1.2] h-56 relative cursor-pointer group">
+                <div class="absolute inset-0 bg-gradient-to-br from-indigo-600 to-violet-500"></div>
+                <div
+                    class="gallery-overlay absolute inset-0 bg-black/50 opacity-0 transition-opacity flex items-end p-4">
+                    <div class="flex-1">
+                        <h4 class="text-white font-bold">Night Sky</h4>
+                    </div>
+                    <button
+                        class="w-10 h-10 bg-white text-black flex items-center justify-center hover:bg-brand-yellow transition-colors border-2 border-black">
+                        <i data-lucide="maximize" class="w-5 h-5"></i>
+                    </button>
+                </div>
+            </div>
+        </div>
+
+        <!-- Row 3 -->
+        <div class="flex gap-2 mb-2">
+            <div class="gallery-item flex-[1.5] h-72 relative cursor-pointer group">
+                <div class="absolute inset-0 bg-gradient-to-br from-amber-500 to-yellow-400"></div>
+                <div
+                    class="gallery-overlay absolute inset-0 bg-black/50 opacity-0 transition-opacity flex items-end p-4">
+                    <div class="flex-1">
+                        <h4 class="text-white font-bold">Golden Hour</h4>
+                        <p class="text-white/70 text-sm">By Alex K.</p>
+                    </div>
+                    <div class="flex gap-2">
+                        <button
+                            class="w-10 h-10 bg-white text-black flex items-center justify-center hover:bg-brand-yellow transition-colors border-2 border-black">
+                            <i data-lucide="maximize" class="w-5 h-5"></i>
+                        </button>
+                        <button
+                            class="w-10 h-10 bg-white text-black flex items-center justify-center hover:bg-brand-yellow transition-colors border-2 border-black">
+                            <i data-lucide="download" class="w-5 h-5"></i>
+                        </button>
+                    </div>
+                </div>
+            </div>
+            <div class="gallery-item flex-[1] h-72 relative cursor-pointer group">
+                <div class="absolute inset-0 bg-gradient-to-br from-slate-600 to-slate-800"></div>
+                <div
+                    class="gallery-overlay absolute inset-0 bg-black/50 opacity-0 transition-opacity flex items-end p-4">
+                    <div class="flex-1">
+                        <h4 class="text-white font-bold">Concrete</h4>
+                    </div>
+                    <button
+                        class="w-10 h-10 bg-white text-black flex items-center justify-center hover:bg-brand-yellow transition-colors border-2 border-black">
+                        <i data-lucide="maximize" class="w-5 h-5"></i>
+                    </button>
+                </div>
+            </div>
+            <div class="gallery-item flex-[2] h-72 relative cursor-pointer group">
+                <div class="absolute inset-0 bg-gradient-to-br from-emerald-500 to-teal-400"></div>
+                <div
+                    class="gallery-overlay absolute inset-0 bg-black/50 opacity-0 transition-opacity flex items-end p-4">
+                    <div class="flex-1">
+                        <h4 class="text-white font-bold">Tropical Paradise</h4>
+                        <p class="text-white/70 text-sm">Featured collection</p>
+                    </div>
+                    <div class="flex gap-2">
+                        <button
+                            class="w-10 h-10 bg-white text-black flex items-center justify-center hover:bg-brand-yellow transition-colors border-2 border-black">
+                            <i data-lucide="maximize" class="w-5 h-5"></i>
+                        </button>
+                        <button
+                            class="w-10 h-10 bg-white text-black flex items-center justify-center hover:bg-brand-yellow transition-colors border-2 border-black">
+                            <i data-lucide="download" class="w-5 h-5"></i>
+                        </button>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <!-- Row 4 -->
+        <div class="flex gap-2 mb-2">
+            <div class="gallery-item flex-[1] h-48 relative cursor-pointer group">
+                <div class="absolute inset-0 bg-gradient-to-br from-pink-500 to-rose-400"></div>
+                <div
+                    class="gallery-overlay absolute inset-0 bg-black/50 opacity-0 transition-opacity flex items-end p-4">
+                    <div class="flex-1">
+                        <h4 class="text-white font-bold">Blush</h4>
+                    </div>
+                </div>
+            </div>
+            <div class="gallery-item flex-[1] h-48 relative cursor-pointer group">
+                <div class="absolute inset-0 bg-gradient-to-br from-violet-600 to-purple-500"></div>
+                <div
+                    class="gallery-overlay absolute inset-0 bg-black/50 opacity-0 transition-opacity flex items-end p-4">
+                    <div class="flex-1">
+                        <h4 class="text-white font-bold">Violet</h4>
+                    </div>
+                </div>
+            </div>
+            <div class="gallery-item flex-[1] h-48 relative cursor-pointer group">
+                <div class="absolute inset-0 bg-gradient-to-br from-cyan-500 to-blue-400"></div>
+                <div
+                    class="gallery-overlay absolute inset-0 bg-black/50 opacity-0 transition-opacity flex items-end p-4">
+                    <div class="flex-1">
+                        <h4 class="text-white font-bold">Azure</h4>
+                    </div>
+                </div>
+            </div>
+            <div class="gallery-item flex-[1] h-48 relative cursor-pointer group">
+                <div class="absolute inset-0 bg-gradient-to-br from-orange-500 to-amber-400"></div>
+                <div
+                    class="gallery-overlay absolute inset-0 bg-black/50 opacity-0 transition-opacity flex items-end p-4">
+                    <div class="flex-1">
+                        <h4 class="text-white font-bold">Amber</h4>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <!-- Load More -->
+        <div class="text-center mt-12">
+            <button
+                class="px-8 py-3 bg-brand-yellow text-black font-bold uppercase tracking-wider text-sm border-2 border-black shadow-brand-md hover:shadow-brand-lg transition-all hover:bg-brand-black hover:text-white">
+                Load More
+            </button>
+        </div>
+    </main>
+
+    <!-- Lightbox -->
+    <div id="lightbox" class="lightbox fixed inset-0 bg-black/95 z-50 items-center justify-center p-8">
+        <button onclick="closeLightbox()"
+            class="absolute top-4 right-4 w-12 h-12 bg-white text-black flex items-center justify-center hover:bg-brand-yellow transition-colors border-2 border-black">
+            <i data-lucide="x" class="w-6 h-6"></i>
+        </button>
+        <button
+            class="absolute left-4 top-1/2 -translate-y-1/2 w-12 h-12 bg-white text-black flex items-center justify-center hover:bg-brand-yellow transition-colors border-2 border-black">
+            <i data-lucide="chevron-left" class="w-6 h-6"></i>
+        </button>
+        <button
+            class="absolute right-4 top-1/2 -translate-y-1/2 w-12 h-12 bg-white text-black flex items-center justify-center hover:bg-brand-yellow transition-colors border-2 border-black">
+            <i data-lucide="chevron-right" class="w-6 h-6"></i>
+        </button>
+        <div
+            class="max-w-4xl max-h-full bg-gradient-to-br from-purple-600 to-pink-500 aspect-video border-4 border-white">
+        </div>
+        <div class="absolute bottom-8 left-1/2 -translate-x-1/2 bg-brand-black border-2 border-white px-6 py-3">
+            <p class="text-white font-bold">Purple Haze</p>
+            <p class="text-gray-400 text-sm">By John Doe • 1 of 124</p>
+        </div>
+    </div>
+
+    <script>
+        lucide.createIcons();
+
+        function closeLightbox() {
+            document.getElementById('lightbox').classList.remove('active');
+        }
+    </script>
+</body>
+
+</html>
