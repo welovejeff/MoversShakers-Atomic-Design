@@ -1,0 +1,309 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Project Management Interface | Movers+Shakers</title>
+    <script src="https://cdn.tailwindcss.com"></script>
+    <link
+        href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&family=Oswald:wght@400;500;600;700&display=swap"
+        rel="stylesheet">
+    <script src="https://unpkg.com/lucide@latest"></script>
+    <!-- Design System Tokens -->
+    <link rel="stylesheet" href="../../tokens/index.css">
+    <style>
+        body {
+            font-family: 'Inter', sans-serif;
+        }
+
+        h1,
+        h2,
+        h3,
+        h4,
+        .brand-font {
+            font-family: 'Oswald', sans-serif;
+            text-transform: uppercase;
+        }
+    </style>
+</head>
+
+<body class="bg-gray-50 min-h-screen">
+
+    <!-- Header -->
+    <header class="bg-brand-black text-white py-4 border-b-8 border-brand-yellow">
+        <div class="container mx-auto px-6 flex justify-between items-center">
+            <div class="text-2xl font-bold tracking-widest brand-font">
+                MOVERS<span class="text-brand-yellow">+</span>SHAKERS
+            </div>
+            <nav class="hidden md:flex items-center gap-8">
+                <a href="../../index.html"
+                    class="text-sm font-bold uppercase tracking-wider hover:text-brand-yellow transition-colors">Design
+                    System</a>
+                <a href="../../interfaces.html"
+                    class="text-sm font-bold uppercase tracking-wider hover:text-brand-yellow transition-colors">Interfaces</a>
+                <span class="text-brand-yellow font-bold">|</span>
+                <span class="text-brand-yellow text-sm font-bold uppercase tracking-wider">Project Management</span>
+            </nav>
+        </div>
+    </header>
+
+    <main class="container mx-auto px-6 py-12">
+
+        <!-- Breadcrumb & Title -->
+        <section class="max-w-4xl mb-12">
+            <nav class="text-sm text-gray-500 mb-4">
+                <a href="../../index.html" class="hover:text-black">Design System</a> /
+                <a href="../../interfaces.html" class="hover:text-black">Interfaces</a> /
+                <span class="text-black font-medium">Project Management</span>
+            </nav>
+            <h1 class="text-5xl font-bold mb-4">Project Management Interface</h1>
+            <p class="text-xl text-gray-600 leading-relaxed">
+                Production-ready layouts for task and project management including Kanban boards,
+                list views, timeline/Gantt charts, and calendar interfaces.
+            </p>
+        </section>
+
+        <!-- Layout Cards -->
+        <section class="mb-16">
+            <h2 class="text-2xl font-bold mb-6 pb-2 border-b-2 border-black">Main Layouts</h2>
+            <div class="grid md:grid-cols-2 lg:grid-cols-4 gap-6">
+
+                <!-- Kanban Board -->
+                <a href="/interfaces/project-management/kanban.html"
+                    class="group block border-2 border-black bg-white shadow-brand-md hover:shadow-brand-lg transition-all">
+                    <div class="h-40 bg-brand-black p-4 relative overflow-hidden">
+                        <!-- Mini kanban preview -->
+                        <div class="flex gap-2 h-full">
+                            <div class="flex-1 bg-white/10 p-2">
+                                <div class="w-full h-3 bg-white/30 mb-2"></div>
+                                <div class="w-full h-8 bg-brand-yellow mb-1"></div>
+                                <div class="w-full h-8 bg-white/20 mb-1"></div>
+                                <div class="w-full h-8 bg-white/20"></div>
+                            </div>
+                            <div class="flex-1 bg-white/10 p-2">
+                                <div class="w-full h-3 bg-white/30 mb-2"></div>
+                                <div class="w-full h-8 bg-white/20 mb-1"></div>
+                                <div class="w-full h-8 bg-white/20"></div>
+                            </div>
+                            <div class="flex-1 bg-white/10 p-2">
+                                <div class="w-full h-3 bg-white/30 mb-2"></div>
+                                <div class="w-full h-8 bg-white/20"></div>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="p-4">
+                        <h3 class="text-xl font-bold mb-2 group-hover:text-brand-yellow transition-colors">Kanban Board
+                        </h3>
+                        <p class="text-gray-600 text-sm mb-3">Drag-and-drop task columns with priority badges and
+                            assignee avatars.</p>
+                        <div
+                            class="flex items-center gap-2 text-sm font-bold uppercase tracking-wider text-brand-black">
+                            View Layout <i data-lucide="arrow-right"
+                                class="w-4 h-4 group-hover:translate-x-1 transition-transform"></i>
+                        </div>
+                    </div>
+                </a>
+
+                <!-- List View -->
+                <a href="/interfaces/project-management/list.html"
+                    class="group block border-2 border-black bg-white shadow-brand-md hover:shadow-brand-lg transition-all">
+                    <div class="h-40 bg-brand-black p-4 relative overflow-hidden">
+                        <!-- Mini list preview -->
+                        <div class="space-y-2">
+                            <div class="flex gap-2 items-center">
+                                <div class="w-4 h-4 border border-white/30"></div>
+                                <div class="flex-1 h-3 bg-white/30"></div>
+                                <div class="w-16 h-3 bg-brand-yellow"></div>
+                                <div class="w-12 h-3 bg-white/20"></div>
+                            </div>
+                            <div class="flex gap-2 items-center">
+                                <div class="w-4 h-4 border border-white/30 bg-brand-yellow"></div>
+                                <div class="flex-1 h-3 bg-white/20"></div>
+                                <div class="w-16 h-3 bg-white/20"></div>
+                                <div class="w-12 h-3 bg-white/20"></div>
+                            </div>
+                            <div class="flex gap-2 items-center">
+                                <div class="w-4 h-4 border border-white/30"></div>
+                                <div class="flex-1 h-3 bg-white/30"></div>
+                                <div class="w-16 h-3 bg-white/20"></div>
+                                <div class="w-12 h-3 bg-white/20"></div>
+                            </div>
+                            <div class="flex gap-2 items-center">
+                                <div class="w-4 h-4 border border-white/30"></div>
+                                <div class="flex-1 h-3 bg-white/20"></div>
+                                <div class="w-16 h-3 bg-brand-yellow"></div>
+                                <div class="w-12 h-3 bg-white/20"></div>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="p-4">
+                        <h3 class="text-xl font-bold mb-2 group-hover:text-brand-yellow transition-colors">List View
+                        </h3>
+                        <p class="text-gray-600 text-sm mb-3">Sortable table with inline editing, bulk actions, and
+                            filters.</p>
+                        <div
+                            class="flex items-center gap-2 text-sm font-bold uppercase tracking-wider text-brand-black">
+                            View Layout <i data-lucide="arrow-right"
+                                class="w-4 h-4 group-hover:translate-x-1 transition-transform"></i>
+                        </div>
+                    </div>
+                </a>
+
+                <!-- Timeline View -->
+                <a href="/interfaces/project-management/timeline.html"
+                    class="group block border-2 border-black bg-white shadow-brand-md hover:shadow-brand-lg transition-all">
+                    <div class="h-40 bg-brand-black p-4 relative overflow-hidden">
+                        <!-- Mini timeline preview -->
+                        <div class="space-y-3">
+                            <div class="flex gap-1">
+                                <div class="w-8 h-3 bg-white/20"></div>
+                                <div class="flex-1 flex gap-1">
+                                    <div class="w-1/4 h-3 bg-brand-yellow"></div>
+                                    <div class="w-1/3 h-3 bg-white/30"></div>
+                                </div>
+                            </div>
+                            <div class="flex gap-1">
+                                <div class="w-8 h-3 bg-white/20"></div>
+                                <div class="flex-1 flex gap-1">
+                                    <div class="w-1/6"></div>
+                                    <div class="w-1/2 h-3 bg-white/30"></div>
+                                </div>
+                            </div>
+                            <div class="flex gap-1">
+                                <div class="w-8 h-3 bg-white/20"></div>
+                                <div class="flex-1 flex gap-1">
+                                    <div class="w-1/3"></div>
+                                    <div class="w-1/4 h-3 bg-brand-yellow"></div>
+                                </div>
+                            </div>
+                            <div class="flex gap-1">
+                                <div class="w-8 h-3 bg-white/20"></div>
+                                <div class="flex-1 flex gap-1">
+                                    <div class="w-1/12"></div>
+                                    <div class="w-2/3 h-3 bg-white/30"></div>
+                                </div>
+                            </div>
+                        </div>
+                        <!-- Today line -->
+                        <div class="absolute top-0 bottom-0 left-1/2 w-0.5 bg-red-500"></div>
+                    </div>
+                    <div class="p-4">
+                        <h3 class="text-xl font-bold mb-2 group-hover:text-brand-yellow transition-colors">Timeline</h3>
+                        <p class="text-gray-600 text-sm mb-3">Gantt-style horizontal timeline with drag-resize and
+                            milestones.</p>
+                        <div
+                            class="flex items-center gap-2 text-sm font-bold uppercase tracking-wider text-brand-black">
+                            View Layout <i data-lucide="arrow-right"
+                                class="w-4 h-4 group-hover:translate-x-1 transition-transform"></i>
+                        </div>
+                    </div>
+                </a>
+
+                <!-- Calendar View -->
+                <a href="/interfaces/project-management/calendar.html"
+                    class="group block border-2 border-black bg-white shadow-brand-md hover:shadow-brand-lg transition-all">
+                    <div class="h-40 bg-brand-black p-4 relative overflow-hidden">
+                        <!-- Mini calendar preview -->
+                        <div class="grid grid-cols-7 gap-1">
+                            <div class="h-3 bg-white/30"></div>
+                            <div class="h-3 bg-white/30"></div>
+                            <div class="h-3 bg-white/30"></div>
+                            <div class="h-3 bg-white/30"></div>
+                            <div class="h-3 bg-white/30"></div>
+                            <div class="h-3 bg-white/30"></div>
+                            <div class="h-3 bg-white/30"></div>
+
+                            <div class="h-8 bg-white/10"></div>
+                            <div class="h-8 bg-white/10"></div>
+                            <div class="h-8 bg-white/10 relative">
+                                <div class="absolute bottom-1 left-1 right-1 h-1.5 bg-brand-yellow"></div>
+                            </div>
+                            <div class="h-8 bg-white/10"></div>
+                            <div class="h-8 bg-white/10 relative">
+                                <div class="absolute bottom-1 left-1 right-1 h-1.5 bg-white/40"></div>
+                            </div>
+                            <div class="h-8 bg-white/10"></div>
+                            <div class="h-8 bg-white/10"></div>
+
+                            <div class="h-8 bg-white/10"></div>
+                            <div class="h-8 bg-brand-yellow/30 border border-brand-yellow"></div>
+                            <div class="h-8 bg-white/10"></div>
+                            <div class="h-8 bg-white/10 relative">
+                                <div class="absolute bottom-1 left-1 right-1 h-1.5 bg-brand-yellow"></div>
+                            </div>
+                            <div class="h-8 bg-white/10"></div>
+                            <div class="h-8 bg-white/10"></div>
+                            <div class="h-8 bg-white/10 relative">
+                                <div class="absolute bottom-1 left-1 right-1 h-1.5 bg-white/40"></div>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="p-4">
+                        <h3 class="text-xl font-bold mb-2 group-hover:text-brand-yellow transition-colors">Calendar</h3>
+                        <p class="text-gray-600 text-sm mb-3">Month/week/day views with task indicators and quick-add.
+                        </p>
+                        <div
+                            class="flex items-center gap-2 text-sm font-bold uppercase tracking-wider text-brand-black">
+                            View Layout <i data-lucide="arrow-right"
+                                class="w-4 h-4 group-hover:translate-x-1 transition-transform"></i>
+                        </div>
+                    </div>
+                </a>
+
+            </div>
+        </section>
+
+        <!-- Component Showcase -->
+        <section>
+            <h2 class="text-2xl font-bold mb-6 pb-2 border-b-2 border-black">Supporting Components</h2>
+            <div class="grid md:grid-cols-2 lg:grid-cols-4 gap-4">
+                <div class="bg-white border-2 border-black p-4 shadow-brand-sm">
+                    <i data-lucide="grip-vertical" class="w-8 h-8 text-brand-black mb-3"></i>
+                    <h4 class="font-bold mb-1">Draggable Cards</h4>
+                    <p class="text-gray-500 text-sm">Task cards with drag handles</p>
+                </div>
+                <div class="bg-white border-2 border-black p-4 shadow-brand-sm">
+                    <i data-lucide="flag" class="w-8 h-8 text-brand-black mb-3"></i>
+                    <h4 class="font-bold mb-1">Priority Badges</h4>
+                    <p class="text-gray-500 text-sm">High, medium, low indicators</p>
+                </div>
+                <div class="bg-white border-2 border-black p-4 shadow-brand-sm">
+                    <i data-lucide="list-checks" class="w-8 h-8 text-brand-black mb-3"></i>
+                    <h4 class="font-bold mb-1">Subtask Checklist</h4>
+                    <p class="text-gray-500 text-sm">Progress tracking</p>
+                </div>
+                <div class="bg-white border-2 border-black p-4 shadow-brand-sm">
+                    <i data-lucide="columns" class="w-8 h-8 text-brand-black mb-3"></i>
+                    <h4 class="font-bold mb-1">Board Columns</h4>
+                    <p class="text-gray-500 text-sm">Add, collapse, reorder</p>
+                </div>
+                <div class="bg-white border-2 border-black p-4 shadow-brand-sm">
+                    <i data-lucide="panel-right" class="w-8 h-8 text-brand-black mb-3"></i>
+                    <h4 class="font-bold mb-1">Task Detail Panel</h4>
+                    <p class="text-gray-500 text-sm">Slide-out with full info</p>
+                </div>
+                <div class="bg-white border-2 border-black p-4 shadow-brand-sm">
+                    <i data-lucide="calendar-days" class="w-8 h-8 text-brand-black mb-3"></i>
+                    <h4 class="font-bold mb-1">Due Date Picker</h4>
+                    <p class="text-gray-500 text-sm">Date selection widget</p>
+                </div>
+                <div class="bg-white border-2 border-black p-4 shadow-brand-sm">
+                    <i data-lucide="users" class="w-8 h-8 text-brand-black mb-3"></i>
+                    <h4 class="font-bold mb-1">Assignee Selector</h4>
+                    <p class="text-gray-500 text-sm">Team member picker</p>
+                </div>
+                <div class="bg-white border-2 border-black p-4 shadow-brand-sm">
+                    <i data-lucide="filter" class="w-8 h-8 text-brand-black mb-3"></i>
+                    <h4 class="font-bold mb-1">Filters Bar</h4>
+                    <p class="text-gray-500 text-sm">Labels, status, assignee</p>
+                </div>
+            </div>
+        </section>
+
+    </main>
+
+    <script>lucide.createIcons();</script>
+</body>
+
+</html>

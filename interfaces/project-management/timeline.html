@@ -1,0 +1,333 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Timeline | Project Management | Movers+Shakers</title>
+    <script src="https://cdn.tailwindcss.com"></script>
+    <link
+        href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&family=Oswald:wght@400;500;600;700&display=swap"
+        rel="stylesheet">
+    <script src="https://unpkg.com/lucide@latest"></script>
+    <!-- Design System Tokens -->
+    <link rel="stylesheet" href="../../tokens/index.css">
+    <style>
+        body {
+            font-family: 'Inter', sans-serif;
+        }
+
+        h1,
+        h2,
+        h3,
+        h4,
+        .brand-font {
+            font-family: 'Oswald', sans-serif;
+            text-transform: uppercase;
+        }
+
+        .timeline-scroll::-webkit-scrollbar {
+            height: 8px;
+        }
+
+        .timeline-scroll::-webkit-scrollbar-track {
+            background: #e5e7eb;
+        }
+
+        .timeline-scroll::-webkit-scrollbar-thumb {
+            background: #111;
+        }
+    </style>
+</head>
+
+<body class="bg-gray-50 min-h-screen flex flex-col">
+
+    <!-- Header -->
+    <header class="bg-brand-black text-white py-4 border-b-8 border-brand-yellow flex-shrink-0">
+        <div class="container mx-auto px-6 flex justify-between items-center">
+            <div class="flex items-center gap-6">
+                <a href="../../interfaces.html" class="text-gray-400 hover:text-white transition-colors">
+                    <i data-lucide="arrow-left" class="w-5 h-5"></i>
+                </a>
+                <div class="text-xl font-bold tracking-widest brand-font">
+                    <span class="text-brand-yellow">Timeline</span> View
+                </div>
+            </div>
+            <div class="flex items-center gap-4">
+                <!-- View Toggle -->
+                <div class="flex border border-white/20">
+                    <a href="kanban.html"
+                        class="px-3 py-2 text-xs font-bold uppercase hover:bg-white/10 transition-colors">Board</a>
+                    <a href="list.html"
+                        class="px-3 py-2 text-xs font-bold uppercase hover:bg-white/10 transition-colors">List</a>
+                    <a href="timeline.html"
+                        class="px-3 py-2 text-xs font-bold uppercase bg-brand-yellow text-black">Timeline</a>
+                    <a href="calendar.html"
+                        class="px-3 py-2 text-xs font-bold uppercase hover:bg-white/10 transition-colors">Calendar</a>
+                </div>
+                <!-- Add Task -->
+                <button
+                    class="bg-brand-yellow text-black px-4 py-2 font-bold uppercase tracking-wider text-xs hover:bg-white transition-colors">
+                    <i data-lucide="plus" class="w-4 h-4 inline"></i> Add Task
+                </button>
+            </div>
+        </div>
+    </header>
+
+    <div class="flex flex-1 overflow-hidden">
+
+        <!-- Sidebar -->
+        <aside class="w-64 bg-brand-black text-white flex-shrink-0 hidden lg:flex flex-col border-r-2 border-black">
+            <div class="p-4 border-b border-white/10">
+                <h3 class="text-sm font-bold uppercase tracking-wider text-gray-400">Projects</h3>
+            </div>
+            <nav class="flex-1 overflow-y-auto p-4">
+                <ul class="space-y-1">
+                    <li>
+                        <a href="#"
+                            class="flex items-center gap-3 px-3 py-2 bg-brand-yellow text-black font-medium text-sm">
+                            <span class="w-2 h-2 rounded-full bg-black"></span>
+                            Website Redesign
+                        </a>
+                    </li>
+                    <li>
+                        <a href="#"
+                            class="flex items-center gap-3 px-3 py-2 text-gray-400 hover:text-white hover:bg-white/10 transition-colors text-sm">
+                            <span class="w-2 h-2 rounded-full bg-blue-500"></span>
+                            Mobile App v2
+                        </a>
+                    </li>
+                </ul>
+            </nav>
+        </aside>
+
+        <!-- Main Timeline Area -->
+        <main class="flex-1 flex flex-col overflow-hidden bg-gray-50">
+
+            <!-- Controls Bar -->
+            <div class="flex items-center justify-between p-4 bg-white border-b-2 border-black">
+                <div class="flex items-center gap-4">
+                    <button class="p-2 bg-gray-50 border-2 border-black hover:bg-brand-yellow transition-colors">
+                        <i data-lucide="chevron-left" class="w-4 h-4"></i>
+                    </button>
+                    <span class="font-bold text-lg">December 2024</span>
+                    <button class="p-2 bg-gray-50 border-2 border-black hover:bg-brand-yellow transition-colors">
+                        <i data-lucide="chevron-right" class="w-4 h-4"></i>
+                    </button>
+                    <button class="px-3 py-1.5 bg-brand-yellow border-2 border-black text-xs font-bold">
+                        Today
+                    </button>
+                </div>
+                <div class="flex items-center gap-2">
+                    <span class="text-xs text-gray-500">Zoom:</span>
+                    <button
+                        class="px-3 py-1.5 bg-gray-50 border-2 border-black text-xs font-medium hover:bg-brand-yellow transition-colors">Day</button>
+                    <button class="px-3 py-1.5 bg-brand-yellow border-2 border-black text-xs font-bold">Week</button>
+                    <button
+                        class="px-3 py-1.5 bg-gray-50 border-2 border-black text-xs font-medium hover:bg-brand-yellow transition-colors">Month</button>
+                </div>
+            </div>
+
+            <!-- Timeline Grid -->
+            <div class="flex-1 overflow-auto timeline-scroll">
+                <div class="min-w-[1200px]">
+
+                    <!-- Date Headers -->
+                    <div class="flex border-b-2 border-black bg-white sticky top-0 z-10">
+                        <div
+                            class="w-64 flex-shrink-0 p-3 border-r-2 border-black bg-brand-black text-white font-bold text-sm uppercase">
+                            Task
+                        </div>
+                        <div class="flex-1 flex">
+                            <div class="flex-1 p-2 text-center border-r border-gray-200 text-xs">
+                                <div class="font-bold">Mon 9</div>
+                            </div>
+                            <div class="flex-1 p-2 text-center border-r border-gray-200 text-xs">
+                                <div class="font-bold">Tue 10</div>
+                            </div>
+                            <div class="flex-1 p-2 text-center border-r border-gray-200 text-xs">
+                                <div class="font-bold">Wed 11</div>
+                            </div>
+                            <div class="flex-1 p-2 text-center border-r border-gray-200 text-xs bg-brand-yellow/20">
+                                <div class="font-bold">Thu 12</div>
+                                <div class="text-gray-500">Today</div>
+                            </div>
+                            <div class="flex-1 p-2 text-center border-r border-gray-200 text-xs">
+                                <div class="font-bold">Fri 13</div>
+                            </div>
+                            <div class="flex-1 p-2 text-center border-r border-gray-200 text-xs text-gray-400">
+                                <div class="font-bold">Sat 14</div>
+                            </div>
+                            <div class="flex-1 p-2 text-center border-r border-gray-200 text-xs text-gray-400">
+                                <div class="font-bold">Sun 15</div>
+                            </div>
+                            <div class="flex-1 p-2 text-center border-r border-gray-200 text-xs">
+                                <div class="font-bold">Mon 16</div>
+                            </div>
+                            <div class="flex-1 p-2 text-center border-r border-gray-200 text-xs">
+                                <div class="font-bold">Tue 17</div>
+                            </div>
+                            <div class="flex-1 p-2 text-center border-r border-gray-200 text-xs">
+                                <div class="font-bold">Wed 18</div>
+                            </div>
+                            <div class="flex-1 p-2 text-center border-r border-gray-200 text-xs">
+                                <div class="font-bold">Thu 19</div>
+                            </div>
+                            <div class="flex-1 p-2 text-center border-r border-gray-200 text-xs">
+                                <div class="font-bold">Fri 20</div>
+                            </div>
+                        </div>
+                    </div>
+
+                    <!-- Timeline Rows -->
+                    <div class="divide-y divide-gray-200 relative">
+                        <!-- Today Line -->
+                        <div class="absolute top-0 bottom-0 left-[calc(264px+25%)] w-0.5 bg-red-500 z-20"></div>
+
+                        <!-- Row 1 -->
+                        <div class="flex hover:bg-gray-50 transition-colors">
+                            <div class="w-64 flex-shrink-0 p-3 border-r-2 border-black bg-white">
+                                <div class="flex items-center gap-2">
+                                    <span class="w-2 h-2 rounded-full bg-red-500"></span>
+                                    <span class="font-medium text-sm truncate">Design landing page</span>
+                                </div>
+                                <div class="text-xs text-gray-500 mt-1">JD, AK</div>
+                            </div>
+                            <div class="flex-1 relative h-16">
+                                <!-- Task Bar - spans from day 1 to day 5 -->
+                                <div class="absolute top-3 h-8 bg-brand-yellow border-2 border-black shadow-brand-sm cursor-move hover:shadow-brand-md transition-shadow flex items-center px-2"
+                                    style="left: 0%; width: 41.66%;">
+                                    <span class="text-xs font-bold truncate">Design landing page</span>
+                                </div>
+                            </div>
+                        </div>
+
+                        <!-- Row 2 -->
+                        <div class="flex hover:bg-gray-50 transition-colors">
+                            <div class="w-64 flex-shrink-0 p-3 border-r-2 border-black bg-white">
+                                <div class="flex items-center gap-2">
+                                    <span class="w-2 h-2 rounded-full bg-red-500"></span>
+                                    <span class="font-medium text-sm truncate">Implement auth flow</span>
+                                </div>
+                                <div class="text-xs text-gray-500 mt-1">AK</div>
+                            </div>
+                            <div class="flex-1 relative h-16">
+                                <!-- Task Bar -->
+                                <div class="absolute top-3 h-8 bg-blue-500 border-2 border-black shadow-brand-sm cursor-move hover:shadow-brand-md transition-shadow flex items-center px-2"
+                                    style="left: 16.66%; width: 33.33%;">
+                                    <span class="text-xs font-bold text-white truncate">Implement auth flow</span>
+                                </div>
+                            </div>
+                        </div>
+
+                        <!-- Row 3 -->
+                        <div class="flex hover:bg-gray-50 transition-colors">
+                            <div class="w-64 flex-shrink-0 p-3 border-r-2 border-black bg-white">
+                                <div class="flex items-center gap-2">
+                                    <span class="w-2 h-2 rounded-full bg-yellow-500"></span>
+                                    <span class="font-medium text-sm truncate">Write product copy</span>
+                                </div>
+                                <div class="text-xs text-gray-500 mt-1">SM</div>
+                            </div>
+                            <div class="flex-1 relative h-16">
+                                <!-- Task Bar -->
+                                <div class="absolute top-3 h-8 bg-purple-500 border-2 border-black shadow-brand-sm cursor-move hover:shadow-brand-md transition-shadow flex items-center px-2"
+                                    style="left: 50%; width: 33.33%;">
+                                    <span class="text-xs font-bold text-white truncate">Write product copy</span>
+                                </div>
+                            </div>
+                        </div>
+
+                        <!-- Row 4 -->
+                        <div class="flex hover:bg-gray-50 transition-colors">
+                            <div class="w-64 flex-shrink-0 p-3 border-r-2 border-black bg-white">
+                                <div class="flex items-center gap-2">
+                                    <span class="w-2 h-2 rounded-full bg-yellow-500"></span>
+                                    <span class="font-medium text-sm truncate">Review pricing page</span>
+                                </div>
+                                <div class="text-xs text-gray-500 mt-1">MK</div>
+                            </div>
+                            <div class="flex-1 relative h-16">
+                                <!-- Task Bar -->
+                                <div class="absolute top-3 h-8 bg-white border-2 border-black shadow-brand-sm cursor-move hover:shadow-brand-md transition-shadow flex items-center px-2"
+                                    style="left: 25%; width: 8.33%;">
+                                    <span class="text-xs font-bold truncate">Review</span>
+                                </div>
+                            </div>
+                        </div>
+
+                        <!-- Row 5 -->
+                        <div class="flex hover:bg-gray-50 transition-colors">
+                            <div class="w-64 flex-shrink-0 p-3 border-r-2 border-black bg-white">
+                                <div class="flex items-center gap-2">
+                                    <span class="w-2 h-2 rounded-full bg-yellow-500"></span>
+                                    <span class="font-medium text-sm truncate">Component library</span>
+                                </div>
+                                <div class="text-xs text-gray-500 mt-1">JD, SM</div>
+                            </div>
+                            <div class="flex-1 relative h-16">
+                                <!-- Task Bar -->
+                                <div class="absolute top-3 h-8 bg-green-500 border-2 border-black shadow-brand-sm cursor-move hover:shadow-brand-md transition-shadow flex items-center px-2"
+                                    style="left: 33.33%; width: 58.33%;">
+                                    <span class="text-xs font-bold text-white truncate">Component library</span>
+                                </div>
+                            </div>
+                        </div>
+
+                        <!-- Milestone Row -->
+                        <div class="flex hover:bg-gray-50 transition-colors">
+                            <div class="w-64 flex-shrink-0 p-3 border-r-2 border-black bg-white">
+                                <div class="flex items-center gap-2">
+                                    <i data-lucide="flag" class="w-4 h-4 text-brand-yellow"></i>
+                                    <span class="font-bold text-sm truncate">Beta Launch</span>
+                                </div>
+                                <div class="text-xs text-gray-500 mt-1">Milestone</div>
+                            </div>
+                            <div class="flex-1 relative h-16">
+                                <!-- Milestone Marker -->
+                                <div class="absolute top-3 flex flex-col items-center"
+                                    style="left: calc(91.66% - 8px);">
+                                    <div class="w-4 h-4 bg-brand-yellow border-2 border-black rotate-45"></div>
+                                    <div class="text-xs font-bold mt-1">Beta</div>
+                                </div>
+                            </div>
+                        </div>
+
+                    </div>
+
+                </div>
+            </div>
+
+            <!-- Legend -->
+            <div class="flex items-center gap-6 p-3 bg-white border-t-2 border-black text-xs">
+                <span class="font-bold uppercase tracking-wider text-gray-500">Legend:</span>
+                <div class="flex items-center gap-2">
+                    <div class="w-4 h-3 bg-brand-yellow border border-black"></div>
+                    <span>Design</span>
+                </div>
+                <div class="flex items-center gap-2">
+                    <div class="w-4 h-3 bg-blue-500 border border-black"></div>
+                    <span>Development</span>
+                </div>
+                <div class="flex items-center gap-2">
+                    <div class="w-4 h-3 bg-purple-500 border border-black"></div>
+                    <span>Content</span>
+                </div>
+                <div class="flex items-center gap-2">
+                    <div class="w-4 h-3 bg-green-500 border border-black"></div>
+                    <span>Testing</span>
+                </div>
+                <div class="flex items-center gap-2">
+                    <div class="w-4 h-4 bg-brand-yellow border border-black rotate-45"></div>
+                    <span>Milestone</span>
+                </div>
+            </div>
+
+        </main>
+
+    </div>
+
+    <script>lucide.createIcons();</script>
+</body>
+
+</html>

@@ -1,0 +1,445 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Kanban Board | Project Management | Movers+Shakers</title>
+    <script src="https://cdn.tailwindcss.com"></script>
+    <link
+        href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&family=Oswald:wght@400;500;600;700&display=swap"
+        rel="stylesheet">
+    <script src="https://unpkg.com/lucide@latest"></script>
+    <!-- Design System Tokens -->
+    <link rel="stylesheet" href="../../tokens/index.css">
+    <style>
+        body {
+            font-family: 'Inter', sans-serif;
+        }
+
+        h1,
+        h2,
+        h3,
+        h4,
+        .brand-font {
+            font-family: 'Oswald', sans-serif;
+            text-transform: uppercase;
+        }
+
+        .kanban-scroll::-webkit-scrollbar {
+            height: 8px;
+        }
+
+        .kanban-scroll::-webkit-scrollbar-track {
+            background: #e5e7eb;
+        }
+
+        .kanban-scroll::-webkit-scrollbar-thumb {
+            background: #111;
+        }
+    </style>
+</head>
+
+<body class="bg-gray-50 min-h-screen flex flex-col">
+
+    <!-- Header -->
+    <header class="bg-brand-black text-white py-4 border-b-8 border-brand-yellow flex-shrink-0">
+        <div class="container mx-auto px-6 flex justify-between items-center">
+            <div class="flex items-center gap-6">
+                <a href="../../interfaces.html" class="text-gray-400 hover:text-white transition-colors">
+                    <i data-lucide="arrow-left" class="w-5 h-5"></i>
+                </a>
+                <div class="text-xl font-bold tracking-widest brand-font">
+                    <span class="text-brand-yellow">Kanban</span> Board
+                </div>
+            </div>
+            <div class="flex items-center gap-4">
+                <!-- View Toggle -->
+                <div class="flex border border-white/20">
+                    <a href="kanban.html"
+                        class="px-3 py-2 text-xs font-bold uppercase bg-brand-yellow text-black">Board</a>
+                    <a href="list.html"
+                        class="px-3 py-2 text-xs font-bold uppercase hover:bg-white/10 transition-colors">List</a>
+                    <a href="timeline.html"
+                        class="px-3 py-2 text-xs font-bold uppercase hover:bg-white/10 transition-colors">Timeline</a>
+                    <a href="calendar.html"
+                        class="px-3 py-2 text-xs font-bold uppercase hover:bg-white/10 transition-colors">Calendar</a>
+                </div>
+                <!-- Add Task -->
+                <button
+                    class="bg-brand-yellow text-black px-4 py-2 font-bold uppercase tracking-wider text-xs hover:bg-white transition-colors">
+                    <i data-lucide="plus" class="w-4 h-4 inline"></i> Add Task
+                </button>
+            </div>
+        </div>
+    </header>
+
+    <div class="flex flex-1 overflow-hidden">
+
+        <!-- Sidebar -->
+        <aside class="w-64 bg-brand-black text-white flex-shrink-0 hidden lg:flex flex-col border-r-2 border-black">
+            <div class="p-4 border-b border-white/10">
+                <h3 class="text-sm font-bold uppercase tracking-wider text-gray-400">Projects</h3>
+            </div>
+            <nav class="flex-1 overflow-y-auto p-4">
+                <ul class="space-y-1">
+                    <li>
+                        <a href="#"
+                            class="flex items-center gap-3 px-3 py-2 bg-brand-yellow text-black font-medium text-sm">
+                            <span class="w-2 h-2 rounded-full bg-black"></span>
+                            Website Redesign
+                        </a>
+                    </li>
+                    <li>
+                        <a href="#"
+                            class="flex items-center gap-3 px-3 py-2 text-gray-400 hover:text-white hover:bg-white/10 transition-colors text-sm">
+                            <span class="w-2 h-2 rounded-full bg-blue-500"></span>
+                            Mobile App v2
+                        </a>
+                    </li>
+                    <li>
+                        <a href="#"
+                            class="flex items-center gap-3 px-3 py-2 text-gray-400 hover:text-white hover:bg-white/10 transition-colors text-sm">
+                            <span class="w-2 h-2 rounded-full bg-green-500"></span>
+                            Marketing Campaign
+                        </a>
+                    </li>
+                    <li>
+                        <a href="#"
+                            class="flex items-center gap-3 px-3 py-2 text-gray-400 hover:text-white hover:bg-white/10 transition-colors text-sm">
+                            <span class="w-2 h-2 rounded-full bg-purple-500"></span>
+                            API Integration
+                        </a>
+                    </li>
+                </ul>
+            </nav>
+            <div class="p-4 border-t border-white/10">
+                <button
+                    class="w-full flex items-center justify-center gap-2 px-3 py-2 border border-white/20 text-gray-400 hover:text-white hover:border-white/40 transition-colors text-sm">
+                    <i data-lucide="plus" class="w-4 h-4"></i>
+                    New Project
+                </button>
+            </div>
+        </aside>
+
+        <!-- Main Kanban Area -->
+        <main class="flex-1 flex flex-col overflow-hidden">
+
+            <!-- Filters Bar -->
+            <div class="flex items-center gap-4 p-4 bg-white border-b-2 border-black">
+                <div class="flex items-center gap-2">
+                    <button
+                        class="flex items-center gap-2 px-3 py-1.5 bg-gray-50 border-2 border-black text-xs font-medium hover:bg-brand-yellow transition-colors">
+                        <i data-lucide="filter" class="w-3 h-3"></i> Filter
+                    </button>
+                    <button
+                        class="flex items-center gap-2 px-3 py-1.5 bg-gray-50 border-2 border-black text-xs font-medium hover:bg-brand-yellow transition-colors">
+                        <i data-lucide="user" class="w-3 h-3"></i> Assignee
+                    </button>
+                    <button
+                        class="flex items-center gap-2 px-3 py-1.5 bg-gray-50 border-2 border-black text-xs font-medium hover:bg-brand-yellow transition-colors">
+                        <i data-lucide="tag" class="w-3 h-3"></i> Labels
+                    </button>
+                </div>
+                <div class="flex-1"></div>
+                <div class="relative">
+                    <i data-lucide="search" class="w-4 h-4 absolute left-3 top-1/2 -translate-y-1/2 text-gray-400"></i>
+                    <input type="text" placeholder="Search tasks..."
+                        class="pl-10 pr-4 py-1.5 bg-gray-50 border-2 border-black text-sm focus:border-brand-yellow focus:outline-none w-48">
+                </div>
+            </div>
+
+            <!-- Kanban Columns -->
+            <div class="flex-1 overflow-x-auto kanban-scroll p-6">
+                <div class="flex gap-6 h-full min-w-max">
+
+                    <!-- To Do Column -->
+                    <div class="w-80 flex-shrink-0 flex flex-col">
+                        <div class="flex items-center justify-between mb-4 pb-2 border-b-2 border-black">
+                            <div class="flex items-center gap-2">
+                                <span class="w-3 h-3 rounded-full bg-gray-400"></span>
+                                <h3 class="font-bold uppercase tracking-wider text-sm">To Do</h3>
+                                <span class="text-xs bg-gray-200 px-2 py-0.5 font-bold">4</span>
+                            </div>
+                            <button class="text-gray-400 hover:text-black transition-colors">
+                                <i data-lucide="plus" class="w-4 h-4"></i>
+                            </button>
+                        </div>
+                        <div class="flex-1 space-y-3 overflow-y-auto">
+
+                            <!-- Task Card -->
+                            <div
+                                class="bg-white border-2 border-black p-4 shadow-brand-sm cursor-move hover:shadow-brand-md transition-shadow">
+                                <div class="flex items-start justify-between mb-2">
+                                    <span class="text-xs font-bold px-2 py-0.5 bg-red-500 text-white">HIGH</span>
+                                    <button class="text-gray-400 hover:text-black">
+                                        <i data-lucide="more-horizontal" class="w-4 h-4"></i>
+                                    </button>
+                                </div>
+                                <h4 class="font-bold text-black mb-2">Design new landing page hero section</h4>
+                                <p class="text-gray-600 text-sm mb-3">Create mockups for the homepage hero with
+                                    animations</p>
+                                <div class="flex items-center gap-2 text-xs text-gray-500 mb-3">
+                                    <i data-lucide="calendar" class="w-3 h-3"></i>
+                                    <span>Dec 15</span>
+                                </div>
+                                <div class="flex items-center justify-between">
+                                    <div class="flex -space-x-2">
+                                        <div
+                                            class="w-6 h-6 rounded-full bg-brand-yellow border-2 border-white flex items-center justify-center text-xs font-bold">
+                                            JD</div>
+                                        <div
+                                            class="w-6 h-6 rounded-full bg-blue-500 border-2 border-white flex items-center justify-center text-xs font-bold text-white">
+                                            AK</div>
+                                    </div>
+                                    <div class="flex items-center gap-1 text-xs text-gray-500">
+                                        <i data-lucide="check-square" class="w-3 h-3"></i> 2/5
+                                    </div>
+                                </div>
+                            </div>
+
+                            <!-- Task Card -->
+                            <div
+                                class="bg-white border-2 border-black p-4 shadow-brand-sm cursor-move hover:shadow-brand-md transition-shadow">
+                                <div class="flex items-start justify-between mb-2">
+                                    <span class="text-xs font-bold px-2 py-0.5 bg-brand-yellow text-black">MEDIUM</span>
+                                    <button class="text-gray-400 hover:text-black">
+                                        <i data-lucide="more-horizontal" class="w-4 h-4"></i>
+                                    </button>
+                                </div>
+                                <h4 class="font-bold text-black mb-2">Write product copy</h4>
+                                <p class="text-gray-600 text-sm mb-3">Homepage, about page, and feature descriptions</p>
+                                <div class="flex items-center gap-2 mb-3">
+                                    <span
+                                        class="text-xs px-2 py-0.5 bg-purple-100 text-purple-700 border border-purple-300">Content</span>
+                                </div>
+                                <div class="flex items-center justify-between">
+                                    <div
+                                        class="w-6 h-6 rounded-full bg-green-500 border-2 border-white flex items-center justify-center text-xs font-bold text-white">
+                                        SM</div>
+                                    <div class="flex items-center gap-1 text-xs text-gray-500">
+                                        <i data-lucide="message-square" class="w-3 h-3"></i> 3
+                                    </div>
+                                </div>
+                            </div>
+
+                            <!-- Task Card -->
+                            <div
+                                class="bg-white border-2 border-black p-4 shadow-brand-sm cursor-move hover:shadow-brand-md transition-shadow">
+                                <div class="flex items-start justify-between mb-2">
+                                    <span class="text-xs font-bold px-2 py-0.5 bg-gray-300 text-gray-700">LOW</span>
+                                    <button class="text-gray-400 hover:text-black">
+                                        <i data-lucide="more-horizontal" class="w-4 h-4"></i>
+                                    </button>
+                                </div>
+                                <h4 class="font-bold text-black mb-2">Research competitor pricing</h4>
+                                <div class="flex items-center justify-between mt-3">
+                                    <div
+                                        class="w-6 h-6 rounded-full bg-brand-yellow border-2 border-white flex items-center justify-center text-xs font-bold">
+                                        JD</div>
+                                </div>
+                            </div>
+
+                            <!-- Add Task Button -->
+                            <button
+                                class="w-full py-3 border-2 border-dashed border-gray-300 text-gray-400 hover:border-brand-yellow hover:text-brand-black transition-colors flex items-center justify-center gap-2 text-sm">
+                                <i data-lucide="plus" class="w-4 h-4"></i> Add Task
+                            </button>
+
+                        </div>
+                    </div>
+
+                    <!-- In Progress Column -->
+                    <div class="w-80 flex-shrink-0 flex flex-col">
+                        <div class="flex items-center justify-between mb-4 pb-2 border-b-2 border-brand-yellow">
+                            <div class="flex items-center gap-2">
+                                <span class="w-3 h-3 rounded-full bg-brand-yellow"></span>
+                                <h3 class="font-bold uppercase tracking-wider text-sm">In Progress</h3>
+                                <span class="text-xs bg-brand-yellow px-2 py-0.5 font-bold">2</span>
+                            </div>
+                            <button class="text-gray-400 hover:text-black transition-colors">
+                                <i data-lucide="plus" class="w-4 h-4"></i>
+                            </button>
+                        </div>
+                        <div class="flex-1 space-y-3 overflow-y-auto">
+
+                            <!-- Task Card -->
+                            <div
+                                class="bg-white border-2 border-brand-yellow p-4 shadow-brand-sm cursor-move hover:shadow-brand-md transition-shadow">
+                                <div class="flex items-start justify-between mb-2">
+                                    <span class="text-xs font-bold px-2 py-0.5 bg-red-500 text-white">HIGH</span>
+                                    <button class="text-gray-400 hover:text-black">
+                                        <i data-lucide="more-horizontal" class="w-4 h-4"></i>
+                                    </button>
+                                </div>
+                                <h4 class="font-bold text-black mb-2">Implement authentication flow</h4>
+                                <p class="text-gray-600 text-sm mb-3">OAuth, email/password, forgot password</p>
+                                <div class="mb-3">
+                                    <div class="flex items-center justify-between text-xs text-gray-500 mb-1">
+                                        <span>Progress</span>
+                                        <span>60%</span>
+                                    </div>
+                                    <div class="w-full h-2 bg-gray-200 border border-black">
+                                        <div class="h-full bg-brand-yellow" style="width: 60%"></div>
+                                    </div>
+                                </div>
+                                <div class="flex items-center justify-between">
+                                    <div class="flex -space-x-2">
+                                        <div
+                                            class="w-6 h-6 rounded-full bg-blue-500 border-2 border-white flex items-center justify-center text-xs font-bold text-white">
+                                            AK</div>
+                                    </div>
+                                    <div class="flex items-center gap-1 text-xs text-gray-500">
+                                        <i data-lucide="check-square" class="w-3 h-3"></i> 3/5
+                                    </div>
+                                </div>
+                            </div>
+
+                            <!-- Task Card -->
+                            <div
+                                class="bg-white border-2 border-black p-4 shadow-brand-sm cursor-move hover:shadow-brand-md transition-shadow">
+                                <div class="flex items-start justify-between mb-2">
+                                    <span class="text-xs font-bold px-2 py-0.5 bg-brand-yellow text-black">MEDIUM</span>
+                                    <button class="text-gray-400 hover:text-black">
+                                        <i data-lucide="more-horizontal" class="w-4 h-4"></i>
+                                    </button>
+                                </div>
+                                <h4 class="font-bold text-black mb-2">Create component library</h4>
+                                <div class="flex items-center gap-2 mb-3">
+                                    <span
+                                        class="text-xs px-2 py-0.5 bg-blue-100 text-blue-700 border border-blue-300">Design</span>
+                                    <span
+                                        class="text-xs px-2 py-0.5 bg-green-100 text-green-700 border border-green-300">Dev</span>
+                                </div>
+                                <div class="flex items-center justify-between">
+                                    <div class="flex -space-x-2">
+                                        <div
+                                            class="w-6 h-6 rounded-full bg-brand-yellow border-2 border-white flex items-center justify-center text-xs font-bold">
+                                            JD</div>
+                                        <div
+                                            class="w-6 h-6 rounded-full bg-green-500 border-2 border-white flex items-center justify-center text-xs font-bold text-white">
+                                            SM</div>
+                                    </div>
+                                </div>
+                            </div>
+
+                            <!-- Add Task Button -->
+                            <button
+                                class="w-full py-3 border-2 border-dashed border-gray-300 text-gray-400 hover:border-brand-yellow hover:text-brand-black transition-colors flex items-center justify-center gap-2 text-sm">
+                                <i data-lucide="plus" class="w-4 h-4"></i> Add Task
+                            </button>
+
+                        </div>
+                    </div>
+
+                    <!-- Review Column -->
+                    <div class="w-80 flex-shrink-0 flex flex-col">
+                        <div class="flex items-center justify-between mb-4 pb-2 border-b-2 border-black">
+                            <div class="flex items-center gap-2">
+                                <span class="w-3 h-3 rounded-full bg-purple-500"></span>
+                                <h3 class="font-bold uppercase tracking-wider text-sm">Review</h3>
+                                <span class="text-xs bg-gray-200 px-2 py-0.5 font-bold">1</span>
+                            </div>
+                            <button class="text-gray-400 hover:text-black transition-colors">
+                                <i data-lucide="plus" class="w-4 h-4"></i>
+                            </button>
+                        </div>
+                        <div class="flex-1 space-y-3 overflow-y-auto">
+
+                            <!-- Task Card -->
+                            <div
+                                class="bg-white border-2 border-black p-4 shadow-brand-sm cursor-move hover:shadow-brand-md transition-shadow">
+                                <div class="flex items-start justify-between mb-2">
+                                    <span class="text-xs font-bold px-2 py-0.5 bg-brand-yellow text-black">MEDIUM</span>
+                                    <button class="text-gray-400 hover:text-black">
+                                        <i data-lucide="more-horizontal" class="w-4 h-4"></i>
+                                    </button>
+                                </div>
+                                <h4 class="font-bold text-black mb-2">Review pricing page design</h4>
+                                <p class="text-gray-600 text-sm mb-3">Get stakeholder feedback on tier structure</p>
+                                <div class="flex items-center gap-2 text-xs mb-3">
+                                    <span class="flex items-center gap-1 text-orange-600">
+                                        <i data-lucide="alert-circle" class="w-3 h-3"></i> Due today
+                                    </span>
+                                </div>
+                                <div class="flex items-center justify-between">
+                                    <div
+                                        class="w-6 h-6 rounded-full bg-purple-500 border-2 border-white flex items-center justify-center text-xs font-bold text-white">
+                                        MK</div>
+                                    <div class="flex items-center gap-1 text-xs text-gray-500">
+                                        <i data-lucide="paperclip" class="w-3 h-3"></i> 2
+                                    </div>
+                                </div>
+                            </div>
+
+                            <!-- Add Task Button -->
+                            <button
+                                class="w-full py-3 border-2 border-dashed border-gray-300 text-gray-400 hover:border-brand-yellow hover:text-brand-black transition-colors flex items-center justify-center gap-2 text-sm">
+                                <i data-lucide="plus" class="w-4 h-4"></i> Add Task
+                            </button>
+
+                        </div>
+                    </div>
+
+                    <!-- Done Column -->
+                    <div class="w-80 flex-shrink-0 flex flex-col">
+                        <div class="flex items-center justify-between mb-4 pb-2 border-b-2 border-black">
+                            <div class="flex items-center gap-2">
+                                <span class="w-3 h-3 rounded-full bg-green-500"></span>
+                                <h3 class="font-bold uppercase tracking-wider text-sm">Done</h3>
+                                <span class="text-xs bg-gray-200 px-2 py-0.5 font-bold">3</span>
+                            </div>
+                            <button class="text-gray-400 hover:text-black transition-colors">
+                                <i data-lucide="chevron-down" class="w-4 h-4"></i>
+                            </button>
+                        </div>
+                        <div class="flex-1 space-y-3 overflow-y-auto">
+
+                            <!-- Completed Task Card -->
+                            <div class="bg-gray-100 border-2 border-gray-300 p-4 cursor-move opacity-75">
+                                <div class="flex items-start justify-between mb-2">
+                                    <span class="text-xs font-bold px-2 py-0.5 bg-green-500 text-white">DONE</span>
+                                </div>
+                                <h4 class="font-bold text-gray-500 mb-2 line-through">Set up project repository</h4>
+                                <div class="flex items-center justify-between">
+                                    <div
+                                        class="w-6 h-6 rounded-full bg-blue-500 border-2 border-white flex items-center justify-center text-xs font-bold text-white">
+                                        AK</div>
+                                </div>
+                            </div>
+
+                            <!-- Completed Task Card -->
+                            <div class="bg-gray-100 border-2 border-gray-300 p-4 cursor-move opacity-75">
+                                <div class="flex items-start justify-between mb-2">
+                                    <span class="text-xs font-bold px-2 py-0.5 bg-green-500 text-white">DONE</span>
+                                </div>
+                                <h4 class="font-bold text-gray-500 mb-2 line-through">Initial design system audit</h4>
+                                <div class="flex items-center justify-between">
+                                    <div
+                                        class="w-6 h-6 rounded-full bg-brand-yellow border-2 border-white flex items-center justify-center text-xs font-bold">
+                                        JD</div>
+                                </div>
+                            </div>
+
+                        </div>
+                    </div>
+
+                    <!-- Add Column -->
+                    <div class="w-80 flex-shrink-0">
+                        <button
+                            class="w-full py-4 border-2 border-dashed border-gray-300 text-gray-400 hover:border-brand-yellow hover:text-brand-black transition-colors flex items-center justify-center gap-2">
+                            <i data-lucide="plus" class="w-5 h-5"></i> Add Column
+                        </button>
+                    </div>
+
+                </div>
+            </div>
+
+        </main>
+
+    </div>
+
+    <script>lucide.createIcons();</script>
+</body>
+
+</html>
