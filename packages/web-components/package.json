@@ -1,12 +1,11 @@
 {
-    "name": "@movers-shakers/web-components",
+    "name": "@welovejeff/movers-web-components",
     "private": false,
     "version": "1.0.0",
     "type": "module",
-    "description": "Movers+Shakers Design System - Web Components",
+    "description": "Movers+Shakers Design System - Web Components with Lit",
     "main": "./dist/index.cjs.js",
     "module": "./dist/index.es.js",
-    "types": "./dist/index.d.ts",
     "exports": {
         ".": {
             "import": "./dist/index.es.js",
@@ -16,13 +15,28 @@
     "files": [
         "dist"
     ],
+    "publishConfig": {
+        "registry": "https://npm.pkg.github.com"
+    },
+    "repository": {
+        "type": "git",
+        "url": "https://github.com/welovejeff/MoversShakers-Atomic-Design.git",
+        "directory": "packages/web-components"
+    },
+    "homepage": "https://github.com/welovejeff/MoversShakers-Atomic-Design#readme",
+    "bugs": {
+        "url": "https://github.com/welovejeff/MoversShakers-Atomic-Design/issues"
+    },
     "scripts": {
         "dev": "vite",
         "build": "tsc && vite build",
-        "preview": "vite preview"
+        "preview": "vite preview",
+        "prepublishOnly": "npm run build"
+    },
+    "dependencies": {
+        "lit": "^3.2.0"
     },
     "devDependencies": {
-        "lit": "^3.2.0",
         "typescript": "~5.9.3",
         "vite": "^7.2.4"
     },
@@ -31,7 +45,8 @@
         "custom-elements",
         "design-system",
         "movers-shakers",
-        "lit"
+        "lit",
+        "ui-library"
     ],
     "author": "Movers+Shakers",
     "license": "MIT"
