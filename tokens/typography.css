@@ -1,0 +1,36 @@
+/**
+ * Movers+Shakers Design System
+ * Typography Tokens
+ */
+
+:root {
+    /* ========================
+       TYPOGRAPHY SCALE
+    ======================== */
+    --text-xs: 12px;
+    --text-sm: 14px;
+    --text-base: 16px;
+    --text-lg: 18px;
+    --text-xl: 20px;
+    --text-2xl: 24px;
+    --text-3xl: 30px;
+    --text-4xl: 36px;
+    --text-5xl: 48px;
+    --text-6xl: 60px;
+    --text-7xl: 72px;
+}
+
+/* ========================
+   BASE TYPOGRAPHY
+======================== */
+body {
+    font-family: 'Inter', sans-serif;
+    color: var(--color-brand-black);
+    line-height: 1.6;
+}
+
+h1, h2, h3, h4, h5, h6, .brand-font {
+    font-family: 'Oswald', sans-serif;
+    text-transform: uppercase;
+    line-height: 1.1;
+}

@@ -1,0 +1,243 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Form Elements | Movers+Shakers Atoms</title>
+    <script src="https://cdn.tailwindcss.com"></script>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&family=Oswald:wght@400;500;600;700&display=swap" rel="stylesheet">
+    <script src="https://unpkg.com/lucide@latest"></script>
+    <style>
+        :root {
+            --color-brand-yellow: #FFF000;
+            --color-brand-black: #111111;
+            --color-success: #10B981;
+            --color-success-light: #D1FAE5;
+            --color-error: #EF4444;
+            --color-error-light: #FEE2E2;
+        }
+        body { font-family: 'Inter', sans-serif; }
+        h1, h2, h3, .brand-font { font-family: 'Oswald', sans-serif; text-transform: uppercase; }
+        .bg-brand-yellow { background-color: var(--color-brand-yellow); }
+        .bg-success-light { background-color: var(--color-success-light); }
+        .bg-error-light { background-color: var(--color-error-light); }
+        .border-success { border-color: var(--color-success); }
+        .border-error { border-color: var(--color-error); }
+        .text-success { color: var(--color-success); }
+        .text-error { color: var(--color-error); }
+    </style>
+</head>
+<body class="bg-gray-50 p-8">
+
+    <div class="max-w-4xl mx-auto">
+        <header class="mb-12">
+            <nav class="text-sm text-gray-500 mb-4">
+                <a href="../index.html" class="hover:text-black">Design System</a> /
+                <a href="../atoms.html" class="hover:text-black">Atoms</a> /
+                <span class="text-black font-medium">Form Elements</span>
+            </nav>
+            <h1 class="text-4xl font-bold mb-2">Form Elements</h1>
+            <p class="text-gray-600">Input fields, selects, checkboxes, and other form controls.</p>
+        </header>
+
+        <!-- Text Inputs -->
+        <section class="mb-12">
+            <h2 class="text-xl font-bold mb-4 pb-2 border-b-2 border-black">Text Inputs</h2>
+            <div class="bg-white p-6 border border-gray-200">
+                <div class="grid md:grid-cols-2 gap-6">
+                    <!-- Default -->
+                    <div class="space-y-2">
+                        <label class="block text-xs font-bold uppercase tracking-widest text-gray-600">Default Input</label>
+                        <input type="text" placeholder="Enter text..." class="w-full bg-white border-2 border-gray-300 p-3 focus:outline-none focus:border-black focus:ring-4 focus:ring-yellow-200 transition-all font-medium">
+                    </div>
+
+                    <!-- With Icon -->
+                    <div class="space-y-2">
+                        <label class="block text-xs font-bold uppercase tracking-widest text-gray-600">With Icon</label>
+                        <div class="relative">
+                            <i data-lucide="search" class="absolute left-3 top-3.5 text-gray-400 w-5 h-5"></i>
+                            <input type="text" placeholder="Search..." class="w-full bg-white border-2 border-gray-300 p-3 pl-10 focus:outline-none focus:border-black focus:ring-4 focus:ring-yellow-200 transition-all font-medium">
+                        </div>
+                    </div>
+
+                    <!-- Success State -->
+                    <div class="space-y-2">
+                        <label class="block text-xs font-bold uppercase tracking-widest text-success">Success State</label>
+                        <div class="relative">
+                            <input type="text" value="Valid input" class="w-full bg-success-light border-2 border-success p-3 pr-10 focus:outline-none font-medium">
+                            <i data-lucide="check-circle" class="absolute right-3 top-3.5 text-success w-5 h-5"></i>
+                        </div>
+                        <p class="text-xs text-success font-medium">This field is valid</p>
+                    </div>
+
+                    <!-- Error State -->
+                    <div class="space-y-2">
+                        <label class="block text-xs font-bold uppercase tracking-widest text-error">Error State</label>
+                        <div class="relative">
+                            <input type="text" value="Invalid input" class="w-full bg-error-light border-2 border-error p-3 pr-10 focus:outline-none font-medium">
+                            <i data-lucide="alert-circle" class="absolute right-3 top-3.5 text-error w-5 h-5"></i>
+                        </div>
+                        <p class="text-xs text-error font-medium">This field has an error</p>
+                    </div>
+
+                    <!-- Disabled -->
+                    <div class="space-y-2">
+                        <label class="block text-xs font-bold uppercase tracking-widest text-gray-400">Disabled</label>
+                        <input type="text" placeholder="Disabled input" class="w-full bg-gray-100 border-2 border-gray-200 p-3 font-medium text-gray-400 cursor-not-allowed" disabled>
+                    </div>
+
+                    <!-- With Helper Text -->
+                    <div class="space-y-2">
+                        <label class="block text-xs font-bold uppercase tracking-widest text-gray-600">Username</label>
+                        <input type="text" placeholder="Choose a username" class="w-full bg-white border-2 border-gray-300 p-3 focus:outline-none focus:border-black focus:ring-4 focus:ring-yellow-200 transition-all font-medium">
+                        <p class="text-xs text-gray-500">Must be 3-20 characters long</p>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <!-- Textarea -->
+        <section class="mb-12">
+            <h2 class="text-xl font-bold mb-4 pb-2 border-b-2 border-black">Textarea</h2>
+            <div class="bg-white p-6 border border-gray-200">
+                <div class="grid md:grid-cols-2 gap-6">
+                    <div class="space-y-2">
+                        <label class="block text-xs font-bold uppercase tracking-widest text-gray-600">Message</label>
+                        <textarea rows="4" placeholder="Enter your message..." class="w-full bg-white border-2 border-gray-300 p-3 focus:outline-none focus:border-black focus:ring-4 focus:ring-yellow-200 transition-all font-medium resize-y min-h-[120px]"></textarea>
+                        <p class="text-xs text-gray-500 text-right">0/500 characters</p>
+                    </div>
+                    <div class="space-y-2">
+                        <label class="block text-xs font-bold uppercase tracking-widest text-gray-600">Non-resizable</label>
+                        <textarea rows="4" placeholder="Fixed size textarea..." class="w-full bg-white border-2 border-gray-300 p-3 focus:outline-none focus:border-black focus:ring-4 focus:ring-yellow-200 transition-all font-medium resize-none h-[120px]"></textarea>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <!-- Select -->
+        <section class="mb-12">
+            <h2 class="text-xl font-bold mb-4 pb-2 border-b-2 border-black">Select / Dropdown</h2>
+            <div class="bg-white p-6 border border-gray-200">
+                <div class="grid md:grid-cols-3 gap-6">
+                    <div class="space-y-2">
+                        <label class="block text-xs font-bold uppercase tracking-widest text-gray-600">Default Select</label>
+                        <div class="relative">
+                            <select class="w-full bg-white border-2 border-gray-300 p-3 pr-10 focus:outline-none focus:border-black focus:ring-4 focus:ring-yellow-200 transition-all font-medium appearance-none cursor-pointer">
+                                <option value="">Select an option...</option>
+                                <option value="1">Option One</option>
+                                <option value="2">Option Two</option>
+                                <option value="3">Option Three</option>
+                            </select>
+                            <i data-lucide="chevron-down" class="absolute right-3 top-3.5 text-gray-400 w-5 h-5 pointer-events-none"></i>
+                        </div>
+                    </div>
+                    <div class="space-y-2">
+                        <label class="block text-xs font-bold uppercase tracking-widest text-gray-600">With Selection</label>
+                        <div class="relative">
+                            <select class="w-full bg-white border-2 border-gray-300 p-3 pr-10 focus:outline-none focus:border-black focus:ring-4 focus:ring-yellow-200 transition-all font-medium appearance-none cursor-pointer">
+                                <option value="1" selected>Option One</option>
+                                <option value="2">Option Two</option>
+                            </select>
+                            <i data-lucide="chevron-down" class="absolute right-3 top-3.5 text-gray-400 w-5 h-5 pointer-events-none"></i>
+                        </div>
+                    </div>
+                    <div class="space-y-2">
+                        <label class="block text-xs font-bold uppercase tracking-widest text-gray-400">Disabled</label>
+                        <div class="relative">
+                            <select class="w-full bg-gray-100 border-2 border-gray-200 p-3 pr-10 font-medium appearance-none cursor-not-allowed text-gray-400" disabled>
+                                <option value="">Disabled select</option>
+                            </select>
+                            <i data-lucide="chevron-down" class="absolute right-3 top-3.5 text-gray-300 w-5 h-5 pointer-events-none"></i>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <!-- Checkboxes -->
+        <section class="mb-12">
+            <h2 class="text-xl font-bold mb-4 pb-2 border-b-2 border-black">Checkboxes</h2>
+            <div class="bg-white p-6 border border-gray-200">
+                <div class="grid md:grid-cols-2 lg:grid-cols-4 gap-6">
+                    <label class="flex items-center gap-3 cursor-pointer group">
+                        <div class="w-6 h-6 border-2 border-black flex items-center justify-center bg-white group-hover:bg-yellow-100 transition-colors"></div>
+                        <span class="font-medium text-sm">Unchecked</span>
+                    </label>
+                    <label class="flex items-center gap-3 cursor-pointer group">
+                        <div class="w-6 h-6 border-2 border-black flex items-center justify-center bg-brand-yellow">
+                            <i data-lucide="check" class="w-4 h-4 text-black"></i>
+                        </div>
+                        <span class="font-medium text-sm">Checked</span>
+                    </label>
+                    <label class="flex items-center gap-3 cursor-pointer group">
+                        <div class="w-6 h-6 border-2 border-black flex items-center justify-center bg-brand-yellow">
+                            <i data-lucide="minus" class="w-4 h-4 text-black"></i>
+                        </div>
+                        <span class="font-medium text-sm">Indeterminate</span>
+                    </label>
+                    <label class="flex items-center gap-3 cursor-not-allowed">
+                        <div class="w-6 h-6 border-2 border-gray-300 flex items-center justify-center bg-gray-100"></div>
+                        <span class="font-medium text-sm text-gray-400">Disabled</span>
+                    </label>
+                </div>
+            </div>
+        </section>
+
+        <!-- Radio Buttons -->
+        <section class="mb-12">
+            <h2 class="text-xl font-bold mb-4 pb-2 border-b-2 border-black">Radio Buttons</h2>
+            <div class="bg-white p-6 border border-gray-200">
+                <div class="grid md:grid-cols-2 lg:grid-cols-4 gap-6">
+                    <label class="flex items-center gap-3 cursor-pointer group">
+                        <div class="w-6 h-6 border-2 border-black rounded-full flex items-center justify-center bg-white group-hover:bg-yellow-100 transition-colors"></div>
+                        <span class="font-medium text-sm">Unselected</span>
+                    </label>
+                    <label class="flex items-center gap-3 cursor-pointer group">
+                        <div class="w-6 h-6 border-2 border-black rounded-full flex items-center justify-center bg-brand-yellow">
+                            <div class="w-2.5 h-2.5 bg-black rounded-full"></div>
+                        </div>
+                        <span class="font-medium text-sm">Selected</span>
+                    </label>
+                    <label class="flex items-center gap-3 cursor-not-allowed">
+                        <div class="w-6 h-6 border-2 border-gray-300 rounded-full flex items-center justify-center bg-gray-100"></div>
+                        <span class="font-medium text-sm text-gray-400">Disabled</span>
+                    </label>
+                </div>
+            </div>
+        </section>
+
+        <!-- Toggle Switch -->
+        <section class="mb-12">
+            <h2 class="text-xl font-bold mb-4 pb-2 border-b-2 border-black">Toggle Switches</h2>
+            <div class="bg-white p-6 border border-gray-200">
+                <div class="flex flex-wrap gap-8 items-center">
+                    <!-- Off -->
+                    <label class="flex items-center gap-3 cursor-pointer">
+                        <div class="w-14 h-8 bg-gray-300 border-2 border-black relative transition-colors">
+                            <div class="w-6 h-6 bg-white border-2 border-black absolute top-0 left-0 transition-transform"></div>
+                        </div>
+                        <span class="font-medium text-sm">Off</span>
+                    </label>
+                    <!-- On -->
+                    <label class="flex items-center gap-3 cursor-pointer">
+                        <div class="w-14 h-8 bg-brand-yellow border-2 border-black relative transition-colors">
+                            <div class="w-6 h-6 bg-white border-2 border-black absolute top-0 left-6 transition-transform"></div>
+                        </div>
+                        <span class="font-medium text-sm">On</span>
+                    </label>
+                    <!-- Disabled -->
+                    <label class="flex items-center gap-3 cursor-not-allowed">
+                        <div class="w-14 h-8 bg-gray-200 border-2 border-gray-300 relative">
+                            <div class="w-6 h-6 bg-gray-100 border-2 border-gray-300 absolute top-0 left-0"></div>
+                        </div>
+                        <span class="font-medium text-sm text-gray-400">Disabled</span>
+                    </label>
+                </div>
+            </div>
+        </section>
+
+    </div>
+
+    <script>lucide.createIcons();</script>
+</body>
+</html>

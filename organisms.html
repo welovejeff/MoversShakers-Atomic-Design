@@ -1,0 +1,123 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Organisms | Movers+Shakers Design System</title>
+    <script src="https://cdn.tailwindcss.com"></script>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&family=Oswald:wght@400;500;600;700&display=swap" rel="stylesheet">
+    <script src="https://unpkg.com/lucide@latest"></script>
+    <style>
+        :root { --color-brand-yellow: #FFF000; --color-brand-black: #111111; --shadow-md: 4px 4px 0px 0px rgba(0,0,0,1); }
+        body { font-family: 'Inter', sans-serif; }
+        h1, h2, h3, .brand-font { font-family: 'Oswald', sans-serif; text-transform: uppercase; }
+        .bg-brand-yellow { background-color: var(--color-brand-yellow); }
+        .bg-brand-black { background-color: var(--color-brand-black); }
+        .text-brand-yellow { color: var(--color-brand-yellow); }
+        .shadow-brand-md { box-shadow: var(--shadow-md); }
+    </style>
+</head>
+<body class="bg-gray-50 min-h-screen">
+    <header class="bg-brand-black text-white border-b-4 border-brand-yellow">
+        <div class="container mx-auto px-6 py-4 flex items-center justify-between">
+            <a href="index.html" class="text-xl font-bold tracking-widest brand-font">MOVERS<span class="text-brand-yellow">+</span>SHAKERS</a>
+            <nav class="hidden md:flex items-center gap-6">
+                <a href="index.html" class="text-sm font-bold uppercase tracking-wider hover:text-brand-yellow transition-colors">Design System</a>
+                <a href="atoms.html" class="text-sm font-bold uppercase tracking-wider hover:text-brand-yellow transition-colors">Atoms</a>
+                <a href="molecules.html" class="text-sm font-bold uppercase tracking-wider hover:text-brand-yellow transition-colors">Molecules</a>
+                <span class="text-brand-yellow font-bold text-sm uppercase tracking-wider">Organisms</span>
+            </nav>
+        </div>
+    </header>
+
+    <main class="container mx-auto px-6 py-12">
+        <div class="mb-12">
+            <h1 class="text-5xl font-bold mb-4">03 — Organisms</h1>
+            <p class="text-gray-600 text-lg max-w-2xl">
+                Organisms are complex components composed of groups of molecules and atoms. They form distinct sections of an interface.
+            </p>
+        </div>
+
+        <div class="grid md:grid-cols-2 lg:grid-cols-3 gap-6">
+            <a href="index.html#organisms" class="bg-white border-2 border-black p-6 shadow-brand-md hover:shadow-none hover:translate-x-1 hover:translate-y-1 transition-all">
+                <div class="flex items-center gap-4 mb-4">
+                    <div class="w-12 h-12 bg-brand-yellow border-2 border-black flex items-center justify-center">
+                        <i data-lucide="menu" class="w-6 h-6"></i>
+                    </div>
+                    <h3 class="text-xl font-bold">Navigation Bars</h3>
+                </div>
+                <p class="text-gray-600 text-sm">Primary and secondary navigation headers.</p>
+            </a>
+            <a href="index.html#organisms" class="bg-white border-2 border-black p-6 shadow-brand-md hover:shadow-none hover:translate-x-1 hover:translate-y-1 transition-all">
+                <div class="flex items-center gap-4 mb-4">
+                    <div class="w-12 h-12 bg-brand-yellow border-2 border-black flex items-center justify-center">
+                        <i data-lucide="layout" class="w-6 h-6"></i>
+                    </div>
+                    <h3 class="text-xl font-bold">Hero Sections</h3>
+                </div>
+                <p class="text-gray-600 text-sm">Large banner sections for page headers.</p>
+            </a>
+            <a href="index.html#organisms" class="bg-white border-2 border-black p-6 shadow-brand-md hover:shadow-none hover:translate-x-1 hover:translate-y-1 transition-all">
+                <div class="flex items-center gap-4 mb-4">
+                    <div class="w-12 h-12 bg-brand-yellow border-2 border-black flex items-center justify-center">
+                        <i data-lucide="grid" class="w-6 h-6"></i>
+                    </div>
+                    <h3 class="text-xl font-bold">Feature Sections</h3>
+                </div>
+                <p class="text-gray-600 text-sm">Feature grids, stats, and testimonials.</p>
+            </a>
+            <a href="index.html#organisms" class="bg-white border-2 border-black p-6 shadow-brand-md hover:shadow-none hover:translate-x-1 hover:translate-y-1 transition-all">
+                <div class="flex items-center gap-4 mb-4">
+                    <div class="w-12 h-12 bg-brand-yellow border-2 border-black flex items-center justify-center">
+                        <i data-lucide="align-justify" class="w-6 h-6"></i>
+                    </div>
+                    <h3 class="text-xl font-bold">Footer</h3>
+                </div>
+                <p class="text-gray-600 text-sm">Site footers with links and CTAs.</p>
+            </a>
+            <a href="index.html#organisms" class="bg-white border-2 border-black p-6 shadow-brand-md hover:shadow-none hover:translate-x-1 hover:translate-y-1 transition-all">
+                <div class="flex items-center gap-4 mb-4">
+                    <div class="w-12 h-12 bg-brand-yellow border-2 border-black flex items-center justify-center">
+                        <i data-lucide="sidebar" class="w-6 h-6"></i>
+                    </div>
+                    <h3 class="text-xl font-bold">Sidebar</h3>
+                </div>
+                <p class="text-gray-600 text-sm">Application sidebars and drawers.</p>
+            </a>
+            <a href="demo.html" class="bg-white border-2 border-black p-6 shadow-brand-md hover:shadow-none hover:translate-x-1 hover:translate-y-1 transition-all">
+                <div class="flex items-center gap-4 mb-4">
+                    <div class="w-12 h-12 bg-brand-yellow border-2 border-black flex items-center justify-center">
+                        <i data-lucide="file-text" class="w-6 h-6"></i>
+                    </div>
+                    <h3 class="text-xl font-bold">Complete Forms</h3>
+                </div>
+                <p class="text-gray-600 text-sm">Full form layouts with validation. <span class="text-brand-yellow">(Interactive)</span></p>
+            </a>
+            <a href="index.html#organisms" class="bg-white border-2 border-black p-6 shadow-brand-md hover:shadow-none hover:translate-x-1 hover:translate-y-1 transition-all">
+                <div class="flex items-center gap-4 mb-4">
+                    <div class="w-12 h-12 bg-brand-yellow border-2 border-black flex items-center justify-center">
+                        <i data-lucide="inbox" class="w-6 h-6"></i>
+                    </div>
+                    <h3 class="text-xl font-bold">Empty States</h3>
+                </div>
+                <p class="text-gray-600 text-sm">Placeholder content for empty views.</p>
+            </a>
+            <a href="index.html#organisms" class="bg-white border-2 border-black p-6 shadow-brand-md hover:shadow-none hover:translate-x-1 hover:translate-y-1 transition-all">
+                <div class="flex items-center gap-4 mb-4">
+                    <div class="w-12 h-12 bg-brand-yellow border-2 border-black flex items-center justify-center">
+                        <i data-lucide="alert-circle" class="w-6 h-6"></i>
+                    </div>
+                    <h3 class="text-xl font-bold">Error Pages</h3>
+                </div>
+                <p class="text-gray-600 text-sm">404, 500, and maintenance pages.</p>
+            </a>
+        </div>
+
+        <div class="mt-12 p-6 bg-brand-yellow border-2 border-black">
+            <p class="font-bold">View all organisms in the <a href="index.html#organisms" class="underline">main design system reference</a>.</p>
+        </div>
+    </main>
+
+    <script>lucide.createIcons();</script>
+</body>
+</html>

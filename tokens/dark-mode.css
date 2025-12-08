@@ -1,0 +1,168 @@
+/**
+ * Movers+Shakers Design System
+ * Dark Mode Tokens
+ *
+ * Usage: Add data-theme="dark" to the <html> or <body> element
+ */
+
+/* ========================
+   LIGHT MODE (Default)
+======================== */
+:root {
+    /* Background Colors */
+    --color-bg-primary: #FFFFFF;
+    --color-bg-secondary: #F3F4F6;
+    --color-bg-tertiary: #E5E7EB;
+    --color-bg-inverse: #111111;
+
+    /* Text Colors */
+    --color-text-primary: #111111;
+    --color-text-secondary: #4B5563;
+    --color-text-tertiary: #9CA3AF;
+    --color-text-inverse: #FFFFFF;
+    --color-text-muted: #6B7280;
+
+    /* Border Colors */
+    --color-border-primary: #111111;
+    --color-border-secondary: #E5E7EB;
+    --color-border-tertiary: #D1D5DB;
+
+    /* Surface Colors */
+    --color-surface-card: #FFFFFF;
+    --color-surface-elevated: #FFFFFF;
+    --color-surface-overlay: rgba(0, 0, 0, 0.5);
+
+    /* Input Colors */
+    --color-input-bg: #FFFFFF;
+    --color-input-border: #D1D5DB;
+    --color-input-placeholder: #9CA3AF;
+
+    /* Shadow Opacity */
+    --shadow-opacity: 1;
+}
+
+/* ========================
+   DARK MODE
+======================== */
+[data-theme="dark"] {
+    /* Background Colors */
+    --color-bg-primary: #111111;
+    --color-bg-secondary: #1F1F1F;
+    --color-bg-tertiary: #2A2A2A;
+    --color-bg-inverse: #FFFFFF;
+
+    /* Text Colors */
+    --color-text-primary: #FFFFFF;
+    --color-text-secondary: #D1D5DB;
+    --color-text-tertiary: #9CA3AF;
+    --color-text-inverse: #111111;
+    --color-text-muted: #6B7280;
+
+    /* Border Colors */
+    --color-border-primary: #FFF000;
+    --color-border-secondary: #333333;
+    --color-border-tertiary: #404040;
+
+    /* Surface Colors */
+    --color-surface-card: #1F1F1F;
+    --color-surface-elevated: #2A2A2A;
+    --color-surface-overlay: rgba(0, 0, 0, 0.8);
+
+    /* Input Colors */
+    --color-input-bg: #1F1F1F;
+    --color-input-border: #404040;
+    --color-input-placeholder: #6B7280;
+
+    /* Shadow Opacity */
+    --shadow-opacity: 0.5;
+
+    /* Adjust brand colors for dark mode */
+    --color-brand-yellow: #FFF000;
+    --color-brand-black: #FFFFFF;
+}
+
+/* ========================
+   DARK MODE UTILITY CLASSES
+======================== */
+
+/* Background utilities */
+.bg-theme-primary { background-color: var(--color-bg-primary); }
+.bg-theme-secondary { background-color: var(--color-bg-secondary); }
+.bg-theme-tertiary { background-color: var(--color-bg-tertiary); }
+.bg-theme-inverse { background-color: var(--color-bg-inverse); }
+.bg-theme-card { background-color: var(--color-surface-card); }
+.bg-theme-elevated { background-color: var(--color-surface-elevated); }
+
+/* Text utilities */
+.text-theme-primary { color: var(--color-text-primary); }
+.text-theme-secondary { color: var(--color-text-secondary); }
+.text-theme-tertiary { color: var(--color-text-tertiary); }
+.text-theme-inverse { color: var(--color-text-inverse); }
+.text-theme-muted { color: var(--color-text-muted); }
+
+/* Border utilities */
+.border-theme-primary { border-color: var(--color-border-primary); }
+.border-theme-secondary { border-color: var(--color-border-secondary); }
+.border-theme-tertiary { border-color: var(--color-border-tertiary); }
+
+/* Input utilities */
+.input-theme {
+    background-color: var(--color-input-bg);
+    border-color: var(--color-input-border);
+    color: var(--color-text-primary);
+}
+.input-theme::placeholder {
+    color: var(--color-input-placeholder);
+}
+
+/* Card component with theme support */
+.card-theme {
+    background-color: var(--color-surface-card);
+    border-color: var(--color-border-primary);
+    color: var(--color-text-primary);
+}
+
+/* ========================
+   SYSTEM PREFERENCE SUPPORT
+======================== */
+@media (prefers-color-scheme: dark) {
+    :root:not([data-theme="light"]) {
+        /* Background Colors */
+        --color-bg-primary: #111111;
+        --color-bg-secondary: #1F1F1F;
+        --color-bg-tertiary: #2A2A2A;
+        --color-bg-inverse: #FFFFFF;
+
+        /* Text Colors */
+        --color-text-primary: #FFFFFF;
+        --color-text-secondary: #D1D5DB;
+        --color-text-tertiary: #9CA3AF;
+        --color-text-inverse: #111111;
+
+        /* Border Colors */
+        --color-border-primary: #FFF000;
+        --color-border-secondary: #333333;
+        --color-border-tertiary: #404040;
+
+        /* Surface Colors */
+        --color-surface-card: #1F1F1F;
+        --color-surface-elevated: #2A2A2A;
+        --color-surface-overlay: rgba(0, 0, 0, 0.8);
+
+        /* Input Colors */
+        --color-input-bg: #1F1F1F;
+        --color-input-border: #404040;
+        --color-input-placeholder: #6B7280;
+    }
+}
+
+/* ========================
+   TRANSITION FOR THEME SWITCH
+======================== */
+html.theme-transition,
+html.theme-transition *,
+html.theme-transition *:before,
+html.theme-transition *:after {
+    transition: background-color 300ms ease, color 300ms ease, border-color 300ms ease, box-shadow 300ms ease !important;
+    transition-delay: 0 !important;
+}

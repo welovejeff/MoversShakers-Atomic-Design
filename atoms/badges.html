@@ -1,0 +1,185 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Badges & Tags | Movers+Shakers Atoms</title>
+    <script src="https://cdn.tailwindcss.com"></script>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&family=Oswald:wght@400;500;600;700&display=swap" rel="stylesheet">
+    <script src="https://unpkg.com/lucide@latest"></script>
+    <style>
+        :root {
+            --color-brand-yellow: #FFF000;
+            --color-brand-black: #111111;
+            --color-success: #10B981;
+            --color-success-light: #D1FAE5;
+            --color-error: #EF4444;
+            --color-error-light: #FEE2E2;
+            --color-warning: #F59E0B;
+            --color-info: #3B82F6;
+        }
+        body { font-family: 'Inter', sans-serif; }
+        h1, h2, h3, .brand-font { font-family: 'Oswald', sans-serif; text-transform: uppercase; }
+        .bg-brand-yellow { background-color: var(--color-brand-yellow); }
+        .bg-brand-black { background-color: var(--color-brand-black); }
+        .bg-success { background-color: var(--color-success); }
+        .bg-success-light { background-color: var(--color-success-light); }
+        .bg-error { background-color: var(--color-error); }
+        .bg-error-light { background-color: var(--color-error-light); }
+        .bg-warning { background-color: var(--color-warning); }
+        .bg-info { background-color: var(--color-info); }
+        .text-success { color: var(--color-success); }
+        .text-error { color: var(--color-error); }
+        .border-success { border-color: var(--color-success); }
+        .border-error { border-color: var(--color-error); }
+    </style>
+</head>
+<body class="bg-gray-50 p-8">
+
+    <div class="max-w-4xl mx-auto">
+        <header class="mb-12">
+            <nav class="text-sm text-gray-500 mb-4">
+                <a href="../index.html" class="hover:text-black">Design System</a> /
+                <a href="../atoms.html" class="hover:text-black">Atoms</a> /
+                <span class="text-black font-medium">Badges & Tags</span>
+            </nav>
+            <h1 class="text-4xl font-bold mb-2">Badges & Tags</h1>
+            <p class="text-gray-600">Labels, status indicators, and notification badges.</p>
+        </header>
+
+        <!-- Badge Variants -->
+        <section class="mb-12">
+            <h2 class="text-xl font-bold mb-4 pb-2 border-b-2 border-black">Variants</h2>
+            <div class="bg-white p-6 border border-gray-200">
+                <div class="flex flex-wrap gap-3">
+                    <span class="inline-block bg-brand-yellow text-black text-xs font-bold uppercase px-3 py-1 tracking-wider border-2 border-black">Default</span>
+                    <span class="inline-block bg-brand-black text-white text-xs font-bold uppercase px-3 py-1 tracking-wider">Dark</span>
+                    <span class="inline-block bg-white text-black text-xs font-bold uppercase px-3 py-1 tracking-wider border-2 border-black">Outline</span>
+                    <span class="inline-block bg-success text-white text-xs font-bold uppercase px-3 py-1 tracking-wider">Success</span>
+                    <span class="inline-block bg-error text-white text-xs font-bold uppercase px-3 py-1 tracking-wider">Error</span>
+                    <span class="inline-block bg-warning text-black text-xs font-bold uppercase px-3 py-1 tracking-wider">Warning</span>
+                    <span class="inline-block bg-info text-white text-xs font-bold uppercase px-3 py-1 tracking-wider">Info</span>
+                </div>
+            </div>
+        </section>
+
+        <!-- Badge Sizes -->
+        <section class="mb-12">
+            <h2 class="text-xl font-bold mb-4 pb-2 border-b-2 border-black">Sizes</h2>
+            <div class="bg-white p-6 border border-gray-200">
+                <div class="flex flex-wrap gap-3 items-center">
+                    <span class="inline-block bg-brand-yellow text-black text-[10px] font-bold uppercase px-2 py-0.5 tracking-wider border border-black">XS</span>
+                    <span class="inline-block bg-brand-yellow text-black text-xs font-bold uppercase px-2 py-0.5 tracking-wider border-2 border-black">Small</span>
+                    <span class="inline-block bg-brand-yellow text-black text-xs font-bold uppercase px-3 py-1 tracking-wider border-2 border-black">Medium</span>
+                    <span class="inline-block bg-brand-yellow text-black text-sm font-bold uppercase px-4 py-1.5 tracking-wider border-2 border-black">Large</span>
+                </div>
+            </div>
+        </section>
+
+        <!-- With Icons -->
+        <section class="mb-12">
+            <h2 class="text-xl font-bold mb-4 pb-2 border-b-2 border-black">With Icons</h2>
+            <div class="bg-white p-6 border border-gray-200">
+                <div class="flex flex-wrap gap-3">
+                    <span class="inline-flex items-center gap-1.5 bg-brand-yellow text-black text-xs font-bold uppercase px-3 py-1 tracking-wider border-2 border-black">
+                        <i data-lucide="star" class="w-3 h-3"></i>
+                        Featured
+                    </span>
+                    <span class="inline-flex items-center gap-1.5 bg-success-light text-success text-xs font-bold uppercase px-3 py-1 tracking-wider border border-success">
+                        <i data-lucide="check-circle" class="w-3 h-3"></i>
+                        Verified
+                    </span>
+                    <span class="inline-flex items-center gap-1.5 bg-error-light text-error text-xs font-bold uppercase px-3 py-1 tracking-wider border border-error">
+                        <i data-lucide="alert-triangle" class="w-3 h-3"></i>
+                        Urgent
+                    </span>
+                    <span class="inline-flex items-center gap-1.5 bg-brand-black text-white text-xs font-bold uppercase px-3 py-1 tracking-wider">
+                        New
+                        <i data-lucide="sparkles" class="w-3 h-3 text-[#FFF000]"></i>
+                    </span>
+                </div>
+            </div>
+        </section>
+
+        <!-- Removable Tags -->
+        <section class="mb-12">
+            <h2 class="text-xl font-bold mb-4 pb-2 border-b-2 border-black">Removable Tags</h2>
+            <div class="bg-white p-6 border border-gray-200">
+                <div class="flex flex-wrap gap-2">
+                    <span class="inline-flex items-center gap-2 bg-gray-100 text-black text-xs font-medium px-3 py-1.5 border border-gray-300">
+                        Design
+                        <button class="hover:text-red-500 transition-colors"><i data-lucide="x" class="w-3 h-3"></i></button>
+                    </span>
+                    <span class="inline-flex items-center gap-2 bg-gray-100 text-black text-xs font-medium px-3 py-1.5 border border-gray-300">
+                        Development
+                        <button class="hover:text-red-500 transition-colors"><i data-lucide="x" class="w-3 h-3"></i></button>
+                    </span>
+                    <span class="inline-flex items-center gap-2 bg-gray-100 text-black text-xs font-medium px-3 py-1.5 border border-gray-300">
+                        Marketing
+                        <button class="hover:text-red-500 transition-colors"><i data-lucide="x" class="w-3 h-3"></i></button>
+                    </span>
+                    <button class="inline-flex items-center gap-1 text-xs font-medium px-3 py-1.5 border-2 border-dashed border-gray-300 hover:border-black hover:bg-gray-50 transition-colors">
+                        <i data-lucide="plus" class="w-3 h-3"></i>
+                        Add Tag
+                    </button>
+                </div>
+            </div>
+        </section>
+
+        <!-- Status Indicators -->
+        <section class="mb-12">
+            <h2 class="text-xl font-bold mb-4 pb-2 border-b-2 border-black">Status Indicators</h2>
+            <div class="bg-white p-6 border border-gray-200">
+                <div class="flex flex-wrap gap-6">
+                    <span class="inline-flex items-center gap-2 text-sm font-medium">
+                        <span class="w-2 h-2 rounded-full bg-success animate-pulse"></span>
+                        Online
+                    </span>
+                    <span class="inline-flex items-center gap-2 text-sm font-medium">
+                        <span class="w-2 h-2 rounded-full bg-gray-400"></span>
+                        Offline
+                    </span>
+                    <span class="inline-flex items-center gap-2 text-sm font-medium">
+                        <span class="w-2 h-2 rounded-full bg-warning"></span>
+                        Away
+                    </span>
+                    <span class="inline-flex items-center gap-2 text-sm font-medium">
+                        <span class="w-2 h-2 rounded-full bg-error"></span>
+                        Busy
+                    </span>
+                </div>
+            </div>
+        </section>
+
+        <!-- Notification Badges -->
+        <section class="mb-12">
+            <h2 class="text-xl font-bold mb-4 pb-2 border-b-2 border-black">Notification Badges</h2>
+            <div class="bg-white p-6 border border-gray-200">
+                <div class="flex flex-wrap gap-8 items-center">
+                    <div class="relative inline-block">
+                        <button class="w-12 h-12 bg-white border-2 border-black flex items-center justify-center">
+                            <i data-lucide="bell" class="w-5 h-5"></i>
+                        </button>
+                        <span class="absolute -top-1 -right-1 w-5 h-5 bg-error text-white text-[10px] font-bold rounded-full flex items-center justify-center">3</span>
+                    </div>
+                    <div class="relative inline-block">
+                        <button class="w-12 h-12 bg-white border-2 border-black flex items-center justify-center">
+                            <i data-lucide="message-square" class="w-5 h-5"></i>
+                        </button>
+                        <span class="absolute -top-1 -right-1 w-5 h-5 bg-brand-yellow text-black text-[10px] font-bold rounded-full flex items-center justify-center border border-black">9+</span>
+                    </div>
+                    <div class="relative inline-block">
+                        <button class="w-12 h-12 bg-white border-2 border-black flex items-center justify-center">
+                            <i data-lucide="inbox" class="w-5 h-5"></i>
+                        </button>
+                        <span class="absolute -top-0.5 -right-0.5 w-3 h-3 bg-error rounded-full border-2 border-white"></span>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+    </div>
+
+    <script>lucide.createIcons();</script>
+</body>
+</html>

@@ -1,0 +1,28 @@
+/**
+ * Movers+Shakers Design System
+ * Pattern & Decorative Tokens
+ */
+
+/* Pattern Background */
+.pattern-lines {
+    background-image: repeating-linear-gradient(
+        45deg,
+        #000000 0,
+        #000000 1px,
+        transparent 0,
+        transparent 10px
+    );
+    opacity: 0.1;
+}
+
+.pattern-dots {
+    background-image: radial-gradient(circle, #000 1px, transparent 1px);
+    background-size: 20px 20px;
+    opacity: 0.1;
+}
+
+/* Focus Ring Utility */
+.focus-ring:focus {
+    outline: none;
+    box-shadow: 0 0 0 4px rgba(255, 240, 0, 0.3);
+}

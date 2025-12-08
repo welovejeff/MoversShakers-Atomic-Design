@@ -1,0 +1,209 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Buttons | Movers+Shakers Atoms</title>
+    <script src="https://cdn.tailwindcss.com"></script>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&family=Oswald:wght@400;500;600;700&display=swap" rel="stylesheet">
+    <script src="https://unpkg.com/lucide@latest"></script>
+    <link rel="stylesheet" href="../tokens/colors.css">
+    <link rel="stylesheet" href="../tokens/shadows.css">
+    <style>
+        :root {
+            --color-brand-yellow: #FFF000;
+            --color-brand-black: #111111;
+            --shadow-sm: 2px 2px 0px 0px rgba(0,0,0,1);
+            --shadow-md: 4px 4px 0px 0px rgba(0,0,0,1);
+            --shadow-lg: 8px 8px 0px 0px rgba(0,0,0,1);
+            --shadow-yellow-md: 4px 4px 0px 0px #FFF000;
+        }
+        body { font-family: 'Inter', sans-serif; }
+        h1, h2, h3, .brand-font { font-family: 'Oswald', sans-serif; text-transform: uppercase; }
+        .bg-brand-yellow { background-color: var(--color-brand-yellow); }
+        .bg-brand-black { background-color: var(--color-brand-black); }
+        .shadow-brand-sm { box-shadow: var(--shadow-sm); }
+        .shadow-brand-md { box-shadow: var(--shadow-md); }
+        .shadow-brand-lg { box-shadow: var(--shadow-lg); }
+        .shadow-brand-yellow-md { box-shadow: var(--shadow-yellow-md); }
+    </style>
+</head>
+<body class="bg-gray-50 p-8">
+
+    <div class="max-w-4xl mx-auto">
+        <header class="mb-12">
+            <nav class="text-sm text-gray-500 mb-4">
+                <a href="../index.html" class="hover:text-black">Design System</a> /
+                <a href="../atoms.html" class="hover:text-black">Atoms</a> /
+                <span class="text-black font-medium">Buttons</span>
+            </nav>
+            <h1 class="text-4xl font-bold mb-2">Buttons</h1>
+            <p class="text-gray-600">Interactive button components for actions and navigation.</p>
+        </header>
+
+        <!-- Button Variants -->
+        <section class="mb-12">
+            <h2 class="text-xl font-bold mb-4 pb-2 border-b-2 border-black">Variants</h2>
+            <div class="bg-white p-6 border border-gray-200">
+                <div class="flex flex-wrap gap-4 items-center">
+                    <!-- Primary -->
+                    <button class="bg-brand-yellow text-black px-8 py-3 font-bold uppercase tracking-wider text-sm border-2 border-black hover:bg-white transition-all shadow-brand-md active:translate-y-1 active:shadow-none">
+                        Primary
+                    </button>
+
+                    <!-- Secondary -->
+                    <button class="bg-brand-black text-white px-8 py-3 font-bold uppercase tracking-wider text-sm border-2 border-black hover:bg-white hover:text-black transition-all shadow-brand-yellow-md active:translate-y-1 active:shadow-none">
+                        Secondary
+                    </button>
+
+                    <!-- Outline -->
+                    <button class="bg-transparent text-black px-8 py-3 font-bold uppercase tracking-wider text-sm border-2 border-black hover:bg-brand-yellow transition-all">
+                        Outline
+                    </button>
+
+                    <!-- Ghost -->
+                    <button class="bg-transparent text-black px-8 py-3 font-bold uppercase tracking-wider text-sm border-2 border-transparent hover:border-black hover:bg-gray-100 transition-all">
+                        Ghost
+                    </button>
+
+                    <!-- Link -->
+                    <button class="text-black px-4 py-3 font-bold uppercase tracking-wider text-sm underline underline-offset-4 decoration-2 decoration-brand-yellow hover:decoration-black transition-all">
+                        Link Button
+                    </button>
+                </div>
+            </div>
+
+            <!-- Code Example -->
+            <details class="mt-4">
+                <summary class="cursor-pointer text-sm font-bold uppercase tracking-wider text-gray-500 hover:text-black">View Code</summary>
+                <pre class="mt-2 p-4 bg-gray-900 text-gray-100 text-sm overflow-x-auto"><code>&lt;!-- Primary Button --&gt;
+&lt;button class="bg-brand-yellow text-black px-8 py-3 font-bold uppercase tracking-wider text-sm border-2 border-black hover:bg-white transition-all shadow-brand-md active:translate-y-1 active:shadow-none"&gt;
+    Primary
+&lt;/button&gt;
+
+&lt;!-- Secondary Button --&gt;
+&lt;button class="bg-brand-black text-white px-8 py-3 font-bold uppercase tracking-wider text-sm border-2 border-black hover:bg-white hover:text-black transition-all shadow-brand-yellow-md"&gt;
+    Secondary
+&lt;/button&gt;
+
+&lt;!-- Outline Button --&gt;
+&lt;button class="bg-transparent text-black px-8 py-3 font-bold uppercase tracking-wider text-sm border-2 border-black hover:bg-brand-yellow transition-all"&gt;
+    Outline
+&lt;/button&gt;</code></pre>
+            </details>
+        </section>
+
+        <!-- Button Sizes -->
+        <section class="mb-12">
+            <h2 class="text-xl font-bold mb-4 pb-2 border-b-2 border-black">Sizes</h2>
+            <div class="bg-white p-6 border border-gray-200">
+                <div class="flex flex-wrap gap-4 items-center">
+                    <button class="bg-brand-yellow text-black px-4 py-1.5 font-bold uppercase tracking-wider text-xs border-2 border-black shadow-brand-sm">
+                        Extra Small
+                    </button>
+                    <button class="bg-brand-yellow text-black px-5 py-2 font-bold uppercase tracking-wider text-xs border-2 border-black shadow-brand-sm">
+                        Small
+                    </button>
+                    <button class="bg-brand-yellow text-black px-8 py-3 font-bold uppercase tracking-wider text-sm border-2 border-black shadow-brand-md">
+                        Medium
+                    </button>
+                    <button class="bg-brand-yellow text-black px-10 py-4 font-bold uppercase tracking-wider text-base border-2 border-black shadow-brand-md">
+                        Large
+                    </button>
+                    <button class="bg-brand-yellow text-black px-12 py-5 font-bold uppercase tracking-wider text-lg border-2 border-black shadow-brand-lg">
+                        Extra Large
+                    </button>
+                </div>
+            </div>
+        </section>
+
+        <!-- Button States -->
+        <section class="mb-12">
+            <h2 class="text-xl font-bold mb-4 pb-2 border-b-2 border-black">States</h2>
+            <div class="bg-white p-6 border border-gray-200">
+                <div class="flex flex-wrap gap-4 items-center">
+                    <button class="bg-brand-yellow text-black px-8 py-3 font-bold uppercase tracking-wider text-sm border-2 border-black shadow-brand-md">
+                        Default
+                    </button>
+                    <button class="bg-white text-black px-8 py-3 font-bold uppercase tracking-wider text-sm border-2 border-black shadow-brand-md">
+                        Hover
+                    </button>
+                    <button class="bg-brand-yellow text-black px-8 py-3 font-bold uppercase tracking-wider text-sm border-2 border-black translate-y-1">
+                        Active
+                    </button>
+                    <button class="bg-gray-200 text-gray-400 px-8 py-3 font-bold uppercase tracking-wider text-sm border-2 border-gray-300 cursor-not-allowed" disabled>
+                        Disabled
+                    </button>
+                    <button class="bg-brand-yellow text-black px-8 py-3 font-bold uppercase tracking-wider text-sm border-2 border-black shadow-brand-md flex items-center gap-2" disabled>
+                        <svg class="animate-spin w-4 h-4" viewBox="0 0 24 24" fill="none">
+                            <circle class="opacity-25" cx="12" cy="12" r="10" stroke="currentColor" stroke-width="4"></circle>
+                            <path class="opacity-75" fill="currentColor" d="M4 12a8 8 0 018-8V0C5.373 0 0 5.373 0 12h4zm2 5.291A7.962 7.962 0 014 12H0c0 3.042 1.135 5.824 3 7.938l3-2.647z"></path>
+                        </svg>
+                        Loading
+                    </button>
+                </div>
+            </div>
+        </section>
+
+        <!-- Icon Buttons -->
+        <section class="mb-12">
+            <h2 class="text-xl font-bold mb-4 pb-2 border-b-2 border-black">With Icons</h2>
+            <div class="bg-white p-6 border border-gray-200">
+                <div class="flex flex-wrap gap-4 items-center">
+                    <button class="bg-brand-yellow text-black px-6 py-3 font-bold uppercase tracking-wider text-sm border-2 border-black shadow-brand-md flex items-center gap-2">
+                        <i data-lucide="plus" class="w-4 h-4"></i>
+                        Add New
+                    </button>
+                    <button class="bg-brand-black text-white px-6 py-3 font-bold uppercase tracking-wider text-sm border-2 border-black shadow-brand-yellow-md flex items-center gap-2">
+                        Continue
+                        <i data-lucide="arrow-right" class="w-4 h-4"></i>
+                    </button>
+                    <button class="bg-brand-yellow w-10 h-10 font-bold border-2 border-black shadow-brand-sm flex items-center justify-center hover:bg-white transition-colors">
+                        <i data-lucide="plus" class="w-4 h-4"></i>
+                    </button>
+                    <button class="bg-brand-yellow w-12 h-12 font-bold border-2 border-black shadow-brand-md flex items-center justify-center hover:bg-white transition-colors">
+                        <i data-lucide="edit-2" class="w-5 h-5"></i>
+                    </button>
+                    <button class="bg-brand-black text-[#FFF000] w-12 h-12 rounded-full border-2 border-[#FFF000] flex items-center justify-center hover:bg-[#FFF000] hover:text-black transition-colors">
+                        <i data-lucide="heart" class="w-5 h-5"></i>
+                    </button>
+                </div>
+            </div>
+        </section>
+
+        <!-- Button Groups -->
+        <section class="mb-12">
+            <h2 class="text-xl font-bold mb-4 pb-2 border-b-2 border-black">Button Groups</h2>
+            <div class="bg-white p-6 border border-gray-200">
+                <div class="flex flex-wrap gap-8">
+                    <div class="flex">
+                        <button class="bg-brand-yellow text-black px-6 py-3 font-bold uppercase tracking-wider text-sm border-2 border-black border-r-0">
+                            Left
+                        </button>
+                        <button class="bg-white text-black px-6 py-3 font-bold uppercase tracking-wider text-sm border-2 border-black border-r-0">
+                            Center
+                        </button>
+                        <button class="bg-white text-black px-6 py-3 font-bold uppercase tracking-wider text-sm border-2 border-black">
+                            Right
+                        </button>
+                    </div>
+                    <div class="flex">
+                        <button class="bg-white w-12 h-12 border-2 border-black border-r-0 flex items-center justify-center hover:bg-brand-yellow transition-colors">
+                            <i data-lucide="align-left" class="w-5 h-5"></i>
+                        </button>
+                        <button class="bg-brand-yellow w-12 h-12 border-2 border-black border-r-0 flex items-center justify-center">
+                            <i data-lucide="align-center" class="w-5 h-5"></i>
+                        </button>
+                        <button class="bg-white w-12 h-12 border-2 border-black flex items-center justify-center hover:bg-brand-yellow transition-colors">
+                            <i data-lucide="align-right" class="w-5 h-5"></i>
+                        </button>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+    </div>
+
+    <script>lucide.createIcons();</script>
+</body>
+</html>

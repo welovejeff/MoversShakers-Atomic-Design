@@ -1,0 +1,176 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Avatars | Movers+Shakers Atoms</title>
+    <script src="https://cdn.tailwindcss.com"></script>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&family=Oswald:wght@400;500;600;700&display=swap" rel="stylesheet">
+    <script src="https://unpkg.com/lucide@latest"></script>
+    <style>
+        :root {
+            --color-brand-yellow: #FFF000;
+            --color-brand-black: #111111;
+            --color-success: #10B981;
+            --color-warning: #F59E0B;
+            --color-error: #EF4444;
+        }
+        body { font-family: 'Inter', sans-serif; }
+        h1, h2, h3, .brand-font { font-family: 'Oswald', sans-serif; text-transform: uppercase; }
+        .bg-brand-yellow { background-color: var(--color-brand-yellow); }
+        .bg-brand-black { background-color: var(--color-brand-black); }
+        .text-brand-yellow { color: var(--color-brand-yellow); }
+        .border-brand-yellow { border-color: var(--color-brand-yellow); }
+        .bg-success { background-color: var(--color-success); }
+        .bg-warning { background-color: var(--color-warning); }
+        .bg-error { background-color: var(--color-error); }
+    </style>
+</head>
+<body class="bg-gray-50 p-8">
+
+    <div class="max-w-4xl mx-auto">
+        <header class="mb-12">
+            <nav class="text-sm text-gray-500 mb-4">
+                <a href="../index.html" class="hover:text-black">Design System</a> /
+                <a href="../atoms.html" class="hover:text-black">Atoms</a> /
+                <span class="text-black font-medium">Avatars</span>
+            </nav>
+            <h1 class="text-4xl font-bold mb-2">Avatars</h1>
+            <p class="text-gray-600">User profile images and initials in various sizes and styles.</p>
+        </header>
+
+        <!-- Avatar Sizes -->
+        <section class="mb-12">
+            <h2 class="text-xl font-bold mb-4 pb-2 border-b-2 border-black">Sizes</h2>
+            <div class="bg-white p-6 border border-gray-200">
+                <div class="flex flex-wrap gap-6 items-end">
+                    <div class="text-center">
+                        <div class="w-6 h-6 rounded-full bg-brand-black text-brand-yellow flex items-center justify-center font-bold text-[10px] border border-brand-yellow">M</div>
+                        <p class="text-xs text-gray-400 mt-2">24px</p>
+                    </div>
+                    <div class="text-center">
+                        <div class="w-8 h-8 rounded-full bg-brand-black text-brand-yellow flex items-center justify-center font-bold text-xs border-2 border-brand-yellow">MS</div>
+                        <p class="text-xs text-gray-400 mt-2">32px</p>
+                    </div>
+                    <div class="text-center">
+                        <div class="w-10 h-10 rounded-full bg-brand-black text-brand-yellow flex items-center justify-center font-bold text-sm border-2 border-brand-yellow">MS</div>
+                        <p class="text-xs text-gray-400 mt-2">40px</p>
+                    </div>
+                    <div class="text-center">
+                        <div class="w-12 h-12 rounded-full bg-brand-black text-brand-yellow flex items-center justify-center font-bold text-base border-2 border-brand-yellow">MS</div>
+                        <p class="text-xs text-gray-400 mt-2">48px</p>
+                    </div>
+                    <div class="text-center">
+                        <div class="w-16 h-16 rounded-full bg-brand-black text-brand-yellow flex items-center justify-center font-bold text-xl border-2 border-brand-yellow">MS</div>
+                        <p class="text-xs text-gray-400 mt-2">64px</p>
+                    </div>
+                    <div class="text-center">
+                        <div class="w-20 h-20 rounded-full bg-brand-black text-brand-yellow flex items-center justify-center font-bold text-2xl border-2 border-brand-yellow">MS</div>
+                        <p class="text-xs text-gray-400 mt-2">80px</p>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <!-- Avatar Variants -->
+        <section class="mb-12">
+            <h2 class="text-xl font-bold mb-4 pb-2 border-b-2 border-black">Variants</h2>
+            <div class="bg-white p-6 border border-gray-200">
+                <div class="flex flex-wrap gap-6 items-center">
+                    <!-- Initials -->
+                    <div class="text-center">
+                        <div class="w-12 h-12 rounded-full bg-brand-yellow text-black flex items-center justify-center font-bold border-2 border-black">JD</div>
+                        <p class="text-xs text-gray-400 mt-2">Initials</p>
+                    </div>
+                    <!-- Image -->
+                    <div class="text-center">
+                        <div class="w-12 h-12 rounded-full bg-gray-300 border-2 border-black overflow-hidden">
+                            <img src="https://images.unsplash.com/photo-1472099645785-5658abf4ff4e?w=100&h=100&fit=crop&crop=face" alt="User" class="w-full h-full object-cover">
+                        </div>
+                        <p class="text-xs text-gray-400 mt-2">Image</p>
+                    </div>
+                    <!-- Icon -->
+                    <div class="text-center">
+                        <div class="w-12 h-12 rounded-full bg-gray-200 text-gray-600 flex items-center justify-center border-2 border-gray-300">
+                            <i data-lucide="user" class="w-6 h-6"></i>
+                        </div>
+                        <p class="text-xs text-gray-400 mt-2">Icon</p>
+                    </div>
+                    <!-- Square -->
+                    <div class="text-center">
+                        <div class="w-12 h-12 bg-brand-black text-brand-yellow flex items-center justify-center font-bold border-2 border-brand-yellow">MS</div>
+                        <p class="text-xs text-gray-400 mt-2">Square</p>
+                    </div>
+                    <!-- Rounded -->
+                    <div class="text-center">
+                        <div class="w-12 h-12 rounded-lg bg-brand-black text-brand-yellow flex items-center justify-center font-bold border-2 border-brand-yellow">MS</div>
+                        <p class="text-xs text-gray-400 mt-2">Rounded</p>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <!-- With Status -->
+        <section class="mb-12">
+            <h2 class="text-xl font-bold mb-4 pb-2 border-b-2 border-black">With Status</h2>
+            <div class="bg-white p-6 border border-gray-200">
+                <div class="flex flex-wrap gap-6 items-center">
+                    <div class="relative">
+                        <div class="w-12 h-12 rounded-full bg-brand-black text-brand-yellow flex items-center justify-center font-bold border-2 border-brand-yellow">JD</div>
+                        <span class="absolute bottom-0 right-0 w-3.5 h-3.5 bg-success rounded-full border-2 border-white"></span>
+                        <p class="text-xs text-gray-400 mt-2 text-center">Online</p>
+                    </div>
+                    <div class="relative">
+                        <div class="w-12 h-12 rounded-full bg-brand-black text-brand-yellow flex items-center justify-center font-bold border-2 border-brand-yellow">AB</div>
+                        <span class="absolute bottom-0 right-0 w-3.5 h-3.5 bg-warning rounded-full border-2 border-white"></span>
+                        <p class="text-xs text-gray-400 mt-2 text-center">Away</p>
+                    </div>
+                    <div class="relative">
+                        <div class="w-12 h-12 rounded-full bg-brand-black text-brand-yellow flex items-center justify-center font-bold border-2 border-brand-yellow">CD</div>
+                        <span class="absolute bottom-0 right-0 w-3.5 h-3.5 bg-error rounded-full border-2 border-white"></span>
+                        <p class="text-xs text-gray-400 mt-2 text-center">Busy</p>
+                    </div>
+                    <div class="relative">
+                        <div class="w-12 h-12 rounded-full bg-brand-black text-brand-yellow flex items-center justify-center font-bold border-2 border-brand-yellow">EF</div>
+                        <span class="absolute bottom-0 right-0 w-3.5 h-3.5 bg-gray-400 rounded-full border-2 border-white"></span>
+                        <p class="text-xs text-gray-400 mt-2 text-center">Offline</p>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <!-- Avatar Groups -->
+        <section class="mb-12">
+            <h2 class="text-xl font-bold mb-4 pb-2 border-b-2 border-black">Avatar Groups</h2>
+            <div class="bg-white p-6 border border-gray-200 space-y-6">
+                <!-- Stacked -->
+                <div>
+                    <p class="text-xs text-gray-400 uppercase tracking-widest mb-3">Stacked</p>
+                    <div class="flex -space-x-3">
+                        <div class="w-10 h-10 rounded-full bg-brand-yellow text-black flex items-center justify-center font-bold text-sm border-2 border-white z-40">A</div>
+                        <div class="w-10 h-10 rounded-full bg-brand-black text-brand-yellow flex items-center justify-center font-bold text-sm border-2 border-white z-30">B</div>
+                        <div class="w-10 h-10 rounded-full bg-gray-600 text-white flex items-center justify-center font-bold text-sm border-2 border-white z-20">C</div>
+                        <div class="w-10 h-10 rounded-full bg-gray-400 text-white flex items-center justify-center font-bold text-sm border-2 border-white z-10">D</div>
+                        <div class="w-10 h-10 rounded-full bg-gray-200 text-gray-600 flex items-center justify-center font-bold text-xs border-2 border-white z-0">+5</div>
+                    </div>
+                </div>
+                <!-- With Add Button -->
+                <div>
+                    <p class="text-xs text-gray-400 uppercase tracking-widest mb-3">With Add Button</p>
+                    <div class="flex -space-x-3 items-center">
+                        <div class="w-10 h-10 rounded-full bg-brand-yellow text-black flex items-center justify-center font-bold text-sm border-2 border-white z-30">A</div>
+                        <div class="w-10 h-10 rounded-full bg-brand-black text-brand-yellow flex items-center justify-center font-bold text-sm border-2 border-white z-20">B</div>
+                        <div class="w-10 h-10 rounded-full bg-gray-600 text-white flex items-center justify-center font-bold text-sm border-2 border-white z-10">C</div>
+                        <button class="w-10 h-10 rounded-full bg-white text-gray-600 flex items-center justify-center border-2 border-dashed border-gray-300 hover:border-black hover:text-black transition-colors ml-2 z-0">
+                            <i data-lucide="plus" class="w-4 h-4"></i>
+                        </button>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+    </div>
+
+    <script>lucide.createIcons();</script>
+</body>
+</html>

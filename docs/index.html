@@ -1,0 +1,317 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Documentation | Movers+Shakers Design System</title>
+    <script src="https://cdn.tailwindcss.com"></script>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&family=Oswald:wght@400;500;600;700&display=swap" rel="stylesheet">
+    <script src="https://unpkg.com/lucide@latest"></script>
+    <link rel="stylesheet" href="../tokens/dark-mode.css">
+    <style>
+        :root { --color-brand-yellow: #FFF000; --color-brand-black: #111111; --shadow-md: 4px 4px 0px 0px rgba(0,0,0,1); }
+        body { font-family: 'Inter', sans-serif; }
+        h1, h2, h3, .brand-font { font-family: 'Oswald', sans-serif; text-transform: uppercase; }
+        .bg-brand-yellow { background-color: var(--color-brand-yellow); }
+        .bg-brand-black { background-color: var(--color-brand-black); }
+        .text-brand-yellow { color: var(--color-brand-yellow); }
+        .shadow-brand-md { box-shadow: var(--shadow-md); }
+        .border-brand-yellow { border-color: var(--color-brand-yellow); }
+        pre { background: #1e1e1e; color: #d4d4d4; }
+        code { font-family: 'Monaco', 'Menlo', monospace; }
+    </style>
+</head>
+<body class="bg-theme-primary text-theme-primary min-h-screen">
+
+    <!-- Header -->
+    <header class="bg-brand-black text-white border-b-4 border-brand-yellow sticky top-0 z-50">
+        <div class="container mx-auto px-6 py-4 flex items-center justify-between">
+            <a href="../index.html" class="text-xl font-bold tracking-widest brand-font">
+                MOVERS<span class="text-brand-yellow">+</span>SHAKERS
+            </a>
+            <div class="flex items-center gap-4">
+                <nav class="hidden md:flex items-center gap-6">
+                    <a href="../index.html" class="text-sm font-bold uppercase tracking-wider hover:text-brand-yellow transition-colors">Design System</a>
+                    <span class="text-brand-yellow font-bold text-sm uppercase tracking-wider">Documentation</span>
+                </nav>
+                <button data-theme-toggle class="w-10 h-10 flex items-center justify-center hover:bg-white/10 transition-colors">
+                    <i data-lucide="sun" class="w-5 h-5" data-theme-icon="light"></i>
+                    <i data-lucide="moon" class="w-5 h-5 hidden" data-theme-icon="dark"></i>
+                </button>
+            </div>
+        </div>
+    </header>
+
+    <div class="container mx-auto px-6 py-12 flex gap-8">
+        <!-- Sidebar -->
+        <aside class="hidden lg:block w-64 flex-shrink-0">
+            <nav class="sticky top-24 space-y-6">
+                <div>
+                    <h4 class="text-xs font-bold uppercase tracking-widest text-theme-tertiary mb-3">Getting Started</h4>
+                    <ul class="space-y-2">
+                        <li><a href="#installation" class="text-sm font-medium hover:text-brand-yellow transition-colors">Installation</a></li>
+                        <li><a href="#usage" class="text-sm font-medium hover:text-brand-yellow transition-colors">Basic Usage</a></li>
+                        <li><a href="#tokens" class="text-sm font-medium hover:text-brand-yellow transition-colors">Design Tokens</a></li>
+                    </ul>
+                </div>
+                <div>
+                    <h4 class="text-xs font-bold uppercase tracking-widest text-theme-tertiary mb-3">JavaScript</h4>
+                    <ul class="space-y-2">
+                        <li><a href="#modal" class="text-sm font-medium hover:text-brand-yellow transition-colors">Modal</a></li>
+                        <li><a href="#dropdown" class="text-sm font-medium hover:text-brand-yellow transition-colors">Dropdown</a></li>
+                        <li><a href="#tabs" class="text-sm font-medium hover:text-brand-yellow transition-colors">Tabs</a></li>
+                        <li><a href="#accordion" class="text-sm font-medium hover:text-brand-yellow transition-colors">Accordion</a></li>
+                        <li><a href="#toast" class="text-sm font-medium hover:text-brand-yellow transition-colors">Toast</a></li>
+                        <li><a href="#validation" class="text-sm font-medium hover:text-brand-yellow transition-colors">Form Validation</a></li>
+                        <li><a href="#darkmode" class="text-sm font-medium hover:text-brand-yellow transition-colors">Dark Mode</a></li>
+                    </ul>
+                </div>
+            </nav>
+        </aside>
+
+        <!-- Main Content -->
+        <main class="flex-1 max-w-3xl">
+            <h1 class="text-5xl font-bold mb-4">Documentation</h1>
+            <p class="text-theme-secondary text-lg mb-12">
+                Complete guide to using the Movers+Shakers Design System in your projects.
+            </p>
+
+            <!-- Installation -->
+            <section id="installation" class="mb-16">
+                <h2 class="text-2xl font-bold mb-4 pb-2 border-b-2 border-theme-primary">Installation</h2>
+                <p class="text-theme-secondary mb-4">Include the following in your HTML file:</p>
+                <pre class="p-4 rounded overflow-x-auto text-sm mb-4"><code>&lt;!-- Tailwind CSS --&gt;
+&lt;script src="https://cdn.tailwindcss.com"&gt;&lt;/script&gt;
+
+&lt;!-- Google Fonts --&gt;
+&lt;link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&family=Oswald:wght@400;500;600;700&display=swap" rel="stylesheet"&gt;
+
+&lt;!-- Lucide Icons --&gt;
+&lt;script src="https://unpkg.com/lucide@latest"&gt;&lt;/script&gt;
+
+&lt;!-- Design System CSS --&gt;
+&lt;link rel="stylesheet" href="tokens/index.css"&gt;
+
+&lt;!-- Design System JS --&gt;
+&lt;script src="js/components.js"&gt;&lt;/script&gt;</code></pre>
+            </section>
+
+            <!-- Basic Usage -->
+            <section id="usage" class="mb-16">
+                <h2 class="text-2xl font-bold mb-4 pb-2 border-b-2 border-theme-primary">Basic Usage</h2>
+                <p class="text-theme-secondary mb-4">Components are initialized automatically. Access them via <code class="bg-theme-tertiary px-2 py-1 text-sm">window.MSDesignSystem</code>:</p>
+                <pre class="p-4 rounded overflow-x-auto text-sm"><code>// Show a toast notification
+MSDesignSystem.Toast.success('Operation completed!');
+
+// Toggle dark mode
+MSDesignSystem.DarkMode.toggle();
+
+// Check if dark mode is active
+if (MSDesignSystem.DarkMode.isDark()) {
+    console.log('Dark mode is on');
+}</code></pre>
+            </section>
+
+            <!-- Design Tokens -->
+            <section id="tokens" class="mb-16">
+                <h2 class="text-2xl font-bold mb-4 pb-2 border-b-2 border-theme-primary">Design Tokens</h2>
+                <p class="text-theme-secondary mb-4">CSS custom properties are available for consistent styling:</p>
+
+                <h3 class="text-lg font-bold mt-6 mb-3">Colors</h3>
+                <div class="grid grid-cols-2 md:grid-cols-4 gap-4 mb-6">
+                    <div class="p-4 bg-[#FFF000] border-2 border-black text-black text-center">
+                        <p class="font-bold text-sm">Yellow</p>
+                        <p class="text-xs font-mono">#FFF000</p>
+                    </div>
+                    <div class="p-4 bg-[#111111] border-2 border-black text-white text-center">
+                        <p class="font-bold text-sm">Black</p>
+                        <p class="text-xs font-mono">#111111</p>
+                    </div>
+                    <div class="p-4 bg-[#10B981] border-2 border-black text-white text-center">
+                        <p class="font-bold text-sm">Success</p>
+                        <p class="text-xs font-mono">#10B981</p>
+                    </div>
+                    <div class="p-4 bg-[#EF4444] border-2 border-black text-white text-center">
+                        <p class="font-bold text-sm">Error</p>
+                        <p class="text-xs font-mono">#EF4444</p>
+                    </div>
+                </div>
+
+                <h3 class="text-lg font-bold mt-6 mb-3">Shadows</h3>
+                <pre class="p-4 rounded overflow-x-auto text-sm"><code>.shadow-brand-sm  { box-shadow: 2px 2px 0px 0px rgba(0,0,0,1); }
+.shadow-brand-md  { box-shadow: 4px 4px 0px 0px rgba(0,0,0,1); }
+.shadow-brand-lg  { box-shadow: 8px 8px 0px 0px rgba(0,0,0,1); }
+.shadow-brand-yellow-md { box-shadow: 4px 4px 0px 0px #FFF000; }</code></pre>
+            </section>
+
+            <!-- Modal -->
+            <section id="modal" class="mb-16">
+                <h2 class="text-2xl font-bold mb-4 pb-2 border-b-2 border-theme-primary">Modal</h2>
+                <p class="text-theme-secondary mb-4">Create modal dialogs with automatic focus management.</p>
+
+                <h3 class="text-lg font-bold mt-6 mb-3">HTML Structure</h3>
+                <pre class="p-4 rounded overflow-x-auto text-sm mb-4"><code>&lt;!-- Trigger Button --&gt;
+&lt;button data-modal-trigger="my-modal"&gt;Open Modal&lt;/button&gt;
+
+&lt;!-- Modal --&gt;
+&lt;div data-modal="my-modal" class="hidden fixed inset-0 z-50 items-center justify-center bg-black/50"&gt;
+    &lt;div class="bg-white border-2 border-black p-6"&gt;
+        &lt;h3&gt;Modal Title&lt;/h3&gt;
+        &lt;p&gt;Modal content here...&lt;/p&gt;
+        &lt;button data-modal-close&gt;Close&lt;/button&gt;
+    &lt;/div&gt;
+&lt;/div&gt;</code></pre>
+
+                <h3 class="text-lg font-bold mt-6 mb-3">Data Attributes</h3>
+                <table class="w-full text-sm border-2 border-theme-primary">
+                    <thead class="bg-theme-secondary">
+                        <tr>
+                            <th class="text-left p-3 border-b-2 border-theme-primary">Attribute</th>
+                            <th class="text-left p-3 border-b-2 border-theme-primary">Description</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        <tr class="border-b border-theme-tertiary">
+                            <td class="p-3 font-mono">data-modal-trigger="id"</td>
+                            <td class="p-3">Opens the modal with matching ID</td>
+                        </tr>
+                        <tr class="border-b border-theme-tertiary">
+                            <td class="p-3 font-mono">data-modal="id"</td>
+                            <td class="p-3">Defines the modal container</td>
+                        </tr>
+                        <tr>
+                            <td class="p-3 font-mono">data-modal-close</td>
+                            <td class="p-3">Closes the active modal</td>
+                        </tr>
+                    </tbody>
+                </table>
+            </section>
+
+            <!-- Tabs -->
+            <section id="tabs" class="mb-16">
+                <h2 class="text-2xl font-bold mb-4 pb-2 border-b-2 border-theme-primary">Tabs</h2>
+                <p class="text-theme-secondary mb-4">Tabbed interfaces with keyboard navigation (arrow keys).</p>
+
+                <pre class="p-4 rounded overflow-x-auto text-sm"><code>&lt;div data-tabs&gt;
+    &lt;div class="flex border-b-2"&gt;
+        &lt;button data-tab="tab1" aria-selected="true"&gt;Tab 1&lt;/button&gt;
+        &lt;button data-tab="tab2"&gt;Tab 2&lt;/button&gt;
+    &lt;/div&gt;
+    &lt;div data-tab-panel="tab1"&gt;Content 1&lt;/div&gt;
+    &lt;div data-tab-panel="tab2" class="hidden"&gt;Content 2&lt;/div&gt;
+&lt;/div&gt;</code></pre>
+            </section>
+
+            <!-- Toast -->
+            <section id="toast" class="mb-16">
+                <h2 class="text-2xl font-bold mb-4 pb-2 border-b-2 border-theme-primary">Toast Notifications</h2>
+                <p class="text-theme-secondary mb-4">Programmatic toast notifications.</p>
+
+                <pre class="p-4 rounded overflow-x-auto text-sm mb-4"><code>// Simple notifications
+MSDesignSystem.Toast.info('Information message');
+MSDesignSystem.Toast.success('Operation completed!');
+MSDesignSystem.Toast.warning('Please check your input');
+MSDesignSystem.Toast.error('Something went wrong');
+
+// With options
+MSDesignSystem.Toast.show({
+    message: 'Item deleted',
+    type: 'success',
+    duration: 5000,
+    dismissible: true,
+    action: {
+        label: 'Undo',
+        onClick: () => console.log('Undo clicked')
+    }
+});</code></pre>
+            </section>
+
+            <!-- Form Validation -->
+            <section id="validation" class="mb-16">
+                <h2 class="text-2xl font-bold mb-4 pb-2 border-b-2 border-theme-primary">Form Validation</h2>
+                <p class="text-theme-secondary mb-4">Real-time form validation with built-in rules.</p>
+
+                <pre class="p-4 rounded overflow-x-auto text-sm mb-4"><code>&lt;form data-validate&gt;
+    &lt;div data-field&gt;
+        &lt;input data-rules="required|email"
+               data-error-required="Email is required"
+               data-error-email="Enter a valid email"&gt;
+    &lt;/div&gt;
+    &lt;div data-field&gt;
+        &lt;input type="password" id="password"
+               data-rules="required|minLength:8"&gt;
+    &lt;/div&gt;
+    &lt;div data-field&gt;
+        &lt;input data-rules="required|match:password"
+               data-error-match="Passwords must match"&gt;
+    &lt;/div&gt;
+&lt;/form&gt;</code></pre>
+
+                <h3 class="text-lg font-bold mt-6 mb-3">Available Rules</h3>
+                <table class="w-full text-sm border-2 border-theme-primary">
+                    <thead class="bg-theme-secondary">
+                        <tr>
+                            <th class="text-left p-3 border-b-2 border-theme-primary">Rule</th>
+                            <th class="text-left p-3 border-b-2 border-theme-primary">Description</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        <tr class="border-b border-theme-tertiary"><td class="p-3 font-mono">required</td><td class="p-3">Field must have a value</td></tr>
+                        <tr class="border-b border-theme-tertiary"><td class="p-3 font-mono">email</td><td class="p-3">Valid email format</td></tr>
+                        <tr class="border-b border-theme-tertiary"><td class="p-3 font-mono">minLength:n</td><td class="p-3">Minimum n characters</td></tr>
+                        <tr class="border-b border-theme-tertiary"><td class="p-3 font-mono">maxLength:n</td><td class="p-3">Maximum n characters</td></tr>
+                        <tr class="border-b border-theme-tertiary"><td class="p-3 font-mono">pattern:regex</td><td class="p-3">Match regex pattern</td></tr>
+                        <tr><td class="p-3 font-mono">match:fieldId</td><td class="p-3">Match another field</td></tr>
+                    </tbody>
+                </table>
+            </section>
+
+            <!-- Dark Mode -->
+            <section id="darkmode" class="mb-16">
+                <h2 class="text-2xl font-bold mb-4 pb-2 border-b-2 border-theme-primary">Dark Mode</h2>
+                <p class="text-theme-secondary mb-4">Automatic dark mode with system preference detection and localStorage persistence.</p>
+
+                <h3 class="text-lg font-bold mt-6 mb-3">Toggle Button</h3>
+                <pre class="p-4 rounded overflow-x-auto text-sm mb-4"><code>&lt;button data-theme-toggle&gt;
+    &lt;i data-lucide="sun" data-theme-icon="light"&gt;&lt;/i&gt;
+    &lt;i data-lucide="moon" data-theme-icon="dark" class="hidden"&gt;&lt;/i&gt;
+&lt;/button&gt;</code></pre>
+
+                <h3 class="text-lg font-bold mt-6 mb-3">JavaScript API</h3>
+                <pre class="p-4 rounded overflow-x-auto text-sm mb-4"><code>// Toggle dark mode
+MSDesignSystem.DarkMode.toggle();
+
+// Set specific theme
+MSDesignSystem.DarkMode.setTheme('dark');
+MSDesignSystem.DarkMode.setTheme('light');
+
+// Check current theme
+MSDesignSystem.DarkMode.getTheme(); // 'light' or 'dark'
+MSDesignSystem.DarkMode.isDark(); // true or false
+
+// Listen for theme changes
+document.addEventListener('theme:changed', (e) => {
+    console.log('Theme changed to:', e.detail.theme);
+});</code></pre>
+
+                <h3 class="text-lg font-bold mt-6 mb-3">CSS Variables for Theming</h3>
+                <pre class="p-4 rounded overflow-x-auto text-sm"><code>/* Use theme-aware variables */
+.my-component {
+    background: var(--color-bg-primary);
+    color: var(--color-text-primary);
+    border-color: var(--color-border-primary);
+}
+
+/* Or use utility classes */
+.my-component {
+    @apply bg-theme-primary text-theme-primary border-theme-primary;
+}</code></pre>
+            </section>
+
+        </main>
+    </div>
+
+    <script src="../js/components.js"></script>
+    <script>lucide.createIcons();</script>
+</body>
+</html>

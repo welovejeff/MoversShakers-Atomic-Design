@@ -1,0 +1,28 @@
+/**
+ * Movers+Shakers Design System
+ * Shadow Tokens
+ */
+
+:root {
+    /* ========================
+       SHADOWS (Brand Style)
+    ======================== */
+    --shadow-sm: 2px 2px 0px 0px rgba(0,0,0,1);
+    --shadow-md: 4px 4px 0px 0px rgba(0,0,0,1);
+    --shadow-lg: 8px 8px 0px 0px rgba(0,0,0,1);
+    --shadow-xl: 12px 12px 0px 0px rgba(0,0,0,1);
+    --shadow-yellow-sm: 2px 2px 0px 0px #FFF000;
+    --shadow-yellow-md: 4px 4px 0px 0px #FFF000;
+    --shadow-yellow-lg: 8px 8px 0px 0px #FFF000;
+}
+
+/* ========================
+   SHADOW UTILITY CLASSES
+======================== */
+.shadow-brand-sm { box-shadow: var(--shadow-sm); }
+.shadow-brand-md { box-shadow: var(--shadow-md); }
+.shadow-brand-lg { box-shadow: var(--shadow-lg); }
+.shadow-brand-xl { box-shadow: var(--shadow-xl); }
+.shadow-brand-yellow-sm { box-shadow: var(--shadow-yellow-sm); }
+.shadow-brand-yellow-md { box-shadow: var(--shadow-yellow-md); }
+.shadow-brand-yellow-lg { box-shadow: var(--shadow-yellow-lg); }

@@ -1,0 +1,119 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Atoms | Movers+Shakers Design System</title>
+    <script src="https://cdn.tailwindcss.com"></script>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&family=Oswald:wght@400;500;600;700&display=swap" rel="stylesheet">
+    <script src="https://unpkg.com/lucide@latest"></script>
+    <style>
+        :root { --color-brand-yellow: #FFF000; --color-brand-black: #111111; --shadow-md: 4px 4px 0px 0px rgba(0,0,0,1); }
+        body { font-family: 'Inter', sans-serif; }
+        h1, h2, h3, .brand-font { font-family: 'Oswald', sans-serif; text-transform: uppercase; }
+        .bg-brand-yellow { background-color: var(--color-brand-yellow); }
+        .bg-brand-black { background-color: var(--color-brand-black); }
+        .text-brand-yellow { color: var(--color-brand-yellow); }
+        .shadow-brand-md { box-shadow: var(--shadow-md); }
+        .border-brand-yellow { border-color: var(--color-brand-yellow); }
+    </style>
+</head>
+<body class="bg-gray-50 min-h-screen">
+
+    <!-- Header -->
+    <header class="bg-brand-black text-white border-b-4 border-brand-yellow">
+        <div class="container mx-auto px-6 py-4 flex items-center justify-between">
+            <a href="index.html" class="text-xl font-bold tracking-widest brand-font">
+                MOVERS<span class="text-brand-yellow">+</span>SHAKERS
+            </a>
+            <nav class="hidden md:flex items-center gap-6">
+                <a href="index.html" class="text-sm font-bold uppercase tracking-wider hover:text-brand-yellow transition-colors">Design System</a>
+                <span class="text-brand-yellow font-bold text-sm uppercase tracking-wider">Atoms</span>
+                <a href="molecules.html" class="text-sm font-bold uppercase tracking-wider hover:text-brand-yellow transition-colors">Molecules</a>
+                <a href="organisms.html" class="text-sm font-bold uppercase tracking-wider hover:text-brand-yellow transition-colors">Organisms</a>
+            </nav>
+        </div>
+    </header>
+
+    <main class="container mx-auto px-6 py-12">
+        <div class="mb-12">
+            <h1 class="text-5xl font-bold mb-4">01 — Atoms</h1>
+            <p class="text-gray-600 text-lg max-w-2xl">
+                Atoms are the basic building blocks of the design system. They include basic HTML elements like buttons, inputs, labels, and other fundamental components that can't be broken down further.
+            </p>
+        </div>
+
+        <div class="grid md:grid-cols-2 lg:grid-cols-3 gap-6">
+
+            <!-- Typography -->
+            <a href="atoms/typography.html" class="bg-white border-2 border-black p-6 shadow-brand-md hover:shadow-none hover:translate-x-1 hover:translate-y-1 transition-all group">
+                <div class="flex items-center gap-4 mb-4">
+                    <div class="w-12 h-12 bg-brand-yellow border-2 border-black flex items-center justify-center">
+                        <i data-lucide="type" class="w-6 h-6"></i>
+                    </div>
+                    <h3 class="text-xl font-bold">Typography</h3>
+                </div>
+                <p class="text-gray-600 text-sm">Headings, body text, labels, and text styles using Oswald and Inter fonts.</p>
+            </a>
+
+            <!-- Buttons -->
+            <a href="atoms/buttons.html" class="bg-white border-2 border-black p-6 shadow-brand-md hover:shadow-none hover:translate-x-1 hover:translate-y-1 transition-all group">
+                <div class="flex items-center gap-4 mb-4">
+                    <div class="w-12 h-12 bg-brand-yellow border-2 border-black flex items-center justify-center">
+                        <i data-lucide="mouse-pointer-click" class="w-6 h-6"></i>
+                    </div>
+                    <h3 class="text-xl font-bold">Buttons</h3>
+                </div>
+                <p class="text-gray-600 text-sm">Primary, secondary, outline, ghost, and link button variants in all sizes.</p>
+            </a>
+
+            <!-- Form Elements -->
+            <a href="atoms/forms.html" class="bg-white border-2 border-black p-6 shadow-brand-md hover:shadow-none hover:translate-x-1 hover:translate-y-1 transition-all group">
+                <div class="flex items-center gap-4 mb-4">
+                    <div class="w-12 h-12 bg-brand-yellow border-2 border-black flex items-center justify-center">
+                        <i data-lucide="text-cursor-input" class="w-6 h-6"></i>
+                    </div>
+                    <h3 class="text-xl font-bold">Form Elements</h3>
+                </div>
+                <p class="text-gray-600 text-sm">Text inputs, textareas, selects, checkboxes, radios, and toggle switches.</p>
+            </a>
+
+            <!-- Badges & Tags -->
+            <a href="atoms/badges.html" class="bg-white border-2 border-black p-6 shadow-brand-md hover:shadow-none hover:translate-x-1 hover:translate-y-1 transition-all group">
+                <div class="flex items-center gap-4 mb-4">
+                    <div class="w-12 h-12 bg-brand-yellow border-2 border-black flex items-center justify-center">
+                        <i data-lucide="tag" class="w-6 h-6"></i>
+                    </div>
+                    <h3 class="text-xl font-bold">Badges & Tags</h3>
+                </div>
+                <p class="text-gray-600 text-sm">Labels, status indicators, notification badges, and removable tags.</p>
+            </a>
+
+            <!-- Avatars -->
+            <a href="atoms/avatars.html" class="bg-white border-2 border-black p-6 shadow-brand-md hover:shadow-none hover:translate-x-1 hover:translate-y-1 transition-all group">
+                <div class="flex items-center gap-4 mb-4">
+                    <div class="w-12 h-12 bg-brand-yellow border-2 border-black flex items-center justify-center">
+                        <i data-lucide="user-circle" class="w-6 h-6"></i>
+                    </div>
+                    <h3 class="text-xl font-bold">Avatars</h3>
+                </div>
+                <p class="text-gray-600 text-sm">User profile images, initials, and avatar groups with status indicators.</p>
+            </a>
+
+            <!-- Loaders -->
+            <a href="atoms/loaders.html" class="bg-white border-2 border-black p-6 shadow-brand-md hover:shadow-none hover:translate-x-1 hover:translate-y-1 transition-all group">
+                <div class="flex items-center gap-4 mb-4">
+                    <div class="w-12 h-12 bg-brand-yellow border-2 border-black flex items-center justify-center">
+                        <i data-lucide="loader-2" class="w-6 h-6"></i>
+                    </div>
+                    <h3 class="text-xl font-bold">Loaders & Spinners</h3>
+                </div>
+                <p class="text-gray-600 text-sm">Spinners, skeleton loaders, and progress bars for loading states.</p>
+            </a>
+
+        </div>
+    </main>
+
+    <script>lucide.createIcons();</script>
+</body>
+</html>

@@ -1,0 +1,130 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Typography | Movers+Shakers Atoms</title>
+    <script src="https://cdn.tailwindcss.com"></script>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&family=Oswald:wght@400;500;600;700&display=swap" rel="stylesheet">
+    <style>
+        :root { --color-brand-yellow: #FFF000; --color-brand-black: #111111; }
+        body { font-family: 'Inter', sans-serif; color: var(--color-brand-black); line-height: 1.6; }
+        h1, h2, h3, h4, h5, h6, .brand-font { font-family: 'Oswald', sans-serif; text-transform: uppercase; line-height: 1.1; }
+    </style>
+</head>
+<body class="bg-gray-50 p-8">
+    <div class="max-w-4xl mx-auto">
+        <header class="mb-12">
+            <nav class="text-sm text-gray-500 mb-4">
+                <a href="../index.html" class="hover:text-black">Design System</a> /
+                <a href="../atoms.html" class="hover:text-black">Atoms</a> /
+                <span class="text-black font-medium">Typography</span>
+            </nav>
+            <h1 class="text-4xl font-bold mb-2">Typography</h1>
+            <p class="text-gray-600">Font families, sizes, weights, and text styles.</p>
+        </header>
+
+        <!-- Headings -->
+        <section class="mb-12">
+            <h2 class="text-xl font-bold mb-4 pb-2 border-b-2 border-black">Headings (Oswald)</h2>
+            <div class="bg-white p-6 border border-gray-200 space-y-6">
+                <div>
+                    <h1 class="text-7xl font-bold">Display</h1>
+                    <p class="text-xs text-gray-400 mt-1 font-mono">72px / Bold / Uppercase</p>
+                </div>
+                <div>
+                    <h1 class="text-6xl font-bold">Headline 1</h1>
+                    <p class="text-xs text-gray-400 mt-1 font-mono">60px / Bold / Uppercase</p>
+                </div>
+                <div>
+                    <h2 class="text-5xl font-bold">Headline 2</h2>
+                    <p class="text-xs text-gray-400 mt-1 font-mono">48px / Bold / Uppercase</p>
+                </div>
+                <div>
+                    <h3 class="text-4xl font-bold">Headline 3</h3>
+                    <p class="text-xs text-gray-400 mt-1 font-mono">36px / Bold / Uppercase</p>
+                </div>
+                <div>
+                    <h4 class="text-3xl font-bold">Headline 4</h4>
+                    <p class="text-xs text-gray-400 mt-1 font-mono">30px / Bold / Uppercase</p>
+                </div>
+                <div>
+                    <h5 class="text-2xl font-bold">Headline 5</h5>
+                    <p class="text-xs text-gray-400 mt-1 font-mono">24px / Bold / Uppercase</p>
+                </div>
+                <div>
+                    <h6 class="text-xl font-bold">Headline 6</h6>
+                    <p class="text-xs text-gray-400 mt-1 font-mono">20px / Bold / Uppercase</p>
+                </div>
+            </div>
+        </section>
+
+        <!-- Body Text -->
+        <section class="mb-12">
+            <h2 class="text-xl font-bold mb-4 pb-2 border-b-2 border-black">Body Text (Inter)</h2>
+            <div class="bg-white p-6 border border-gray-200 space-y-6">
+                <div>
+                    <p class="text-xl leading-relaxed text-gray-800">
+                        <strong>Body XL (20px):</strong> We use yellow as our strong brand color to excite and draw attention to big moments.
+                    </p>
+                </div>
+                <div>
+                    <p class="text-lg leading-relaxed text-gray-700">
+                        <strong>Body Large (18px):</strong> We use yellow as our strong brand color to excite and draw attention to big moments. While the use of our brand color is important for recognition, Yellow should always be balanced by clean white space.
+                    </p>
+                </div>
+                <div>
+                    <p class="text-base leading-relaxed text-gray-600">
+                        <strong>Body Regular (16px):</strong> These descriptive words can describe what is going on in a scene. These can be used to give more insight into the video in social, in a pitch deck, or in a still on the website.
+                    </p>
+                </div>
+                <div>
+                    <p class="text-sm leading-relaxed text-gray-500">
+                        <strong>Body Small (14px):</strong> Supporting text and captions. Used for metadata, timestamps, and secondary information that doesn't require primary attention.
+                    </p>
+                </div>
+                <div>
+                    <p class="text-xs leading-relaxed text-gray-400">
+                        <strong>Body XS (12px):</strong> Fine print, legal text, and micro-copy. Use sparingly and ensure adequate contrast.
+                    </p>
+                </div>
+            </div>
+        </section>
+
+        <!-- Font Weights -->
+        <section class="mb-12">
+            <h2 class="text-xl font-bold mb-4 pb-2 border-b-2 border-black">Font Weights</h2>
+            <div class="bg-white p-6 border border-gray-200 space-y-3">
+                <p class="font-bold text-lg">Bold Text — font-weight: 700</p>
+                <p class="font-semibold text-lg">Semibold Text — font-weight: 600</p>
+                <p class="font-medium text-lg">Medium Text — font-weight: 500</p>
+                <p class="font-normal text-lg">Regular Text — font-weight: 400</p>
+                <p class="font-light text-lg">Light Text — font-weight: 300</p>
+            </div>
+        </section>
+
+        <!-- Text Styles -->
+        <section class="mb-12">
+            <h2 class="text-xl font-bold mb-4 pb-2 border-b-2 border-black">Text Styles</h2>
+            <div class="bg-white p-6 border border-gray-200 space-y-3">
+                <p class="italic">Italic text for emphasis</p>
+                <p class="underline">Underlined text for links</p>
+                <p class="underline decoration-2 decoration-[#FFF000] underline-offset-4">Brand underline style</p>
+                <p class="line-through text-gray-400">Strikethrough for removed content</p>
+                <p class="uppercase tracking-widest text-sm font-bold">Uppercase tracking — Labels & Buttons</p>
+                <p class="font-mono text-sm bg-gray-100 px-2 py-1 inline-block">Monospace for code</p>
+            </div>
+        </section>
+
+        <!-- Labels -->
+        <section class="mb-12">
+            <h2 class="text-xl font-bold mb-4 pb-2 border-b-2 border-black">Labels & Meta</h2>
+            <div class="bg-white p-6 border border-gray-200 space-y-4">
+                <p class="text-xs font-bold uppercase tracking-widest text-gray-400">Section Label</p>
+                <p class="text-xs font-bold uppercase tracking-widest text-gray-600">Form Label</p>
+                <p class="text-xs font-bold uppercase tracking-widest text-[#FFF000] bg-black inline-block px-2 py-1">Brand Label</p>
+            </div>
+        </section>
+    </div>
+</body>
+</html>
