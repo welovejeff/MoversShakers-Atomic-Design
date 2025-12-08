@@ -1,0 +1,5 @@
+{
+  "name": "Gemini CRM & Outreach Agent",
+  "description": "A smart CRM that uses Gemini to prioritize contacts, perform deep web research using Google Search grounding, and draft personalized LinkedIn messages.",
+  "requestFramePermissions": []
+}
