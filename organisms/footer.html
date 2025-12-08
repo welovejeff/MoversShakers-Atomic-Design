@@ -1,0 +1,216 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Footer | Movers+Shakers Organisms</title>
+    <script src="https://cdn.tailwindcss.com"></script>
+    <link
+        href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&family=Oswald:wght@400;500;600;700&display=swap"
+        rel="stylesheet">
+    <script src="https://unpkg.com/lucide@latest"></script>
+    <style>
+        :root {
+            --color-brand-yellow: #FFF000;
+            --color-brand-black: #111111;
+        }
+
+        body {
+            font-family: 'Inter', sans-serif;
+        }
+
+        h1,
+        h2,
+        h3,
+        h4,
+        .brand-font {
+            font-family: 'Oswald', sans-serif;
+            text-transform: uppercase;
+        }
+
+        .bg-brand-yellow {
+            background-color: var(--color-brand-yellow);
+        }
+
+        .bg-brand-black {
+            background-color: var(--color-brand-black);
+        }
+
+        .text-brand-yellow {
+            color: var(--color-brand-yellow);
+        }
+
+        .border-brand-yellow {
+            border-color: var(--color-brand-yellow);
+        }
+    </style>
+</head>
+
+<body class="bg-gray-50 p-8">
+
+    <div class="max-w-6xl mx-auto">
+        <header class="mb-12">
+            <nav class="text-sm text-gray-500 mb-4">
+                <a href="../index.html" class="hover:text-black">Design System</a> /
+                <a href="../organisms.html" class="hover:text-black">Organisms</a> /
+                <span class="text-black font-medium">Footer</span>
+            </nav>
+            <h1 class="text-4xl font-bold mb-2">Footer</h1>
+            <p class="text-gray-600">Site footers with links and CTAs.</p>
+        </header>
+
+        <!-- Full Footer -->
+        <section class="mb-8">
+            <h2 class="text-sm font-bold uppercase tracking-widest text-gray-400 mb-4">Full Footer</h2>
+            <footer class="bg-brand-black text-white">
+                <div class="px-6 py-12 md:py-16">
+                    <div class="grid md:grid-cols-2 lg:grid-cols-4 gap-12">
+                        <div class="lg:col-span-1">
+                            <a href="#" class="text-2xl font-bold tracking-widest brand-font inline-block mb-4">
+                                MOVERS<span class="text-brand-yellow">+</span>SHAKERS
+                            </a>
+                            <p class="text-gray-400 text-sm leading-relaxed mb-6">
+                                A creative agency that builds bold brands and delivers results that matter.
+                            </p>
+                            <div class="flex gap-3">
+                                <a href="#"
+                                    class="w-10 h-10 bg-white/10 hover:bg-brand-yellow hover:text-black flex items-center justify-center transition-colors">
+                                    <i data-lucide="twitter" class="w-4 h-4"></i>
+                                </a>
+                                <a href="#"
+                                    class="w-10 h-10 bg-white/10 hover:bg-brand-yellow hover:text-black flex items-center justify-center transition-colors">
+                                    <i data-lucide="instagram" class="w-4 h-4"></i>
+                                </a>
+                                <a href="#"
+                                    class="w-10 h-10 bg-white/10 hover:bg-brand-yellow hover:text-black flex items-center justify-center transition-colors">
+                                    <i data-lucide="linkedin" class="w-4 h-4"></i>
+                                </a>
+                            </div>
+                        </div>
+                        <div>
+                            <h4 class="font-bold uppercase tracking-widest text-sm mb-4">Services</h4>
+                            <ul class="space-y-3">
+                                <li><a href="#"
+                                        class="text-gray-400 hover:text-brand-yellow transition-colors text-sm">Brand
+                                        Strategy</a></li>
+                                <li><a href="#"
+                                        class="text-gray-400 hover:text-brand-yellow transition-colors text-sm">Visual
+                                        Identity</a></li>
+                                <li><a href="#"
+                                        class="text-gray-400 hover:text-brand-yellow transition-colors text-sm">Web
+                                        Design</a></li>
+                                <li><a href="#"
+                                        class="text-gray-400 hover:text-brand-yellow transition-colors text-sm">Motion &
+                                        Video</a></li>
+                            </ul>
+                        </div>
+                        <div>
+                            <h4 class="font-bold uppercase tracking-widest text-sm mb-4">Company</h4>
+                            <ul class="space-y-3">
+                                <li><a href="#"
+                                        class="text-gray-400 hover:text-brand-yellow transition-colors text-sm">About
+                                        Us</a></li>
+                                <li><a href="#"
+                                        class="text-gray-400 hover:text-brand-yellow transition-colors text-sm">Our
+                                        Work</a></li>
+                                <li><a href="#"
+                                        class="text-gray-400 hover:text-brand-yellow transition-colors text-sm">Careers</a>
+                                </li>
+                                <li><a href="#"
+                                        class="text-gray-400 hover:text-brand-yellow transition-colors text-sm">Contact</a>
+                                </li>
+                            </ul>
+                        </div>
+                        <div>
+                            <h4 class="font-bold uppercase tracking-widest text-sm mb-4">Newsletter</h4>
+                            <p class="text-gray-400 text-sm mb-4">Subscribe for updates and creative inspiration.</p>
+                            <form class="flex flex-col gap-3">
+                                <input type="email" placeholder="Enter your email"
+                                    class="bg-white/10 border border-white/20 px-4 py-3 text-sm placeholder-gray-500 focus:outline-none focus:border-brand-yellow transition-colors">
+                                <button type="submit"
+                                    class="bg-brand-yellow text-black px-4 py-3 font-bold uppercase tracking-wider text-sm hover:bg-white transition-colors">
+                                    Subscribe
+                                </button>
+                            </form>
+                        </div>
+                    </div>
+                </div>
+                <div class="border-t border-white/10 px-6 py-6">
+                    <div class="flex flex-col md:flex-row justify-between items-center gap-4">
+                        <p class="text-gray-500 text-sm">© 2024 Movers+Shakers. All rights reserved.</p>
+                        <div class="flex gap-6">
+                            <a href="#" class="text-gray-500 hover:text-white text-sm transition-colors">Privacy
+                                Policy</a>
+                            <a href="#" class="text-gray-500 hover:text-white text-sm transition-colors">Terms of
+                                Service</a>
+                        </div>
+                    </div>
+                </div>
+            </footer>
+        </section>
+
+        <!-- Simple Footer -->
+        <section class="mb-8">
+            <h2 class="text-sm font-bold uppercase tracking-widest text-gray-400 mb-4">Simple Footer</h2>
+            <footer class="bg-white border-t-4 border-brand-yellow px-6 py-8">
+                <div class="flex flex-col md:flex-row justify-between items-center gap-6">
+                    <a href="#" class="text-xl font-bold tracking-widest brand-font">
+                        MOVERS<span class="text-brand-yellow">+</span>SHAKERS
+                    </a>
+                    <nav class="flex flex-wrap justify-center gap-6">
+                        <a href="#"
+                            class="text-sm font-bold uppercase tracking-wider hover:text-brand-yellow transition-colors">Work</a>
+                        <a href="#"
+                            class="text-sm font-bold uppercase tracking-wider hover:text-brand-yellow transition-colors">Services</a>
+                        <a href="#"
+                            class="text-sm font-bold uppercase tracking-wider hover:text-brand-yellow transition-colors">About</a>
+                        <a href="#"
+                            class="text-sm font-bold uppercase tracking-wider hover:text-brand-yellow transition-colors">Contact</a>
+                    </nav>
+                    <p class="text-gray-500 text-sm">© 2024 All rights reserved.</p>
+                </div>
+            </footer>
+        </section>
+
+        <!-- CTA Footer -->
+        <section class="mb-8">
+            <h2 class="text-sm font-bold uppercase tracking-widest text-gray-400 mb-4">CTA Footer</h2>
+            <footer class="border-2 border-black">
+                <div class="bg-brand-yellow p-8 md:p-12 text-center">
+                    <h2 class="text-3xl md:text-4xl font-bold brand-font mb-4">READY TO SHAKE THINGS UP?</h2>
+                    <p class="text-gray-800 mb-8 max-w-xl mx-auto">Let's create something amazing together. Get in touch
+                        to start your next project.</p>
+                    <button
+                        class="bg-brand-black text-white px-8 py-4 font-bold uppercase tracking-wider text-sm hover:bg-white hover:text-black border-2 border-black transition-colors">
+                        Start a Project
+                    </button>
+                </div>
+                <div class="bg-brand-black text-white px-6 py-8">
+                    <div class="flex flex-col md:flex-row justify-between items-center gap-6">
+                        <a href="#" class="text-xl font-bold tracking-widest brand-font">
+                            M<span class="text-brand-yellow">+</span>S
+                        </a>
+                        <div class="flex gap-4">
+                            <a href="#" class="text-gray-400 hover:text-brand-yellow transition-colors">
+                                <i data-lucide="twitter" class="w-5 h-5"></i>
+                            </a>
+                            <a href="#" class="text-gray-400 hover:text-brand-yellow transition-colors">
+                                <i data-lucide="instagram" class="w-5 h-5"></i>
+                            </a>
+                            <a href="#" class="text-gray-400 hover:text-brand-yellow transition-colors">
+                                <i data-lucide="linkedin" class="w-5 h-5"></i>
+                            </a>
+                        </div>
+                        <p class="text-gray-500 text-sm">© 2024 Movers+Shakers</p>
+                    </div>
+                </div>
+            </footer>
+        </section>
+
+    </div>
+
+    <script>lucide.createIcons();</script>
+</body>
+
+</html>

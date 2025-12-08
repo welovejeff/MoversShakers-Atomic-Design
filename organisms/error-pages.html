@@ -1,0 +1,153 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Error Pages | Movers+Shakers Organisms</title>
+    <script src="https://cdn.tailwindcss.com"></script>
+    <link
+        href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&family=Oswald:wght@400;500;600;700&display=swap"
+        rel="stylesheet">
+    <script src="https://unpkg.com/lucide@latest"></script>
+    <style>
+        :root {
+            --color-brand-yellow: #FFF000;
+            --color-brand-black: #111111;
+            --shadow-md: 4px 4px 0px 0px rgba(0, 0, 0, 1);
+        }
+
+        body {
+            font-family: 'Inter', sans-serif;
+        }
+
+        h1,
+        h2,
+        h3,
+        h4,
+        .brand-font {
+            font-family: 'Oswald', sans-serif;
+            text-transform: uppercase;
+        }
+
+        .bg-brand-yellow {
+            background-color: var(--color-brand-yellow);
+        }
+
+        .bg-brand-black {
+            background-color: var(--color-brand-black);
+        }
+
+        .text-brand-yellow {
+            color: var(--color-brand-yellow);
+        }
+
+        .shadow-brand-md {
+            box-shadow: var(--shadow-md);
+        }
+    </style>
+</head>
+
+<body class="bg-gray-50 p-8">
+
+    <div class="max-w-6xl mx-auto">
+        <header class="mb-12">
+            <nav class="text-sm text-gray-500 mb-4">
+                <a href="../index.html" class="hover:text-black">Design System</a> /
+                <a href="../organisms.html" class="hover:text-black">Organisms</a> /
+                <span class="text-black font-medium">Error Pages</span>
+            </nav>
+            <h1 class="text-4xl font-bold mb-2">Error Pages</h1>
+            <p class="text-gray-600">404, 500, and maintenance pages.</p>
+        </header>
+
+        <div class="space-y-12">
+
+            <!-- 404 Page -->
+            <section>
+                <h2 class="text-sm font-bold uppercase tracking-widest text-gray-400 mb-4">404 - Not Found</h2>
+                <div class="bg-white border-2 border-black min-h-[400px] flex items-center justify-center p-8">
+                    <div class="text-center max-w-md">
+                        <p class="text-9xl font-bold brand-font text-brand-yellow leading-none mb-4">404</p>
+                        <h1 class="text-3xl font-bold mb-4">PAGE NOT FOUND</h1>
+                        <p class="text-gray-600 mb-8">
+                            Oops! The page you're looking for doesn't exist. It might have been moved or deleted.
+                        </p>
+                        <div class="flex flex-col sm:flex-row gap-4 justify-center">
+                            <button
+                                class="bg-brand-yellow text-black px-6 py-3 font-bold uppercase tracking-wider text-sm border-2 border-black shadow-brand-md hover:bg-white transition-colors flex items-center gap-2 justify-center">
+                                <i data-lucide="home" class="w-4 h-4"></i>
+                                Go Home
+                            </button>
+                            <button
+                                class="bg-white text-black px-6 py-3 font-bold uppercase tracking-wider text-sm border-2 border-black hover:bg-gray-50 transition-colors flex items-center gap-2 justify-center">
+                                <i data-lucide="arrow-left" class="w-4 h-4"></i>
+                                Go Back
+                            </button>
+                        </div>
+                    </div>
+                </div>
+            </section>
+
+            <!-- 500 Page -->
+            <section>
+                <h2 class="text-sm font-bold uppercase tracking-widest text-gray-400 mb-4">500 - Server Error</h2>
+                <div
+                    class="bg-brand-black text-white border-2 border-black min-h-[400px] flex items-center justify-center p-8">
+                    <div class="text-center max-w-md">
+                        <p class="text-9xl font-bold brand-font text-brand-yellow leading-none mb-4">500</p>
+                        <h1 class="text-3xl font-bold mb-4">SERVER ERROR</h1>
+                        <p class="text-gray-400 mb-8">
+                            Something went wrong on our end. Our team has been notified and we're working to fix it.
+                        </p>
+                        <div class="flex flex-col sm:flex-row gap-4 justify-center">
+                            <button
+                                class="bg-brand-yellow text-black px-6 py-3 font-bold uppercase tracking-wider text-sm border-2 border-brand-yellow hover:bg-white transition-colors flex items-center gap-2 justify-center">
+                                <i data-lucide="refresh-cw" class="w-4 h-4"></i>
+                                Try Again
+                            </button>
+                            <button
+                                class="bg-transparent text-white px-6 py-3 font-bold uppercase tracking-wider text-sm border-2 border-white hover:bg-white hover:text-black transition-colors flex items-center gap-2 justify-center">
+                                <i data-lucide="headphones" class="w-4 h-4"></i>
+                                Contact Support
+                            </button>
+                        </div>
+                    </div>
+                </div>
+            </section>
+
+            <!-- Maintenance Page -->
+            <section>
+                <h2 class="text-sm font-bold uppercase tracking-widest text-gray-400 mb-4">Maintenance</h2>
+                <div class="bg-brand-yellow border-2 border-black min-h-[400px] flex items-center justify-center p-8">
+                    <div class="text-center max-w-lg">
+                        <div
+                            class="w-24 h-24 bg-brand-black rounded-full flex items-center justify-center mx-auto mb-8">
+                            <i data-lucide="settings" class="w-12 h-12 text-brand-yellow animate-spin"
+                                style="animation-duration: 3s;"></i>
+                        </div>
+                        <h1 class="text-4xl font-bold brand-font mb-4">UNDER MAINTENANCE</h1>
+                        <p class="text-gray-800 mb-8 text-lg">
+                            We're currently performing scheduled maintenance to improve your experience. We'll be back
+                            shortly.
+                        </p>
+                        <div class="bg-brand-black text-white p-6 mb-8">
+                            <p class="text-xs uppercase tracking-widest text-gray-400 mb-2">Estimated Completion</p>
+                            <p class="text-2xl font-bold brand-font text-brand-yellow">2:00 PM EST</p>
+                        </div>
+                        <p class="text-sm text-gray-700">
+                            Need urgent help? Email us at <a href="mailto:support@moversshakers.com"
+                                class="font-bold underline">support@moversshakers.com</a>
+                        </p>
+                    </div>
+                </div>
+            </section>
+
+        </div>
+
+    </div>
+
+    <script>lucide.createIcons();</script>
+</body>
+
+</html>

@@ -1,0 +1,168 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Empty States | Movers+Shakers Organisms</title>
+    <script src="https://cdn.tailwindcss.com"></script>
+    <link
+        href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&family=Oswald:wght@400;500;600;700&display=swap"
+        rel="stylesheet">
+    <script src="https://unpkg.com/lucide@latest"></script>
+    <style>
+        :root {
+            --color-brand-yellow: #FFF000;
+            --color-brand-black: #111111;
+            --shadow-md: 4px 4px 0px 0px rgba(0, 0, 0, 1);
+        }
+
+        body {
+            font-family: 'Inter', sans-serif;
+        }
+
+        h1,
+        h2,
+        h3,
+        h4,
+        .brand-font {
+            font-family: 'Oswald', sans-serif;
+            text-transform: uppercase;
+        }
+
+        .bg-brand-yellow {
+            background-color: var(--color-brand-yellow);
+        }
+
+        .bg-brand-black {
+            background-color: var(--color-brand-black);
+        }
+
+        .text-brand-yellow {
+            color: var(--color-brand-yellow);
+        }
+
+        .shadow-brand-md {
+            box-shadow: var(--shadow-md);
+        }
+    </style>
+</head>
+
+<body class="bg-gray-50 p-8">
+
+    <div class="max-w-6xl mx-auto">
+        <header class="mb-12">
+            <nav class="text-sm text-gray-500 mb-4">
+                <a href="../index.html" class="hover:text-black">Design System</a> /
+                <a href="../organisms.html" class="hover:text-black">Organisms</a> /
+                <span class="text-black font-medium">Empty States</span>
+            </nav>
+            <h1 class="text-4xl font-bold mb-2">Empty States</h1>
+            <p class="text-gray-600">Placeholder content for empty views.</p>
+        </header>
+
+        <div class="grid md:grid-cols-2 lg:grid-cols-3 gap-8">
+
+            <!-- No Data -->
+            <section>
+                <h2 class="text-sm font-bold uppercase tracking-widest text-gray-400 mb-4">No Data</h2>
+                <div class="bg-white border-2 border-black p-12 text-center">
+                    <div class="w-20 h-20 bg-gray-100 rounded-full flex items-center justify-center mx-auto mb-6">
+                        <i data-lucide="inbox" class="w-10 h-10 text-gray-400"></i>
+                    </div>
+                    <h3 class="text-xl font-bold mb-2">No Projects Yet</h3>
+                    <p class="text-gray-600 text-sm mb-6">Get started by creating your first project.</p>
+                    <button
+                        class="bg-brand-yellow text-black px-6 py-3 font-bold uppercase tracking-wider text-sm border-2 border-black shadow-brand-md hover:bg-white transition-colors">
+                        Create Project
+                    </button>
+                </div>
+            </section>
+
+            <!-- No Results -->
+            <section>
+                <h2 class="text-sm font-bold uppercase tracking-widest text-gray-400 mb-4">No Results</h2>
+                <div class="bg-white border-2 border-black p-12 text-center">
+                    <div class="w-20 h-20 bg-gray-100 rounded-full flex items-center justify-center mx-auto mb-6">
+                        <i data-lucide="search-x" class="w-10 h-10 text-gray-400"></i>
+                    </div>
+                    <h3 class="text-xl font-bold mb-2">No Results Found</h3>
+                    <p class="text-gray-600 text-sm mb-6">We couldn't find anything matching your search. Try different
+                        keywords.</p>
+                    <button
+                        class="bg-white text-black px-6 py-3 font-bold uppercase tracking-wider text-sm border-2 border-black hover:bg-gray-50 transition-colors">
+                        Clear Filters
+                    </button>
+                </div>
+            </section>
+
+            <!-- First Time -->
+            <section>
+                <h2 class="text-sm font-bold uppercase tracking-widest text-gray-400 mb-4">First Time</h2>
+                <div class="bg-brand-yellow border-2 border-black p-12 text-center">
+                    <div class="w-20 h-20 bg-brand-black rounded-full flex items-center justify-center mx-auto mb-6">
+                        <i data-lucide="rocket" class="w-10 h-10 text-brand-yellow"></i>
+                    </div>
+                    <h3 class="text-xl font-bold mb-2">Welcome to the Platform!</h3>
+                    <p class="text-gray-800 text-sm mb-6">Let's get you set up with a quick walkthrough of the key
+                        features.</p>
+                    <button
+                        class="bg-brand-black text-white px-6 py-3 font-bold uppercase tracking-wider text-sm border-2 border-black hover:bg-white hover:text-black transition-colors">
+                        Start Tour
+                    </button>
+                </div>
+            </section>
+
+            <!-- Error State -->
+            <section>
+                <h2 class="text-sm font-bold uppercase tracking-widest text-gray-400 mb-4">Error State</h2>
+                <div class="bg-white border-2 border-black p-12 text-center">
+                    <div class="w-20 h-20 bg-red-50 rounded-full flex items-center justify-center mx-auto mb-6">
+                        <i data-lucide="alert-triangle" class="w-10 h-10 text-red-400"></i>
+                    </div>
+                    <h3 class="text-xl font-bold mb-2">Something Went Wrong</h3>
+                    <p class="text-gray-600 text-sm mb-6">We're having trouble loading this content. Please try again.
+                    </p>
+                    <button
+                        class="bg-brand-black text-white px-6 py-3 font-bold uppercase tracking-wider text-sm border-2 border-black hover:bg-brand-yellow hover:text-black transition-colors flex items-center gap-2 mx-auto">
+                        <i data-lucide="refresh-cw" class="w-4 h-4"></i>
+                        Retry
+                    </button>
+                </div>
+            </section>
+
+            <!-- Upload Area -->
+            <section>
+                <h2 class="text-sm font-bold uppercase tracking-widest text-gray-400 mb-4">Upload Area</h2>
+                <div
+                    class="bg-white border-2 border-dashed border-gray-300 p-12 text-center hover:border-black hover:bg-gray-50 transition-colors cursor-pointer">
+                    <div class="w-20 h-20 bg-gray-100 rounded-full flex items-center justify-center mx-auto mb-6">
+                        <i data-lucide="upload-cloud" class="w-10 h-10 text-gray-400"></i>
+                    </div>
+                    <h3 class="text-xl font-bold mb-2">Upload Files</h3>
+                    <p class="text-gray-600 text-sm mb-2">Drag and drop files here, or click to browse.</p>
+                    <p class="text-gray-400 text-xs">PNG, JPG, GIF up to 10MB</p>
+                </div>
+            </section>
+
+            <!-- Maintenance -->
+            <section>
+                <h2 class="text-sm font-bold uppercase tracking-widest text-gray-400 mb-4">Maintenance</h2>
+                <div class="bg-brand-black text-white border-2 border-black p-12 text-center">
+                    <div class="w-20 h-20 bg-brand-yellow rounded-full flex items-center justify-center mx-auto mb-6">
+                        <i data-lucide="wrench" class="w-10 h-10 text-black"></i>
+                    </div>
+                    <h3 class="text-xl font-bold mb-2 text-brand-yellow">Under Maintenance</h3>
+                    <p class="text-gray-400 text-sm mb-6">We're making some improvements. Check back soon!</p>
+                    <p class="text-xs text-gray-500">Estimated downtime: ~2 hours</p>
+                </div>
+            </section>
+
+        </div>
+
+    </div>
+
+    <script>lucide.createIcons();</script>
+</body>
+
+</html>

@@ -1,0 +1,236 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Feature Sections | Movers+Shakers Organisms</title>
+    <script src="https://cdn.tailwindcss.com"></script>
+    <link
+        href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&family=Oswald:wght@400;500;600;700&display=swap"
+        rel="stylesheet">
+    <script src="https://unpkg.com/lucide@latest"></script>
+    <style>
+        :root {
+            --color-brand-yellow: #FFF000;
+            --color-brand-black: #111111;
+            --shadow-md: 4px 4px 0px 0px rgba(0, 0, 0, 1);
+            --shadow-yellow-md: 4px 4px 0px 0px #FFF000;
+        }
+
+        body {
+            font-family: 'Inter', sans-serif;
+        }
+
+        h1,
+        h2,
+        h3,
+        h4,
+        .brand-font {
+            font-family: 'Oswald', sans-serif;
+            text-transform: uppercase;
+        }
+
+        .bg-brand-yellow {
+            background-color: var(--color-brand-yellow);
+        }
+
+        .bg-brand-black {
+            background-color: var(--color-brand-black);
+        }
+
+        .text-brand-yellow {
+            color: var(--color-brand-yellow);
+        }
+
+        .shadow-brand-md {
+            box-shadow: var(--shadow-md);
+        }
+
+        .shadow-brand-yellow-md {
+            box-shadow: var(--shadow-yellow-md);
+        }
+
+        .pattern-lines {
+            background-image: repeating-linear-gradient(45deg, transparent, transparent 10px, rgba(0, 0, 0, 0.03) 10px, rgba(0, 0, 0, 0.03) 20px);
+        }
+    </style>
+</head>
+
+<body class="bg-gray-50 p-8">
+
+    <div class="max-w-6xl mx-auto">
+        <header class="mb-12">
+            <nav class="text-sm text-gray-500 mb-4">
+                <a href="../index.html" class="hover:text-black">Design System</a> /
+                <a href="../organisms.html" class="hover:text-black">Organisms</a> /
+                <span class="text-black font-medium">Feature Sections</span>
+            </nav>
+            <h1 class="text-4xl font-bold mb-2">Feature Sections</h1>
+            <p class="text-gray-600">Feature grids, stats, and testimonials.</p>
+        </header>
+
+        <!-- Feature Grid -->
+        <section class="mb-12">
+            <h2 class="text-sm font-bold uppercase tracking-widest text-gray-400 mb-4">Feature Grid</h2>
+            <div class="bg-gray-50 p-8 md:p-12 border-2 border-black">
+                <div class="text-center max-w-2xl mx-auto mb-12">
+                    <span
+                        class="text-xs font-bold uppercase tracking-widest text-brand-yellow bg-brand-black inline-block px-3 py-1 mb-4">What
+                        We Do</span>
+                    <h2 class="text-4xl font-bold brand-font mb-4">SERVICES THAT DELIVER</h2>
+                    <p class="text-gray-600">From strategy to execution, we provide end-to-end creative solutions that
+                        drive real business results.</p>
+                </div>
+                <div class="grid md:grid-cols-2 lg:grid-cols-3 gap-6">
+                    <div
+                        class="bg-white p-6 border-2 border-black shadow-brand-md hover:shadow-brand-yellow-md transition-shadow">
+                        <div
+                            class="w-12 h-12 bg-brand-yellow border-2 border-black flex items-center justify-center mb-4">
+                            <i data-lucide="lightbulb" class="w-6 h-6"></i>
+                        </div>
+                        <h3 class="text-xl font-bold mb-2">Brand Strategy</h3>
+                        <p class="text-gray-600 text-sm leading-relaxed">
+                            Define your brand's unique position in the market with data-driven insights.
+                        </p>
+                    </div>
+                    <div
+                        class="bg-white p-6 border-2 border-black shadow-brand-md hover:shadow-brand-yellow-md transition-shadow">
+                        <div
+                            class="w-12 h-12 bg-brand-yellow border-2 border-black flex items-center justify-center mb-4">
+                            <i data-lucide="palette" class="w-6 h-6"></i>
+                        </div>
+                        <h3 class="text-xl font-bold mb-2">Visual Identity</h3>
+                        <p class="text-gray-600 text-sm leading-relaxed">
+                            Create a distinctive visual language that captures your brand's essence.
+                        </p>
+                    </div>
+                    <div
+                        class="bg-white p-6 border-2 border-black shadow-brand-md hover:shadow-brand-yellow-md transition-shadow">
+                        <div
+                            class="w-12 h-12 bg-brand-yellow border-2 border-black flex items-center justify-center mb-4">
+                            <i data-lucide="video" class="w-6 h-6"></i>
+                        </div>
+                        <h3 class="text-xl font-bold mb-2">Motion & Video</h3>
+                        <p class="text-gray-600 text-sm leading-relaxed">
+                            Bring your brand to life with dynamic motion graphics and video content.
+                        </p>
+                    </div>
+                    <div
+                        class="bg-white p-6 border-2 border-black shadow-brand-md hover:shadow-brand-yellow-md transition-shadow">
+                        <div
+                            class="w-12 h-12 bg-brand-yellow border-2 border-black flex items-center justify-center mb-4">
+                            <i data-lucide="globe" class="w-6 h-6"></i>
+                        </div>
+                        <h3 class="text-xl font-bold mb-2">Web Design</h3>
+                        <p class="text-gray-600 text-sm leading-relaxed">
+                            Design beautiful, high-performing websites that convert visitors.
+                        </p>
+                    </div>
+                    <div
+                        class="bg-white p-6 border-2 border-black shadow-brand-md hover:shadow-brand-yellow-md transition-shadow">
+                        <div
+                            class="w-12 h-12 bg-brand-yellow border-2 border-black flex items-center justify-center mb-4">
+                            <i data-lucide="megaphone" class="w-6 h-6"></i>
+                        </div>
+                        <h3 class="text-xl font-bold mb-2">Campaigns</h3>
+                        <p class="text-gray-600 text-sm leading-relaxed">
+                            Launch integrated marketing campaigns that generate buzz and drive results.
+                        </p>
+                    </div>
+                    <div
+                        class="bg-white p-6 border-2 border-black shadow-brand-md hover:shadow-brand-yellow-md transition-shadow">
+                        <div
+                            class="w-12 h-12 bg-brand-yellow border-2 border-black flex items-center justify-center mb-4">
+                            <i data-lucide="trending-up" class="w-6 h-6"></i>
+                        </div>
+                        <h3 class="text-xl font-bold mb-2">Growth Strategy</h3>
+                        <p class="text-gray-600 text-sm leading-relaxed">
+                            Scale your brand with proven strategies for sustainable growth.
+                        </p>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <!-- Stats Section -->
+        <section class="mb-12">
+            <h2 class="text-sm font-bold uppercase tracking-widest text-gray-400 mb-4">Stats Section</h2>
+            <div class="bg-brand-yellow border-2 border-black p-8 md:p-12">
+                <div class="grid grid-cols-2 md:grid-cols-4 gap-8">
+                    <div class="text-center">
+                        <p class="text-5xl md:text-6xl font-bold brand-font">150+</p>
+                        <p class="text-sm font-bold uppercase tracking-widest mt-2">Projects Delivered</p>
+                    </div>
+                    <div class="text-center">
+                        <p class="text-5xl md:text-6xl font-bold brand-font">50+</p>
+                        <p class="text-sm font-bold uppercase tracking-widest mt-2">Happy Clients</p>
+                    </div>
+                    <div class="text-center">
+                        <p class="text-5xl md:text-6xl font-bold brand-font">12</p>
+                        <p class="text-sm font-bold uppercase tracking-widest mt-2">Industry Awards</p>
+                    </div>
+                    <div class="text-center">
+                        <p class="text-5xl md:text-6xl font-bold brand-font">8+</p>
+                        <p class="text-sm font-bold uppercase tracking-widest mt-2">Years Experience</p>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <!-- Testimonials Section -->
+        <section class="mb-12">
+            <h2 class="text-sm font-bold uppercase tracking-widest text-gray-400 mb-4">Testimonials</h2>
+            <div class="bg-brand-black text-white p-8 md:p-12">
+                <div class="max-w-4xl mx-auto">
+                    <div class="text-center mb-12">
+                        <span
+                            class="text-xs font-bold uppercase tracking-widest text-brand-yellow mb-4 block">Testimonials</span>
+                        <h2 class="text-4xl font-bold brand-font">WHAT OUR CLIENTS SAY</h2>
+                    </div>
+                    <div class="grid md:grid-cols-2 gap-6">
+                        <div class="bg-white/5 border border-white/10 p-6 relative">
+                            <div class="absolute -top-3 left-6 text-5xl font-bold text-brand-yellow leading-none">"
+                            </div>
+                            <p class="text-gray-300 leading-relaxed mb-6 pt-4">
+                                Working with this team was transformative for our brand. They understood our vision
+                                immediately.
+                            </p>
+                            <div class="flex items-center gap-4">
+                                <div
+                                    class="w-12 h-12 rounded-full bg-brand-yellow text-black flex items-center justify-center font-bold">
+                                    SM</div>
+                                <div>
+                                    <p class="font-bold">Sarah Mitchell</p>
+                                    <p class="text-sm text-gray-500">CEO, TechStartup Inc.</p>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="bg-white/5 border border-white/10 p-6 relative">
+                            <div class="absolute -top-3 left-6 text-5xl font-bold text-brand-yellow leading-none">"
+                            </div>
+                            <p class="text-gray-300 leading-relaxed mb-6 pt-4">
+                                The creativity and professionalism were outstanding. Our campaign exceeded all targets
+                                by 200%.
+                            </p>
+                            <div class="flex items-center gap-4">
+                                <div
+                                    class="w-12 h-12 rounded-full bg-brand-yellow text-black flex items-center justify-center font-bold">
+                                    JR</div>
+                                <div>
+                                    <p class="font-bold">James Rodriguez</p>
+                                    <p class="text-sm text-gray-500">Marketing Director, GlobalBrand</p>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+    </div>
+
+    <script>lucide.createIcons();</script>
+</body>
+
+</html>

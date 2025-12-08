@@ -1,0 +1,220 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Sidebar | Movers+Shakers Organisms</title>
+    <script src="https://cdn.tailwindcss.com"></script>
+    <link
+        href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&family=Oswald:wght@400;500;600;700&display=swap"
+        rel="stylesheet">
+    <script src="https://unpkg.com/lucide@latest"></script>
+    <style>
+        :root {
+            --color-brand-yellow: #FFF000;
+            --color-brand-black: #111111;
+        }
+
+        body {
+            font-family: 'Inter', sans-serif;
+        }
+
+        h1,
+        h2,
+        h3,
+        h4,
+        .brand-font {
+            font-family: 'Oswald', sans-serif;
+            text-transform: uppercase;
+        }
+
+        .bg-brand-yellow {
+            background-color: var(--color-brand-yellow);
+        }
+
+        .bg-brand-black {
+            background-color: var(--color-brand-black);
+        }
+
+        .text-brand-yellow {
+            color: var(--color-brand-yellow);
+        }
+    </style>
+</head>
+
+<body class="bg-gray-50 p-8">
+
+    <div class="max-w-6xl mx-auto">
+        <header class="mb-12">
+            <nav class="text-sm text-gray-500 mb-4">
+                <a href="../index.html" class="hover:text-black">Design System</a> /
+                <a href="../organisms.html" class="hover:text-black">Organisms</a> /
+                <span class="text-black font-medium">Sidebar</span>
+            </nav>
+            <h1 class="text-4xl font-bold mb-2">Sidebar & Drawer</h1>
+            <p class="text-gray-600">Application sidebars and drawers.</p>
+        </header>
+
+        <!-- Application Sidebar -->
+        <section class="mb-8">
+            <h2 class="text-sm font-bold uppercase tracking-widest text-gray-400 mb-4">Application Sidebar</h2>
+            <div class="flex border-2 border-black max-w-4xl">
+                <aside class="w-64 bg-brand-black text-white flex-shrink-0">
+                    <div class="p-4 border-b border-white/10">
+                        <a href="#" class="text-lg font-bold tracking-widest brand-font">
+                            M<span class="text-brand-yellow">+</span>S
+                        </a>
+                    </div>
+                    <nav class="p-4">
+                        <p class="text-xs font-bold uppercase tracking-widest text-gray-500 mb-3">Main Menu</p>
+                        <ul class="space-y-1">
+                            <li>
+                                <a href="#"
+                                    class="flex items-center gap-3 px-3 py-2 bg-brand-yellow text-black font-medium text-sm">
+                                    <i data-lucide="layout-dashboard" class="w-4 h-4"></i>
+                                    Dashboard
+                                </a>
+                            </li>
+                            <li>
+                                <a href="#"
+                                    class="flex items-center gap-3 px-3 py-2 text-gray-400 hover:text-white hover:bg-white/10 transition-colors font-medium text-sm">
+                                    <i data-lucide="folder" class="w-4 h-4"></i>
+                                    Projects
+                                </a>
+                            </li>
+                            <li>
+                                <a href="#"
+                                    class="flex items-center gap-3 px-3 py-2 text-gray-400 hover:text-white hover:bg-white/10 transition-colors font-medium text-sm">
+                                    <i data-lucide="users" class="w-4 h-4"></i>
+                                    Team
+                                </a>
+                            </li>
+                            <li>
+                                <a href="#"
+                                    class="flex items-center gap-3 px-3 py-2 text-gray-400 hover:text-white hover:bg-white/10 transition-colors font-medium text-sm">
+                                    <i data-lucide="calendar" class="w-4 h-4"></i>
+                                    Calendar
+                                </a>
+                            </li>
+                            <li>
+                                <a href="#"
+                                    class="flex items-center gap-3 px-3 py-2 text-gray-400 hover:text-white hover:bg-white/10 transition-colors font-medium text-sm">
+                                    <i data-lucide="file-text" class="w-4 h-4"></i>
+                                    Documents
+                                </a>
+                            </li>
+                        </ul>
+                        <p class="text-xs font-bold uppercase tracking-widest text-gray-500 mb-3 mt-6">Settings</p>
+                        <ul class="space-y-1">
+                            <li>
+                                <a href="#"
+                                    class="flex items-center gap-3 px-3 py-2 text-gray-400 hover:text-white hover:bg-white/10 transition-colors font-medium text-sm">
+                                    <i data-lucide="settings" class="w-4 h-4"></i>
+                                    Settings
+                                </a>
+                            </li>
+                            <li>
+                                <a href="#"
+                                    class="flex items-center gap-3 px-3 py-2 text-gray-400 hover:text-white hover:bg-white/10 transition-colors font-medium text-sm">
+                                    <i data-lucide="help-circle" class="w-4 h-4"></i>
+                                    Help
+                                </a>
+                            </li>
+                        </ul>
+                    </nav>
+                    <div class="p-4 border-t border-white/10 mt-auto">
+                        <div class="flex items-center gap-3">
+                            <div
+                                class="w-8 h-8 rounded-full bg-brand-yellow text-black flex items-center justify-center font-bold text-sm">
+                                JD</div>
+                            <div class="flex-1 min-w-0">
+                                <p class="font-medium text-sm truncate">Jane Doe</p>
+                                <p class="text-xs text-gray-500 truncate">jane@example.com</p>
+                            </div>
+                            <button class="text-gray-400 hover:text-white">
+                                <i data-lucide="log-out" class="w-4 h-4"></i>
+                            </button>
+                        </div>
+                    </div>
+                </aside>
+                <main class="flex-1 bg-gray-50 p-6">
+                    <h1 class="text-2xl font-bold mb-4">Dashboard</h1>
+                    <p class="text-gray-600 text-sm">Main content area goes here...</p>
+                </main>
+            </div>
+        </section>
+
+        <!-- Mobile Drawer -->
+        <section class="mb-8">
+            <h2 class="text-sm font-bold uppercase tracking-widest text-gray-400 mb-4">Mobile Drawer (Static Preview)
+            </h2>
+            <div class="relative bg-gray-900/50 h-[500px] max-w-sm overflow-hidden">
+                <div class="absolute top-0 left-0 h-full w-72 bg-white shadow-xl border-r-2 border-black">
+                    <div class="p-4 border-b-2 border-black flex items-center justify-between bg-brand-yellow">
+                        <span class="text-lg font-bold tracking-widest brand-font">MENU</span>
+                        <button class="w-8 h-8 flex items-center justify-center hover:bg-black/10 transition-colors">
+                            <i data-lucide="x" class="w-5 h-5"></i>
+                        </button>
+                    </div>
+                    <nav class="p-4">
+                        <ul class="space-y-1">
+                            <li>
+                                <a href="#"
+                                    class="flex items-center gap-3 px-3 py-3 hover:bg-brand-yellow transition-colors font-bold uppercase tracking-wider text-sm">
+                                    Work
+                                </a>
+                            </li>
+                            <li>
+                                <a href="#"
+                                    class="flex items-center gap-3 px-3 py-3 hover:bg-brand-yellow transition-colors font-bold uppercase tracking-wider text-sm">
+                                    Services
+                                </a>
+                            </li>
+                            <li>
+                                <a href="#"
+                                    class="flex items-center gap-3 px-3 py-3 hover:bg-brand-yellow transition-colors font-bold uppercase tracking-wider text-sm">
+                                    About
+                                </a>
+                            </li>
+                            <li>
+                                <a href="#"
+                                    class="flex items-center gap-3 px-3 py-3 hover:bg-brand-yellow transition-colors font-bold uppercase tracking-wider text-sm">
+                                    Blog
+                                </a>
+                            </li>
+                            <li>
+                                <a href="#"
+                                    class="flex items-center gap-3 px-3 py-3 hover:bg-brand-yellow transition-colors font-bold uppercase tracking-wider text-sm">
+                                    Contact
+                                </a>
+                            </li>
+                        </ul>
+                    </nav>
+                    <div class="absolute bottom-0 left-0 right-0 p-4 border-t border-gray-200">
+                        <button
+                            class="w-full bg-brand-black text-white py-3 font-bold uppercase tracking-wider text-sm">
+                            Get Started
+                        </button>
+                        <div class="flex justify-center gap-4 mt-4">
+                            <a href="#" class="text-gray-400 hover:text-black transition-colors">
+                                <i data-lucide="twitter" class="w-5 h-5"></i>
+                            </a>
+                            <a href="#" class="text-gray-400 hover:text-black transition-colors">
+                                <i data-lucide="instagram" class="w-5 h-5"></i>
+                            </a>
+                            <a href="#" class="text-gray-400 hover:text-black transition-colors">
+                                <i data-lucide="linkedin" class="w-5 h-5"></i>
+                            </a>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+    </div>
+
+    <script>lucide.createIcons();</script>
+</body>
+
+</html>

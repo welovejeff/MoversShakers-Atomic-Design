@@ -26,8 +26,23 @@ A complete component library and design system built with HTML, CSS, and vanilla
 │   ├── avatars.html        # User avatars and placeholders
 │   └── loaders.html        # Spinners and loading states
 │
-├── molecules/              # Molecule components (in progress)
-├── organisms/              # Organism components (in progress)
+├── molecules/              # Molecule component files ✓
+│   ├── cards.html          # Content cards, pricing, profile cards
+│   ├── alerts.html         # Notifications, toasts, banners
+│   ├── navigation.html     # Breadcrumbs, tabs, pagination, steppers
+│   ├── modals.html         # Dialog boxes and overlays
+│   ├── dropdowns.html      # Menu dropdowns, context menus
+│   └── tables.html         # Data tables with sorting/selection
+│
+├── organisms/              # Organism component files ✓
+│   ├── navigation-bars.html # Primary, light, search, overlay navs
+│   ├── hero-sections.html  # Centered, split, full-width heroes
+│   ├── feature-sections.html # Feature grid, stats, testimonials
+│   ├── footer.html         # Full, simple, CTA footers
+│   ├── sidebar.html        # App sidebar, mobile drawer
+│   ├── forms.html          # Contact, login, registration forms
+│   ├── empty-states.html   # No data, error, upload states
+│   └── error-pages.html    # 404, 500, maintenance pages
 │
 ├── tokens/                 # Design tokens (CSS custom properties)
 │   ├── index.css           # Main import file
@@ -176,9 +191,9 @@ Navigation Bars, Hero Sections, Feature Sections, Footers, Sidebars, Forms
 
 ## 🗺️ Roadmap
 
-### Phase 1: Molecule Component Extraction
+### ~~Phase 1: Molecule Component Extraction~~ ✅ Complete
 
-Create individual HTML files in `molecules/` directory:
+Created individual HTML files in `molecules/` directory:
 
 | File | Components |
 |------|------------|
@@ -191,9 +206,9 @@ Create individual HTML files in `molecules/` directory:
 
 ---
 
-### Phase 2: Organism Component Extraction
+### ~~Phase 2: Organism Component Extraction~~ ✅ Complete
 
-Create individual HTML files in `organisms/` directory:
+Created individual HTML files in `organisms/` directory:
 
 | File | Components |
 |------|------------|

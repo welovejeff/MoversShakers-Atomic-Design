@@ -1,31 +1,66 @@
 <!DOCTYPE html>
 <html lang="en">
+
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Molecules | Movers+Shakers Design System</title>
     <script src="https://cdn.tailwindcss.com"></script>
-    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&family=Oswald:wght@400;500;600;700&display=swap" rel="stylesheet">
+    <link
+        href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&family=Oswald:wght@400;500;600;700&display=swap"
+        rel="stylesheet">
     <script src="https://unpkg.com/lucide@latest"></script>
     <style>
-        :root { --color-brand-yellow: #FFF000; --color-brand-black: #111111; --shadow-md: 4px 4px 0px 0px rgba(0,0,0,1); }
-        body { font-family: 'Inter', sans-serif; }
-        h1, h2, h3, .brand-font { font-family: 'Oswald', sans-serif; text-transform: uppercase; }
-        .bg-brand-yellow { background-color: var(--color-brand-yellow); }
-        .bg-brand-black { background-color: var(--color-brand-black); }
-        .text-brand-yellow { color: var(--color-brand-yellow); }
-        .shadow-brand-md { box-shadow: var(--shadow-md); }
+        :root {
+            --color-brand-yellow: #FFF000;
+            --color-brand-black: #111111;
+            --shadow-md: 4px 4px 0px 0px rgba(0, 0, 0, 1);
+        }
+
+        body {
+            font-family: 'Inter', sans-serif;
+        }
+
+        h1,
+        h2,
+        h3,
+        .brand-font {
+            font-family: 'Oswald', sans-serif;
+            text-transform: uppercase;
+        }
+
+        .bg-brand-yellow {
+            background-color: var(--color-brand-yellow);
+        }
+
+        .bg-brand-black {
+            background-color: var(--color-brand-black);
+        }
+
+        .text-brand-yellow {
+            color: var(--color-brand-yellow);
+        }
+
+        .shadow-brand-md {
+            box-shadow: var(--shadow-md);
+        }
     </style>
 </head>
+
 <body class="bg-gray-50 min-h-screen">
     <header class="bg-brand-black text-white border-b-4 border-brand-yellow">
         <div class="container mx-auto px-6 py-4 flex items-center justify-between">
-            <a href="index.html" class="text-xl font-bold tracking-widest brand-font">MOVERS<span class="text-brand-yellow">+</span>SHAKERS</a>
+            <a href="index.html" class="text-xl font-bold tracking-widest brand-font">MOVERS<span
+                    class="text-brand-yellow">+</span>SHAKERS</a>
             <nav class="hidden md:flex items-center gap-6">
-                <a href="index.html" class="text-sm font-bold uppercase tracking-wider hover:text-brand-yellow transition-colors">Design System</a>
-                <a href="atoms.html" class="text-sm font-bold uppercase tracking-wider hover:text-brand-yellow transition-colors">Atoms</a>
+                <a href="index.html"
+                    class="text-sm font-bold uppercase tracking-wider hover:text-brand-yellow transition-colors">Design
+                    System</a>
+                <a href="atoms.html"
+                    class="text-sm font-bold uppercase tracking-wider hover:text-brand-yellow transition-colors">Atoms</a>
                 <span class="text-brand-yellow font-bold text-sm uppercase tracking-wider">Molecules</span>
-                <a href="organisms.html" class="text-sm font-bold uppercase tracking-wider hover:text-brand-yellow transition-colors">Organisms</a>
+                <a href="organisms.html"
+                    class="text-sm font-bold uppercase tracking-wider hover:text-brand-yellow transition-colors">Organisms</a>
             </nav>
         </div>
     </header>
@@ -34,12 +69,14 @@
         <div class="mb-12">
             <h1 class="text-5xl font-bold mb-4">02 — Molecules</h1>
             <p class="text-gray-600 text-lg max-w-2xl">
-                Molecules are groups of atoms bonded together. They serve as the backbone of the design system and are tangible enough to be useful.
+                Molecules are groups of atoms bonded together. They serve as the backbone of the design system and are
+                tangible enough to be useful.
             </p>
         </div>
 
         <div class="grid md:grid-cols-2 lg:grid-cols-3 gap-6">
-            <a href="index.html#molecules" class="bg-white border-2 border-black p-6 shadow-brand-md hover:shadow-none hover:translate-x-1 hover:translate-y-1 transition-all">
+            <a href="molecules/cards.html"
+                class="bg-white border-2 border-black p-6 shadow-brand-md hover:shadow-none hover:translate-x-1 hover:translate-y-1 transition-all">
                 <div class="flex items-center gap-4 mb-4">
                     <div class="w-12 h-12 bg-brand-yellow border-2 border-black flex items-center justify-center">
                         <i data-lucide="square" class="w-6 h-6"></i>
@@ -48,7 +85,8 @@
                 </div>
                 <p class="text-gray-600 text-sm">Content containers with various layouts and styles.</p>
             </a>
-            <a href="index.html#molecules" class="bg-white border-2 border-black p-6 shadow-brand-md hover:shadow-none hover:translate-x-1 hover:translate-y-1 transition-all">
+            <a href="molecules/alerts.html"
+                class="bg-white border-2 border-black p-6 shadow-brand-md hover:shadow-none hover:translate-x-1 hover:translate-y-1 transition-all">
                 <div class="flex items-center gap-4 mb-4">
                     <div class="w-12 h-12 bg-brand-yellow border-2 border-black flex items-center justify-center">
                         <i data-lucide="bell" class="w-6 h-6"></i>
@@ -57,7 +95,8 @@
                 </div>
                 <p class="text-gray-600 text-sm">Notification banners for feedback and status messages.</p>
             </a>
-            <a href="index.html#molecules" class="bg-white border-2 border-black p-6 shadow-brand-md hover:shadow-none hover:translate-x-1 hover:translate-y-1 transition-all">
+            <a href="molecules/navigation.html"
+                class="bg-white border-2 border-black p-6 shadow-brand-md hover:shadow-none hover:translate-x-1 hover:translate-y-1 transition-all">
                 <div class="flex items-center gap-4 mb-4">
                     <div class="w-12 h-12 bg-brand-yellow border-2 border-black flex items-center justify-center">
                         <i data-lucide="navigation" class="w-6 h-6"></i>
@@ -66,25 +105,28 @@
                 </div>
                 <p class="text-gray-600 text-sm">Breadcrumbs, tabs, pagination, and steppers.</p>
             </a>
-            <a href="demo.html" class="bg-white border-2 border-black p-6 shadow-brand-md hover:shadow-none hover:translate-x-1 hover:translate-y-1 transition-all">
+            <a href="molecules/modals.html"
+                class="bg-white border-2 border-black p-6 shadow-brand-md hover:shadow-none hover:translate-x-1 hover:translate-y-1 transition-all">
                 <div class="flex items-center gap-4 mb-4">
                     <div class="w-12 h-12 bg-brand-yellow border-2 border-black flex items-center justify-center">
                         <i data-lucide="layers" class="w-6 h-6"></i>
                     </div>
                     <h3 class="text-xl font-bold">Modals</h3>
                 </div>
-                <p class="text-gray-600 text-sm">Dialog boxes and overlay content. <span class="text-brand-yellow">(Interactive)</span></p>
+                <p class="text-gray-600 text-sm">Dialog boxes and overlay content.</p>
             </a>
-            <a href="demo.html" class="bg-white border-2 border-black p-6 shadow-brand-md hover:shadow-none hover:translate-x-1 hover:translate-y-1 transition-all">
+            <a href="molecules/dropdowns.html"
+                class="bg-white border-2 border-black p-6 shadow-brand-md hover:shadow-none hover:translate-x-1 hover:translate-y-1 transition-all">
                 <div class="flex items-center gap-4 mb-4">
                     <div class="w-12 h-12 bg-brand-yellow border-2 border-black flex items-center justify-center">
                         <i data-lucide="chevron-down" class="w-6 h-6"></i>
                     </div>
                     <h3 class="text-xl font-bold">Dropdowns</h3>
                 </div>
-                <p class="text-gray-600 text-sm">Menu dropdowns and select alternatives. <span class="text-brand-yellow">(Interactive)</span></p>
+                <p class="text-gray-600 text-sm">Menu dropdowns and select alternatives.</p>
             </a>
-            <a href="index.html#molecules" class="bg-white border-2 border-black p-6 shadow-brand-md hover:shadow-none hover:translate-x-1 hover:translate-y-1 transition-all">
+            <a href="molecules/tables.html"
+                class="bg-white border-2 border-black p-6 shadow-brand-md hover:shadow-none hover:translate-x-1 hover:translate-y-1 transition-all">
                 <div class="flex items-center gap-4 mb-4">
                     <div class="w-12 h-12 bg-brand-yellow border-2 border-black flex items-center justify-center">
                         <i data-lucide="table" class="w-6 h-6"></i>
@@ -96,10 +138,12 @@
         </div>
 
         <div class="mt-12 p-6 bg-brand-yellow border-2 border-black">
-            <p class="font-bold">View all molecules in the <a href="index.html#molecules" class="underline">main design system reference</a> or try <a href="demo.html" class="underline">interactive components</a>.</p>
+            <p class="font-bold">View all molecules in the <a href="index.html#molecules" class="underline">main design
+                    system reference</a> or try <a href="demo.html" class="underline">interactive components</a>.</p>
         </div>
     </main>
 
     <script>lucide.createIcons();</script>
 </body>
+
 </html>

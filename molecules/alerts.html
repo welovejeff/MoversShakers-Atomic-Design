@@ -1,0 +1,307 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Alerts | Movers+Shakers Molecules</title>
+    <script src="https://cdn.tailwindcss.com"></script>
+    <link
+        href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&family=Oswald:wght@400;500;600;700&display=swap"
+        rel="stylesheet">
+    <script src="https://unpkg.com/lucide@latest"></script>
+    <style>
+        :root {
+            --color-brand-yellow: #FFF000;
+            --color-brand-black: #111111;
+            --color-info: #3b82f6;
+            --color-info-light: #eff6ff;
+            --color-success: #22c55e;
+            --color-success-light: #f0fdf4;
+            --color-warning: #eab308;
+            --color-warning-light: #fefce8;
+            --color-error: #ef4444;
+            --color-error-light: #fef2f2;
+        }
+
+        body {
+            font-family: 'Inter', sans-serif;
+        }
+
+        h1,
+        h2,
+        h3,
+        h4,
+        .brand-font {
+            font-family: 'Oswald', sans-serif;
+            text-transform: uppercase;
+        }
+
+        .bg-brand-yellow {
+            background-color: var(--color-brand-yellow);
+        }
+
+        .bg-brand-black {
+            background-color: var(--color-brand-black);
+        }
+
+        .text-brand-yellow {
+            color: var(--color-brand-yellow);
+        }
+
+        .border-brand-yellow {
+            border-color: var(--color-brand-yellow);
+        }
+
+        .bg-info-light {
+            background-color: var(--color-info-light);
+        }
+
+        .bg-success-light {
+            background-color: var(--color-success-light);
+        }
+
+        .bg-warning-light {
+            background-color: var(--color-warning-light);
+        }
+
+        .bg-error-light {
+            background-color: var(--color-error-light);
+        }
+
+        .border-info {
+            border-color: var(--color-info);
+        }
+
+        .border-success {
+            border-color: var(--color-success);
+        }
+
+        .border-warning {
+            border-color: var(--color-warning);
+        }
+
+        .border-error {
+            border-color: var(--color-error);
+        }
+
+        .text-info {
+            color: var(--color-info);
+        }
+
+        .text-success {
+            color: var(--color-success);
+        }
+
+        .text-warning {
+            color: var(--color-warning);
+        }
+
+        .text-error {
+            color: var(--color-error);
+        }
+    </style>
+</head>
+
+<body class="bg-gray-50 p-8">
+
+    <div class="max-w-4xl mx-auto">
+        <header class="mb-12">
+            <nav class="text-sm text-gray-500 mb-4">
+                <a href="../index.html" class="hover:text-black">Design System</a> /
+                <a href="../molecules.html" class="hover:text-black">Molecules</a> /
+                <span class="text-black font-medium">Alerts</span>
+            </nav>
+            <h1 class="text-4xl font-bold mb-2">Alerts & Notifications</h1>
+            <p class="text-gray-600">Notification banners for feedback and status messages.</p>
+        </header>
+
+        <!-- Alert Variants -->
+        <section class="mb-12">
+            <h2 class="text-xl font-bold mb-4 pb-2 border-b-2 border-black">Alert Variants</h2>
+            <div class="space-y-4">
+
+                <!-- Info Alert -->
+                <div class="flex items-start gap-4 p-4 bg-info-light border-l-4 border-info">
+                    <i data-lucide="info" class="w-5 h-5 text-info flex-shrink-0 mt-0.5"></i>
+                    <div class="flex-1">
+                        <p class="font-bold text-sm">Information</p>
+                        <p class="text-sm text-gray-600 mt-1">This is an informational message to help guide the user.
+                        </p>
+                    </div>
+                    <button class="text-gray-400 hover:text-gray-600">
+                        <i data-lucide="x" class="w-4 h-4"></i>
+                    </button>
+                </div>
+
+                <!-- Success Alert -->
+                <div class="flex items-start gap-4 p-4 bg-success-light border-l-4 border-success">
+                    <i data-lucide="check-circle" class="w-5 h-5 text-success flex-shrink-0 mt-0.5"></i>
+                    <div class="flex-1">
+                        <p class="font-bold text-sm">Success!</p>
+                        <p class="text-sm text-gray-600 mt-1">Your changes have been saved successfully.</p>
+                    </div>
+                    <button class="text-gray-400 hover:text-gray-600">
+                        <i data-lucide="x" class="w-4 h-4"></i>
+                    </button>
+                </div>
+
+                <!-- Warning Alert -->
+                <div class="flex items-start gap-4 p-4 bg-warning-light border-l-4 border-warning">
+                    <i data-lucide="alert-triangle" class="w-5 h-5 text-warning flex-shrink-0 mt-0.5"></i>
+                    <div class="flex-1">
+                        <p class="font-bold text-sm">Warning</p>
+                        <p class="text-sm text-gray-600 mt-1">Your subscription will expire in 3 days. Please renew to
+                            avoid interruption.</p>
+                    </div>
+                    <button class="text-gray-400 hover:text-gray-600">
+                        <i data-lucide="x" class="w-4 h-4"></i>
+                    </button>
+                </div>
+
+                <!-- Error Alert -->
+                <div class="flex items-start gap-4 p-4 bg-error-light border-l-4 border-error">
+                    <i data-lucide="alert-circle" class="w-5 h-5 text-error flex-shrink-0 mt-0.5"></i>
+                    <div class="flex-1">
+                        <p class="font-bold text-sm">Error</p>
+                        <p class="text-sm text-gray-600 mt-1">There was a problem processing your request. Please try
+                            again.</p>
+                    </div>
+                    <button class="text-gray-400 hover:text-gray-600">
+                        <i data-lucide="x" class="w-4 h-4"></i>
+                    </button>
+                </div>
+
+                <!-- Brand Alert -->
+                <div class="flex items-start gap-4 p-4 bg-brand-yellow border-2 border-black">
+                    <i data-lucide="zap" class="w-5 h-5 text-black flex-shrink-0 mt-0.5"></i>
+                    <div class="flex-1">
+                        <p class="font-bold text-sm uppercase">Heads Up!</p>
+                        <p class="text-sm text-gray-800 mt-1">This is a branded alert using the signature yellow for
+                            important announcements.</p>
+                    </div>
+                    <button class="text-black hover:text-gray-700">
+                        <i data-lucide="x" class="w-4 h-4"></i>
+                    </button>
+                </div>
+
+            </div>
+        </section>
+
+        <!-- Alert with Actions -->
+        <section class="mb-12">
+            <h2 class="text-xl font-bold mb-4 pb-2 border-b-2 border-black">With Actions</h2>
+            <div class="flex flex-col md:flex-row md:items-center gap-4 p-4 bg-gray-100 border-2 border-black">
+                <i data-lucide="gift" class="w-6 h-6 flex-shrink-0"></i>
+                <div class="flex-1">
+                    <p class="font-bold text-sm">Special Offer!</p>
+                    <p class="text-sm text-gray-600">Get 20% off your next project. Limited time only.</p>
+                </div>
+                <div class="flex gap-2">
+                    <button
+                        class="bg-brand-yellow text-black px-4 py-2 font-bold uppercase tracking-wider text-xs border-2 border-black hover:bg-white transition-colors">
+                        Claim Offer
+                    </button>
+                    <button
+                        class="bg-white text-black px-4 py-2 font-bold uppercase tracking-wider text-xs border-2 border-black hover:bg-gray-100 transition-colors">
+                        Dismiss
+                    </button>
+                </div>
+            </div>
+        </section>
+
+        <!-- Toast Notifications -->
+        <section class="mb-12">
+            <h2 class="text-xl font-bold mb-4 pb-2 border-b-2 border-black">Toast Notifications</h2>
+            <div class="grid md:grid-cols-2 gap-4">
+
+                <!-- Success Toast -->
+                <div
+                    class="bg-brand-black text-white px-6 py-4 flex items-center gap-4 shadow-lg border-l-4 border-success">
+                    <i data-lucide="check-circle" class="w-5 h-5 text-success flex-shrink-0"></i>
+                    <span class="font-medium text-sm">Changes saved successfully</span>
+                    <button class="ml-auto text-gray-400 hover:text-white">
+                        <i data-lucide="x" class="w-4 h-4"></i>
+                    </button>
+                </div>
+
+                <!-- Error Toast -->
+                <div
+                    class="bg-brand-black text-white px-6 py-4 flex items-center gap-4 shadow-lg border-l-4 border-error">
+                    <i data-lucide="x-circle" class="w-5 h-5 text-error flex-shrink-0"></i>
+                    <span class="font-medium text-sm">Failed to upload file</span>
+                    <button class="ml-auto text-gray-400 hover:text-white">
+                        <i data-lucide="x" class="w-4 h-4"></i>
+                    </button>
+                </div>
+
+                <!-- Warning Toast -->
+                <div
+                    class="bg-brand-black text-white px-6 py-4 flex items-center gap-4 shadow-lg border-l-4 border-warning">
+                    <i data-lucide="alert-triangle" class="w-5 h-5 text-warning flex-shrink-0"></i>
+                    <span class="font-medium text-sm">Your session will expire soon</span>
+                    <button class="ml-auto text-gray-400 hover:text-white">
+                        <i data-lucide="x" class="w-4 h-4"></i>
+                    </button>
+                </div>
+
+                <!-- Info Toast with Action -->
+                <div
+                    class="bg-brand-black text-white px-6 py-4 flex items-center gap-4 shadow-lg border-l-4 border-brand-yellow">
+                    <i data-lucide="info" class="w-5 h-5 text-brand-yellow flex-shrink-0"></i>
+                    <span class="font-medium text-sm">New version available</span>
+                    <button class="text-brand-yellow text-xs font-bold uppercase tracking-wider hover:underline">
+                        Update
+                    </button>
+                    <button class="ml-auto text-gray-400 hover:text-white">
+                        <i data-lucide="x" class="w-4 h-4"></i>
+                    </button>
+                </div>
+
+            </div>
+        </section>
+
+        <!-- Banner Notifications -->
+        <section class="mb-12">
+            <h2 class="text-xl font-bold mb-4 pb-2 border-b-2 border-black">Banner Notifications</h2>
+            <div class="space-y-4">
+
+                <!-- Top Banner -->
+                <div
+                    class="bg-brand-yellow text-black py-3 px-6 flex items-center justify-center gap-4 border-b-2 border-black">
+                    <i data-lucide="megaphone" class="w-5 h-5 flex-shrink-0"></i>
+                    <p class="text-sm font-medium">
+                        <strong>New Feature:</strong> Check out our redesigned dashboard with improved analytics.
+                    </p>
+                    <a href="#" class="font-bold text-sm uppercase tracking-wider underline hover:no-underline">
+                        Learn More
+                    </a>
+                    <button class="ml-4 hover:bg-black/10 p-1 transition-colors">
+                        <i data-lucide="x" class="w-4 h-4"></i>
+                    </button>
+                </div>
+
+                <!-- Dark Banner -->
+                <div class="bg-brand-black text-white py-3 px-6 flex items-center justify-center gap-4">
+                    <span class="text-brand-yellow text-xs font-bold uppercase tracking-widest">Limited Time</span>
+                    <p class="text-sm font-medium">
+                        Get 50% off annual plans. Use code: <span class="font-bold text-brand-yellow">MOVERS50</span>
+                    </p>
+                    <button
+                        class="bg-brand-yellow text-black px-4 py-1.5 text-xs font-bold uppercase tracking-wider border border-black hover:bg-white transition-colors">
+                        Claim Now
+                    </button>
+                    <button class="ml-4 text-gray-400 hover:text-white">
+                        <i data-lucide="x" class="w-4 h-4"></i>
+                    </button>
+                </div>
+
+            </div>
+        </section>
+
+    </div>
+
+    <script>lucide.createIcons();</script>
+</body>
+
+</html>
