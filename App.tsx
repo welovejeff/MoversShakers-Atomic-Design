@@ -18,6 +18,8 @@ const App: React.FC = () => {
 
     // Import Modal State
     const [isImportModalOpen, setIsImportModalOpen] = useState(false);
+    // Prospecting Assistant Modal State
+    const [isProspectingModalOpen, setIsProspectingModalOpen] = useState(false);
     const [pendingFile, setPendingFile] = useState<File | null>(null);
     const [importCategory, setImportCategory] = useState("");
 
@@ -375,6 +377,53 @@ const App: React.FC = () => {
                 </div>
             </Modal>
 
+            {/* Prospecting Assistant Modal */}
+            <Modal
+                open={isProspectingModalOpen}
+                onClose={() => setIsProspectingModalOpen(false)}
+                title="🎯 PROSPECTING ASSISTANT"
+            >
+                <div style={{ marginBottom: '1rem' }}>
+                    <Typography variant="body2" style={{ color: '#666', marginBottom: '1rem' }}>
+                        Describe your ideal target prospects and AI will prioritize your contact list.
+                    </Typography>
+                    <textarea
+                        style={{
+                            width: '100%',
+                            padding: '0.75rem',
+                            border: '2px solid #111',
+                            fontFamily: 'Inter, sans-serif',
+                            fontSize: '0.875rem',
+                            resize: 'none',
+                            minHeight: '100px'
+                        }}
+                        value={strategy}
+                        onChange={(e) => setStrategy(e.target.value)}
+                        placeholder="e.g., Target VPs of Marketing in Fashion/Retail companies. Prioritize companies with 50+ employees..."
+                    />
+                </div>
+
+                <div style={{ display: 'flex', gap: '0.75rem', justifyContent: 'flex-end' }}>
+                    <Button variant="ghost" onClick={() => setIsProspectingModalOpen(false)}>
+                        Cancel
+                    </Button>
+                    <Button
+                        variant="primary"
+                        onClick={() => {
+                            handleRunPrioritization();
+                            setIsProspectingModalOpen(false);
+                        }}
+                        disabled={isPrioritizing}
+                    >
+                        {isPrioritizing ? (
+                            <span style={{ display: 'flex', alignItems: 'center', gap: '0.5rem' }}>
+                                <Loader size="small" /> Analyzing...
+                            </span>
+                        ) : '⚗️ Run Prioritization'}
+                    </Button>
+                </div>
+            </Modal>
+
             {/* Navbar with View Toggle */}
             <div style={{ position: 'relative' }}>
                 <Navbar
@@ -408,43 +457,8 @@ const App: React.FC = () => {
                 overflow: 'hidden'
             }}>
 
-                {/* Left Sidebar: List & Strategy */}
-                <aside style={{ width: '420px', display: 'flex', flexDirection: 'column', gap: '1.5rem', flexShrink: 0, overflow: 'hidden' }}>
-
-                    {/* Strategy Card */}
-                    <Card>
-                        <Typography variant="h3" style={{ marginBottom: '1rem', display: 'flex', alignItems: 'center', gap: '0.5rem' }}>
-                            <span style={{ width: '10px', height: '10px', background: '#FFF000', border: '2px solid #111' }}></span>
-                            STRATEGY ENGINE
-                        </Typography>
-                        <textarea
-                            style={{
-                                width: '100%',
-                                padding: '0.75rem',
-                                border: '2px solid #111',
-                                fontFamily: 'Inter, sans-serif',
-                                fontSize: '0.875rem',
-                                resize: 'none',
-                                marginBottom: '1rem',
-                                minHeight: '80px'
-                            }}
-                            value={strategy}
-                            onChange={(e) => setStrategy(e.target.value)}
-                            placeholder="Define who to target..."
-                        />
-                        <Button
-                            variant="primary"
-                            onClick={handleRunPrioritization}
-                            disabled={isPrioritizing}
-                            style={{ width: '100%' }}
-                        >
-                            {isPrioritizing ? (
-                                <span style={{ display: 'flex', alignItems: 'center', gap: '0.5rem' }}>
-                                    <Loader size="small" /> Analyzing...
-                                </span>
-                            ) : '⚗️ Run Prioritization'}
-                        </Button>
-                    </Card>
+                {/* Left Sidebar: List */}
+                <aside style={{ width: '420px', display: 'flex', flexDirection: 'column', gap: '1rem', flexShrink: 0, overflow: 'hidden' }}>
 
                     {/* Contacts List */}
                     <div style={{ flex: 1, display: 'flex', flexDirection: 'column', minHeight: 0, overflow: 'hidden' }}>
@@ -532,6 +546,13 @@ const App: React.FC = () => {
                                     size="small"
                                 >
                                     + Add CSV
+                                </Button>
+                                <Button
+                                    variant="primary"
+                                    onClick={() => setIsProspectingModalOpen(true)}
+                                    size="small"
+                                >
+                                    {isPrioritizing ? '⏳' : '🎯'} AI Assist
                                 </Button>
                             </div>
                         </div>

@@ -24,6 +24,8 @@ const KanbanColumn: React.FC<KanbanColumnProps> = ({
 }) => {
     const [isEditing, setIsEditing] = useState(false);
     const [editValue, setEditValue] = useState('');
+    const [isDragOver, setIsDragOver] = useState(false);
+
     const getColumnConfig = (status: OutreachStatus) => {
         switch (status) {
             case OutreachStatus.Queued:
@@ -61,28 +63,62 @@ const KanbanColumn: React.FC<KanbanColumnProps> = ({
         }
     };
 
+    const handleDragEnter = (e: React.DragEvent) => {
+        e.preventDefault();
+        setIsDragOver(true);
+    };
+
+    const handleDragLeave = (e: React.DragEvent) => {
+        // Only set to false if we're actually leaving the column (not entering a child)
+        const rect = e.currentTarget.getBoundingClientRect();
+        const x = e.clientX;
+        const y = e.clientY;
+        if (x < rect.left || x > rect.right || y < rect.top || y > rect.bottom) {
+            setIsDragOver(false);
+        }
+    };
+
+    const handleDragOverInternal = (e: React.DragEvent) => {
+        e.preventDefault();
+        onDragOver(e);
+    };
+
+    const handleDropInternal = (e: React.DragEvent) => {
+        e.preventDefault();
+        setIsDragOver(false);
+        onDrop(e, status);
+    };
+
     return (
         <div
+            onDragEnter={handleDragEnter}
+            onDragLeave={handleDragLeave}
+            onDragOver={handleDragOverInternal}
+            onDrop={handleDropInternal}
             style={{
                 flex: 1,
                 minWidth: '280px',
                 maxWidth: '350px',
                 display: 'flex',
                 flexDirection: 'column',
-                background: config.bgColor,
-                border: '2px solid #111',
-                height: '100%'
+                background: isDragOver ? `${config.bgColor}` : config.bgColor,
+                border: isDragOver ? '3px dashed #FFF000' : '2px solid #111',
+                height: '100%',
+                transition: 'all 0.2s ease',
+                boxShadow: isDragOver ? 'inset 0 0 20px rgba(255, 240, 0, 0.3)' : undefined,
+                transform: isDragOver ? 'scale(1.01)' : undefined
             }}
         >
             {/* Column Header */}
             <div
                 style={{
                     padding: '1rem',
-                    borderBottom: '2px solid #111',
+                    borderBottom: isDragOver ? '3px dashed #FFF000' : '2px solid #111',
                     display: 'flex',
                     alignItems: 'center',
                     justifyContent: 'space-between',
-                    background: '#fff'
+                    background: isDragOver ? '#FFF000' : '#fff',
+                    transition: 'all 0.2s ease'
                 }}
             >
                 <div style={{ display: 'flex', alignItems: 'center', gap: '0.5rem' }}>
@@ -92,7 +128,8 @@ const KanbanColumn: React.FC<KanbanColumnProps> = ({
                             height: '10px',
                             borderRadius: '50%',
                             background: config.color,
-                            border: '2px solid #111'
+                            border: '2px solid #111',
+                            animation: isDragOver ? 'pulse 1s infinite' : undefined
                         }}
                     />
                     {isEditing ? (
@@ -144,19 +181,47 @@ const KanbanColumn: React.FC<KanbanColumnProps> = ({
                         {taskCount}
                     </span>
                 </div>
+
+                {/* Drop indicator when dragging */}
+                {isDragOver && (
+                    <span style={{
+                        fontSize: '0.7rem',
+                        fontWeight: 600,
+                        fontFamily: 'Oswald, sans-serif',
+                        color: '#111',
+                        animation: 'pulse 1s infinite'
+                    }}>
+                        DROP HERE ↓
+                    </span>
+                )}
             </div>
 
             {/* Cards Container */}
             <div
-                onDragOver={onDragOver}
-                onDrop={(e) => onDrop(e, status)}
                 style={{
                     flex: 1,
                     padding: '0.75rem',
                     overflowY: 'auto',
-                    minHeight: '200px'
+                    minHeight: '200px',
+                    background: isDragOver ? 'rgba(255, 240, 0, 0.08)' : undefined,
+                    transition: 'background 0.2s ease'
                 }}
             >
+                {/* Drop zone placeholder when empty and dragging */}
+                {tasks.length === 0 && isDragOver && (
+                    <div style={{
+                        padding: '2rem 1rem',
+                        border: '2px dashed #FFF000',
+                        background: 'rgba(255, 240, 0, 0.15)',
+                        textAlign: 'center',
+                        marginBottom: '0.75rem'
+                    }}>
+                        <Typography variant="body2" style={{ color: '#666' }}>
+                            Drop prospect here
+                        </Typography>
+                    </div>
+                )}
+
                 {tasks.map((task) => (
                     <KanbanCard
                         key={task.id}
@@ -165,8 +230,17 @@ const KanbanColumn: React.FC<KanbanColumnProps> = ({
                     />
                 ))}
             </div>
+
+            {/* Keyframe animation for pulse effect */}
+            <style>{`
+                @keyframes pulse {
+                    0%, 100% { opacity: 1; }
+                    50% { opacity: 0.6; }
+                }
+            `}</style>
         </div>
     );
 };
 
 export default KanbanColumn;
+

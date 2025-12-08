@@ -1,4 +1,4 @@
-import React from 'react';
+import React, { useState } from 'react';
 import { OutreachTask } from '../types';
 import { Card, Badge, Typography } from '@welovejeff/movers-react';
 
@@ -8,6 +8,8 @@ interface KanbanCardProps {
 }
 
 const KanbanCard: React.FC<KanbanCardProps> = ({ task, onDragStart }) => {
+    const [isDragging, setIsDragging] = useState(false);
+
     const getPriorityColor = (priority: string) => {
         switch (priority) {
             case 'HIGH': return { bg: '#FF4444', text: '#fff' };
@@ -30,20 +32,54 @@ const KanbanCard: React.FC<KanbanCardProps> = ({ task, onDragStart }) => {
 
     const priorityColors = getPriorityColor(task.priority);
 
+    const handleDragStart = (e: React.DragEvent) => {
+        setIsDragging(true);
+        onDragStart(e, task);
+
+        // Create custom drag image with rotation
+        const dragEl = e.currentTarget.cloneNode(true) as HTMLElement;
+        dragEl.style.transform = 'rotate(3deg) scale(1.02)';
+        dragEl.style.boxShadow = '8px 8px 0 rgba(0,0,0,0.25)';
+        dragEl.style.position = 'absolute';
+        dragEl.style.top = '-1000px';
+        dragEl.style.width = '280px';
+        document.body.appendChild(dragEl);
+        e.dataTransfer.setDragImage(dragEl, 140, 40);
+        setTimeout(() => dragEl.remove(), 0);
+    };
+
+    const handleDragEnd = () => {
+        setIsDragging(false);
+    };
+
     return (
         <Card
             draggable
-            onDragStart={(e) => onDragStart(e, task)}
+            onDragStart={handleDragStart}
+            onDragEnd={handleDragEnd}
             style={{
-                cursor: 'grab',
+                cursor: isDragging ? 'grabbing' : 'grab',
                 background: '#fff',
                 marginBottom: '0.75rem',
-                transition: 'transform 0.15s ease, box-shadow 0.15s ease'
+                transition: 'transform 0.15s ease, box-shadow 0.15s ease, opacity 0.15s ease',
+                transform: isDragging ? 'rotate(2deg) scale(0.98)' : undefined,
+                boxShadow: isDragging ? '6px 6px 0 rgba(0,0,0,0.2)' : undefined,
+                opacity: isDragging ? 0.6 : 1,
+                borderColor: isDragging ? '#FFF000' : undefined
             }}
             hoverable
         >
-            {/* Priority Badge */}
-            <div style={{ marginBottom: '0.5rem' }}>
+            {/* Drag Handle + Priority Badge Row */}
+            <div style={{ display: 'flex', alignItems: 'center', marginBottom: '0.5rem' }}>
+                {/* Drag Handle */}
+                <span style={{
+                    marginRight: '0.5rem',
+                    color: '#999',
+                    fontSize: '0.8rem',
+                    cursor: 'grab',
+                    userSelect: 'none'
+                }}>⋮⋮</span>
+
                 <span
                     style={{
                         display: 'inline-block',
@@ -64,7 +100,7 @@ const KanbanCard: React.FC<KanbanCardProps> = ({ task, onDragStart }) => {
                 {/* Menu button */}
                 <button
                     style={{
-                        float: 'right',
+                        marginLeft: 'auto',
                         background: 'none',
                         border: 'none',
                         cursor: 'pointer',
@@ -191,3 +227,4 @@ const KanbanCard: React.FC<KanbanCardProps> = ({ task, onDragStart }) => {
 };
 
 export default KanbanCard;
+
