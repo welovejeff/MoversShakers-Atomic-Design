@@ -1,0 +1,207 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Interfaces | Movers+Shakers Design System</title>
+    <script src="https://cdn.tailwindcss.com"></script>
+    <link
+        href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&family=Oswald:wght@400;500;600;700&display=swap"
+        rel="stylesheet">
+    <script src="https://unpkg.com/lucide@latest"></script>
+    <!-- Design System Tokens -->
+    <link rel="stylesheet" href="tokens/index.css">
+    <style>
+        body {
+            font-family: 'Inter', sans-serif;
+        }
+
+        h1,
+        h2,
+        h3,
+        h4,
+        .brand-font {
+            font-family: 'Oswald', sans-serif;
+            text-transform: uppercase;
+        }
+
+        .pattern-dots {
+            background-image: radial-gradient(rgba(0, 0, 0, 0.1) 1px, transparent 1px);
+            background-size: 20px 20px;
+        }
+    </style>
+</head>
+
+<body class="bg-theme-secondary text-theme-primary min-h-screen">
+
+    <!-- Header -->
+    <header class="bg-brand-black text-white py-4 border-b-8 border-brand-yellow">
+        <div class="container mx-auto px-6 flex justify-between items-center">
+            <div class="text-2xl font-bold tracking-widest brand-font">
+                MOVERS<span class="text-brand-yellow">+</span>SHAKERS
+            </div>
+            <nav class="hidden md:flex items-center gap-8">
+                <a href="index.html"
+                    class="text-sm font-bold uppercase tracking-wider hover:text-brand-yellow transition-colors">Design
+                    System</a>
+                <a href="atoms.html"
+                    class="text-sm font-bold uppercase tracking-wider hover:text-brand-yellow transition-colors">Atoms</a>
+                <a href="molecules.html"
+                    class="text-sm font-bold uppercase tracking-wider hover:text-brand-yellow transition-colors">Molecules</a>
+                <a href="organisms.html"
+                    class="text-sm font-bold uppercase tracking-wider hover:text-brand-yellow transition-colors">Organisms</a>
+                <span class="text-brand-yellow font-bold">|</span>
+                <span class="text-brand-yellow text-sm font-bold uppercase tracking-wider">Interfaces</span>
+            </nav>
+        </div>
+    </header>
+
+    <main class="container mx-auto px-6 py-12">
+
+        <!-- Hero Section -->
+        <section class="max-w-4xl mb-16">
+            <nav class="text-sm text-gray-500 mb-4">
+                <a href="index.html" class="hover:text-black">Design System</a> /
+                <span class="text-black font-medium">Interfaces</span>
+            </nav>
+            <h1 class="text-6xl font-bold mb-6">Web Application Interfaces</h1>
+            <p class="text-xl text-gray-600 leading-relaxed mb-8">
+                Complete, production-ready interface patterns for modern web applications.
+                Each interface includes layouts, components, and interaction patterns following
+                the <span class="bg-brand-yellow px-2 font-bold text-black">Movers+Shakers</span> design language.
+            </p>
+            <div class="flex flex-wrap gap-4">
+                <div class="flex items-center gap-2 bg-gray-100 px-4 py-2 text-sm font-medium">
+                    <i data-lucide="layout" class="w-4 h-4"></i>
+                    5 Interface Categories
+                </div>
+                <div class="flex items-center gap-2 bg-gray-100 px-4 py-2 text-sm font-medium">
+                    <i data-lucide="component" class="w-4 h-4"></i>
+                    20+ Page Templates
+                </div>
+                <div class="flex items-center gap-2 bg-gray-100 px-4 py-2 text-sm font-medium">
+                    <i data-lucide="zap" class="w-4 h-4"></i>
+                    Interactive Components
+                </div>
+            </div>
+        </section>
+
+        <!-- Interface Cards Grid -->
+        <section class="grid md:grid-cols-2 lg:grid-cols-3 gap-8">
+
+            <!-- AI Generation -->
+            <a href="interfaces/ai-generation/index.html"
+                class="group block border-2 border-black bg-white shadow-brand-md hover:shadow-brand-lg transition-all">
+                <div class="h-48 bg-brand-black relative overflow-hidden flex items-center justify-center">
+                    <div class="absolute inset-0 pattern-dots opacity-30"></div>
+                    <i data-lucide="sparkles"
+                        class="w-20 h-20 text-brand-yellow relative z-10 group-hover:scale-110 transition-transform"></i>
+                </div>
+                <div class="p-6">
+                    <span
+                        class="text-xs font-bold bg-brand-yellow px-2 py-1 border border-black uppercase tracking-wider">Phase
+                        3.1</span>
+                    <h3 class="text-2xl font-bold mt-3 mb-2 group-hover:text-brand-yellow transition-colors">AI
+                        Generation</h3>
+                    <p class="text-gray-600 text-sm leading-relaxed mb-4">
+                        Chat interfaces, image generation grids, and multi-modal input patterns inspired by Claude,
+                        ChatGPT, and Midjourney.
+                    </p>
+                    <div class="flex items-center gap-2 text-sm font-bold uppercase tracking-wider">
+                        Explore Interface
+                        <i data-lucide="arrow-right" class="w-4 h-4 group-hover:translate-x-1 transition-transform"></i>
+                    </div>
+                </div>
+            </a>
+
+            <!-- Project Management -->
+            <div class="block border-2 border-gray-300 bg-gray-50 opacity-60 cursor-not-allowed">
+                <div class="h-48 bg-gray-200 relative overflow-hidden flex items-center justify-center">
+                    <i data-lucide="kanban" class="w-20 h-20 text-gray-400"></i>
+                </div>
+                <div class="p-6">
+                    <span class="text-xs font-bold bg-gray-300 text-gray-600 px-2 py-1 uppercase tracking-wider">Coming
+                        Soon</span>
+                    <h3 class="text-2xl font-bold mt-3 mb-2 text-gray-500">Project Management</h3>
+                    <p class="text-gray-400 text-sm leading-relaxed">
+                        Kanban boards, list views, timelines, and calendar interfaces for task management.
+                    </p>
+                </div>
+            </div>
+
+            <!-- Masonry Grid -->
+            <div class="block border-2 border-gray-300 bg-gray-50 opacity-60 cursor-not-allowed">
+                <div class="h-48 bg-gray-200 relative overflow-hidden flex items-center justify-center">
+                    <i data-lucide="layout-grid" class="w-20 h-20 text-gray-400"></i>
+                </div>
+                <div class="p-6">
+                    <span class="text-xs font-bold bg-gray-300 text-gray-600 px-2 py-1 uppercase tracking-wider">Coming
+                        Soon</span>
+                    <h3 class="text-2xl font-bold mt-3 mb-2 text-gray-500">Masonry Grid</h3>
+                    <p class="text-gray-400 text-sm leading-relaxed">
+                        Pinterest-style layouts, justified galleries, and mixed content feeds.
+                    </p>
+                </div>
+            </div>
+
+            <!-- Image Editor -->
+            <div class="block border-2 border-gray-300 bg-gray-50 opacity-60 cursor-not-allowed">
+                <div class="h-48 bg-gray-200 relative overflow-hidden flex items-center justify-center">
+                    <i data-lucide="image" class="w-20 h-20 text-gray-400"></i>
+                </div>
+                <div class="p-6">
+                    <span class="text-xs font-bold bg-gray-300 text-gray-600 px-2 py-1 uppercase tracking-wider">Coming
+                        Soon</span>
+                    <h3 class="text-2xl font-bold mt-3 mb-2 text-gray-500">Image Editor</h3>
+                    <p class="text-gray-400 text-sm leading-relaxed">
+                        Full editor workspace, quick edit modals, and batch processing views.
+                    </p>
+                </div>
+            </div>
+
+            <!-- Whiteboard -->
+            <div class="block border-2 border-gray-300 bg-gray-50 opacity-60 cursor-not-allowed">
+                <div class="h-48 bg-gray-200 relative overflow-hidden flex items-center justify-center">
+                    <i data-lucide="pen-tool" class="w-20 h-20 text-gray-400"></i>
+                </div>
+                <div class="p-6">
+                    <span class="text-xs font-bold bg-gray-300 text-gray-600 px-2 py-1 uppercase tracking-wider">Coming
+                        Soon</span>
+                    <h3 class="text-2xl font-bold mt-3 mb-2 text-gray-500">Whiteboard</h3>
+                    <p class="text-gray-400 text-sm leading-relaxed">
+                        FigJam-style infinite canvas, presentation mode, and template galleries.
+                    </p>
+                </div>
+            </div>
+
+            <!-- Shared Components -->
+            <div class="block border-2 border-gray-300 bg-gray-50 opacity-60 cursor-not-allowed">
+                <div class="h-48 bg-gray-200 relative overflow-hidden flex items-center justify-center">
+                    <i data-lucide="puzzle" class="w-20 h-20 text-gray-400"></i>
+                </div>
+                <div class="p-6">
+                    <span class="text-xs font-bold bg-gray-300 text-gray-600 px-2 py-1 uppercase tracking-wider">Coming
+                        Soon</span>
+                    <h3 class="text-2xl font-bold mt-3 mb-2 text-gray-500">Shared Utilities</h3>
+                    <p class="text-gray-400 text-sm leading-relaxed">
+                        Command palette, context menus, drag-drop, and presence indicators.
+                    </p>
+                </div>
+            </div>
+
+        </section>
+
+    </main>
+
+    <!-- Footer -->
+    <footer class="bg-brand-black text-white py-8 mt-16 border-t-4 border-brand-yellow">
+        <div class="container mx-auto px-6 text-center">
+            <p class="text-sm text-gray-400">© Movers+Shakers. Phase 3: Web Application Interfaces.</p>
+        </div>
+    </footer>
+
+    <script>lucide.createIcons();</script>
+</body>
+
+</html>

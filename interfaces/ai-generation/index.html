@@ -1,0 +1,224 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>AI Generation Interface | Movers+Shakers</title>
+    <script src="https://cdn.tailwindcss.com"></script>
+    <link
+        href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&family=Oswald:wght@400;500;600;700&display=swap"
+        rel="stylesheet">
+    <script src="https://unpkg.com/lucide@latest"></script>
+    <!-- Design System Tokens -->
+    <link rel="stylesheet" href="../../tokens/index.css">
+    <style>
+        body {
+            font-family: 'Inter', sans-serif;
+        }
+
+        h1,
+        h2,
+        h3,
+        h4,
+        .brand-font {
+            font-family: 'Oswald', sans-serif;
+            text-transform: uppercase;
+        }
+    </style>
+</head>
+
+<body class="bg-theme-secondary text-theme-primary min-h-screen">
+
+    <!-- Header -->
+    <header class="bg-brand-black text-white py-4 border-b-8 border-brand-yellow">
+        <div class="container mx-auto px-6 flex justify-between items-center">
+            <div class="text-2xl font-bold tracking-widest brand-font">
+                MOVERS<span class="text-brand-yellow">+</span>SHAKERS
+            </div>
+            <nav class="hidden md:flex items-center gap-8">
+                <a href="../../index.html"
+                    class="text-sm font-bold uppercase tracking-wider hover:text-brand-yellow transition-colors">Design
+                    System</a>
+                <a href="../../interfaces.html"
+                    class="text-sm font-bold uppercase tracking-wider hover:text-brand-yellow transition-colors">Interfaces</a>
+                <span class="text-brand-yellow font-bold">|</span>
+                <span class="text-brand-yellow text-sm font-bold uppercase tracking-wider">AI Generation</span>
+            </nav>
+        </div>
+    </header>
+
+    <main class="container mx-auto px-6 py-12">
+
+        <!-- Breadcrumb & Title -->
+        <section class="max-w-4xl mb-12">
+            <nav class="text-sm text-gray-500 mb-4">
+                <a href="../../index.html" class="hover:text-black">Design System</a> /
+                <a href="../../interfaces.html" class="hover:text-black">Interfaces</a> /
+                <span class="text-black font-medium">AI Generation</span>
+            </nav>
+            <h1 class="text-5xl font-bold mb-4">AI Generation Interface</h1>
+            <p class="text-xl text-gray-600 leading-relaxed">
+                Production-ready patterns for AI-powered applications including chat conversations,
+                image generation, and multi-modal input interfaces.
+            </p>
+        </section>
+
+        <!-- Layout Cards -->
+        <section class="mb-16">
+            <h2 class="text-2xl font-bold mb-6 pb-2 border-b-2 border-black">Main Layouts</h2>
+            <div class="grid md:grid-cols-3 gap-6">
+
+                <!-- Chat Conversation -->
+                <a href="/interfaces/ai-generation/chat.html"
+                    class="group block border-2 border-black bg-white shadow-brand-md hover:shadow-brand-lg transition-all">
+                    <div class="h-40 bg-gray-900 p-4 relative overflow-hidden">
+                        <!-- Mini chat preview -->
+                        <div class="space-y-2">
+                            <div class="flex gap-2">
+                                <div class="w-6 h-6 rounded-full bg-brand-yellow flex-shrink-0"></div>
+                                <div class="bg-gray-700 rounded-lg p-2 text-xs text-gray-300 max-w-[70%]">Hi there! How
+                                    can I help?</div>
+                            </div>
+                            <div class="flex gap-2 justify-end">
+                                <div class="bg-brand-yellow rounded-lg p-2 text-xs text-black max-w-[70%]">Generate a
+                                    logo for...</div>
+                            </div>
+                            <div class="flex gap-2">
+                                <div class="w-6 h-6 rounded-full bg-brand-yellow flex-shrink-0"></div>
+                                <div class="bg-gray-700 rounded-lg p-2 text-xs text-gray-300"><span
+                                        class="animate-pulse">●●●</span></div>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="p-4">
+                        <h3 class="text-xl font-bold mb-2 group-hover:text-brand-yellow transition-colors">Chat
+                            Conversation</h3>
+                        <p class="text-gray-600 text-sm mb-3">Claude/ChatGPT-style chat with streaming text, code
+                            blocks, and markdown support.</p>
+                        <div
+                            class="flex items-center gap-2 text-sm font-bold uppercase tracking-wider text-brand-black">
+                            View Layout <i data-lucide="arrow-right"
+                                class="w-4 h-4 group-hover:translate-x-1 transition-transform"></i>
+                        </div>
+                    </div>
+                </a>
+
+                <!-- Image Generation Grid -->
+                <a href="/interfaces/ai-generation/image-grid.html"
+                    class="group block border-2 border-black bg-white shadow-brand-md hover:shadow-brand-lg transition-all">
+                    <div class="h-40 bg-gray-900 p-4 relative overflow-hidden">
+                        <!-- Mini grid preview -->
+                        <div class="grid grid-cols-2 gap-2 h-full">
+                            <div class="bg-gradient-to-br from-purple-500 to-pink-500 rounded"></div>
+                            <div class="bg-gradient-to-br from-blue-500 to-cyan-500 rounded"></div>
+                            <div class="bg-gradient-to-br from-orange-500 to-yellow-500 rounded"></div>
+                            <div class="bg-gradient-to-br from-green-500 to-emerald-500 rounded"></div>
+                        </div>
+                    </div>
+                    <div class="p-4">
+                        <h3 class="text-xl font-bold mb-2 group-hover:text-brand-yellow transition-colors">Image
+                            Generation Grid</h3>
+                        <p class="text-gray-600 text-sm mb-3">Midjourney-style 2x2 and 4x4 grids with upscale,
+                            variations, and download actions.</p>
+                        <div
+                            class="flex items-center gap-2 text-sm font-bold uppercase tracking-wider text-brand-black">
+                            View Layout <i data-lucide="arrow-right"
+                                class="w-4 h-4 group-hover:translate-x-1 transition-transform"></i>
+                        </div>
+                    </div>
+                </a>
+
+                <!-- Multi-Modal Input -->
+                <a href="/interfaces/ai-generation/multimodal.html"
+                    class="group block border-2 border-black bg-white shadow-brand-md hover:shadow-brand-lg transition-all">
+                    <div class="h-40 bg-gray-900 p-4 relative overflow-hidden flex items-end">
+                        <!-- Mini input preview -->
+                        <div class="w-full">
+                            <div class="flex gap-2 mb-2">
+                                <div
+                                    class="w-12 h-12 border border-dashed border-gray-500 rounded flex items-center justify-center">
+                                    <i data-lucide="image-plus" class="w-5 h-5 text-gray-500"></i>
+                                </div>
+                                <div
+                                    class="w-12 h-12 border border-dashed border-gray-500 rounded flex items-center justify-center">
+                                    <i data-lucide="file-plus" class="w-5 h-5 text-gray-500"></i>
+                                </div>
+                            </div>
+                            <div class="bg-gray-800 rounded-lg p-2 flex items-center gap-2">
+                                <span class="text-xs text-gray-400 flex-1">Enter your prompt...</span>
+                                <div class="w-6 h-6 bg-brand-yellow rounded flex items-center justify-center">
+                                    <i data-lucide="send" class="w-3 h-3 text-black"></i>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="p-4">
+                        <h3 class="text-xl font-bold mb-2 group-hover:text-brand-yellow transition-colors">Multi-Modal
+                            Input</h3>
+                        <p class="text-gray-600 text-sm mb-3">Rich input with image/file uploads, prompt templates, and
+                            auto-resize textarea.</p>
+                        <div
+                            class="flex items-center gap-2 text-sm font-bold uppercase tracking-wider text-brand-black">
+                            View Layout <i data-lucide="arrow-right"
+                                class="w-4 h-4 group-hover:translate-x-1 transition-transform"></i>
+                        </div>
+                    </div>
+                </a>
+
+            </div>
+        </section>
+
+        <!-- Component Showcase -->
+        <section>
+            <h2 class="text-2xl font-bold mb-6 pb-2 border-b-2 border-black">Supporting Components</h2>
+            <div class="grid md:grid-cols-2 lg:grid-cols-4 gap-4">
+                <div class="bg-white border border-gray-200 p-4 hover:border-black transition-colors">
+                    <i data-lucide="message-circle" class="w-8 h-8 text-brand-black mb-3"></i>
+                    <h4 class="font-bold mb-1">Chat Bubbles</h4>
+                    <p class="text-gray-500 text-sm">User & assistant message styling</p>
+                </div>
+                <div class="bg-white border border-gray-200 p-4 hover:border-black transition-colors">
+                    <i data-lucide="code" class="w-8 h-8 text-brand-black mb-3"></i>
+                    <h4 class="font-bold mb-1">Code Blocks</h4>
+                    <p class="text-gray-500 text-sm">Syntax highlighting + copy</p>
+                </div>
+                <div class="bg-white border border-gray-200 p-4 hover:border-black transition-colors">
+                    <i data-lucide="type" class="w-8 h-8 text-brand-black mb-3"></i>
+                    <h4 class="font-bold mb-1">Streaming Text</h4>
+                    <p class="text-gray-500 text-sm">Typewriter animation effect</p>
+                </div>
+                <div class="bg-white border border-gray-200 p-4 hover:border-black transition-colors">
+                    <i data-lucide="loader" class="w-8 h-8 text-brand-black mb-3"></i>
+                    <h4 class="font-bold mb-1">Typing Indicator</h4>
+                    <p class="text-gray-500 text-sm">Animated thinking dots</p>
+                </div>
+                <div class="bg-white border border-gray-200 p-4 hover:border-black transition-colors">
+                    <i data-lucide="sliders" class="w-8 h-8 text-brand-black mb-3"></i>
+                    <h4 class="font-bold mb-1">Model Selector</h4>
+                    <p class="text-gray-500 text-sm">AI model dropdown</p>
+                </div>
+                <div class="bg-white border border-gray-200 p-4 hover:border-black transition-colors">
+                    <i data-lucide="lightbulb" class="w-8 h-8 text-brand-black mb-3"></i>
+                    <h4 class="font-bold mb-1">Prompt Templates</h4>
+                    <p class="text-gray-500 text-sm">Quick-start suggestions</p>
+                </div>
+                <div class="bg-white border border-gray-200 p-4 hover:border-black transition-colors">
+                    <i data-lucide="refresh-cw" class="w-8 h-8 text-brand-black mb-3"></i>
+                    <h4 class="font-bold mb-1">Regenerate Bar</h4>
+                    <p class="text-gray-500 text-sm">Retry, edit, copy actions</p>
+                </div>
+                <div class="bg-white border border-gray-200 p-4 hover:border-black transition-colors">
+                    <i data-lucide="gauge" class="w-8 h-8 text-brand-black mb-3"></i>
+                    <h4 class="font-bold mb-1">Token Usage</h4>
+                    <p class="text-gray-500 text-sm">Usage stats display</p>
+                </div>
+            </div>
+        </section>
+
+    </main>
+
+    <script>lucide.createIcons();</script>
+</body>
+
+</html>
