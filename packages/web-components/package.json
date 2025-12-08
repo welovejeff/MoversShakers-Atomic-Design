@@ -1,0 +1,38 @@
+{
+    "name": "@movers-shakers/web-components",
+    "private": false,
+    "version": "1.0.0",
+    "type": "module",
+    "description": "Movers+Shakers Design System - Web Components",
+    "main": "./dist/index.cjs.js",
+    "module": "./dist/index.es.js",
+    "types": "./dist/index.d.ts",
+    "exports": {
+        ".": {
+            "import": "./dist/index.es.js",
+            "require": "./dist/index.cjs.js"
+        }
+    },
+    "files": [
+        "dist"
+    ],
+    "scripts": {
+        "dev": "vite",
+        "build": "tsc && vite build",
+        "preview": "vite preview"
+    },
+    "devDependencies": {
+        "lit": "^3.2.0",
+        "typescript": "~5.9.3",
+        "vite": "^7.2.4"
+    },
+    "keywords": [
+        "web-components",
+        "custom-elements",
+        "design-system",
+        "movers-shakers",
+        "lit"
+    ],
+    "author": "Movers+Shakers",
+    "license": "MIT"
+}

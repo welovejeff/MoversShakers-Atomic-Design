@@ -109,6 +109,16 @@
                     </ul>
                 </div>
                 <div>
+                    <h4 class="text-xs font-bold uppercase tracking-widest text-theme-tertiary mb-3">Frameworks</h4>
+                    <ul class="space-y-2">
+                        <li><a href="#react" class="text-sm font-medium hover:text-brand-yellow transition-colors">React
+                                + TypeScript</a></li>
+                        <li><a href="#web-components"
+                                class="text-sm font-medium hover:text-brand-yellow transition-colors">Web Components</a>
+                        </li>
+                    </ul>
+                </div>
+                <div>
                     <h4 class="text-xs font-bold uppercase tracking-widest text-theme-tertiary mb-3">JavaScript</h4>
                     <ul class="space-y-2">
                         <li><a href="#modal"
@@ -205,6 +215,169 @@ if (MSDesignSystem.DarkMode.isDark()) {
 .shadow-brand-md  { box-shadow: 4px 4px 0px 0px rgba(0,0,0,1); }
 .shadow-brand-lg  { box-shadow: 8px 8px 0px 0px rgba(0,0,0,1); }
 .shadow-brand-yellow-md { box-shadow: 4px 4px 0px 0px #FFF000; }</code></pre>
+            </section>
+
+            <!-- React -->
+            <section id="react" class="mb-16">
+                <h2 class="text-2xl font-bold mb-4 pb-2 border-b-2 border-theme-primary">React + TypeScript</h2>
+                <p class="text-theme-secondary mb-4">Complete React component library with TypeScript support.</p>
+
+                <h3 class="text-lg font-bold mt-6 mb-3">Installation</h3>
+                <pre class="p-4 rounded overflow-x-auto text-sm mb-4"><code># Install from packages/react
+npm install @movers-shakers/react
+
+# Or link locally during development
+cd packages/react && npm link
+npm link @movers-shakers/react</code></pre>
+
+                <h3 class="text-lg font-bold mt-6 mb-3">Quick Start</h3>
+                <pre class="p-4 rounded overflow-x-auto text-sm mb-4"><code>import { Button, Badge, Card, Modal } from '@movers-shakers/react';
+import { useTheme, useToast } from '@movers-shakers/react';
+
+function App() {
+  const { toast, ToastContainer } = useToast();
+  const { theme, toggle } = useTheme();
+
+  return (
+    &lt;&gt;
+      &lt;Button variant="primary" onClick={() => toast.success('Saved!')}&gt;
+        Save Changes
+      &lt;/Button&gt;
+      &lt;ToastContainer /&gt;
+    &lt;/&gt;
+  );
+}</code></pre>
+
+                <h3 class="text-lg font-bold mt-6 mb-3">Available Components</h3>
+                <table class="w-full text-sm border-2 border-theme-primary mb-4">
+                    <thead class="bg-theme-secondary">
+                        <tr>
+                            <th class="text-left p-3 border-b-2 border-theme-primary">Category</th>
+                            <th class="text-left p-3 border-b-2 border-theme-primary">Components</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        <tr class="border-b border-theme-tertiary">
+                            <td class="p-3 font-bold">Atoms</td>
+                            <td class="p-3">Button, Badge, Avatar, Loader, Input, Typography</td>
+                        </tr>
+                        <tr class="border-b border-theme-tertiary">
+                            <td class="p-3 font-bold">Molecules</td>
+                            <td class="p-3">Card, Alert, Modal, Dropdown, Tabs, Table</td>
+                        </tr>
+                        <tr class="border-b border-theme-tertiary">
+                            <td class="p-3 font-bold">Organisms</td>
+                            <td class="p-3">Navbar, Hero, Footer, Sidebar, EmptyState</td>
+                        </tr>
+                        <tr>
+                            <td class="p-3 font-bold">Hooks</td>
+                            <td class="p-3">useTheme, useToast</td>
+                        </tr>
+                    </tbody>
+                </table>
+
+                <h3 class="text-lg font-bold mt-6 mb-3">Button Example (Copy-Paste)</h3>
+                <pre class="p-4 rounded overflow-x-auto text-sm"><code>import { Button } from '@movers-shakers/react';
+import { Plus, Save, Trash } from 'lucide-react';
+
+// Primary button with icon
+&lt;Button variant="primary" icon={&lt;Plus /&gt;}&gt;Add Item&lt;/Button&gt;
+
+// Secondary button
+&lt;Button variant="secondary"&gt;Cancel&lt;/Button&gt;
+
+// Outline button
+&lt;Button variant="outline" size="sm"&gt;Learn More&lt;/Button&gt;
+
+// Loading state
+&lt;Button variant="primary" loading&gt;Saving...&lt;/Button&gt;
+
+// Full width
+&lt;Button variant="primary" fullWidth&gt;Submit Form&lt;/Button&gt;</code></pre>
+            </section>
+
+            <!-- Web Components -->
+            <section id="web-components" class="mb-16">
+                <h2 class="text-2xl font-bold mb-4 pb-2 border-b-2 border-theme-primary">Web Components</h2>
+                <p class="text-theme-secondary mb-4">Framework-agnostic custom elements using Lit.</p>
+
+                <h3 class="text-lg font-bold mt-6 mb-3">Installation</h3>
+                <pre class="p-4 rounded overflow-x-auto text-sm mb-4"><code>&lt;!-- Include in HTML --&gt;
+&lt;script type="module" src="packages/web-components/dist/index.es.js"&gt;&lt;/script&gt;
+
+&lt;!-- Or import in JS --&gt;
+import '@movers-shakers/web-components';</code></pre>
+
+                <h3 class="text-lg font-bold mt-6 mb-3">Available Elements</h3>
+                <table class="w-full text-sm border-2 border-theme-primary mb-4">
+                    <thead class="bg-theme-secondary">
+                        <tr>
+                            <th class="text-left p-3 border-b-2 border-theme-primary">Element</th>
+                            <th class="text-left p-3 border-b-2 border-theme-primary">Usage</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        <tr class="border-b border-theme-tertiary">
+                            <td class="p-3 font-mono">&lt;ms-button&gt;</td>
+                            <td class="p-3">Button with variants, sizes, loading state</td>
+                        </tr>
+                        <tr class="border-b border-theme-tertiary">
+                            <td class="p-3 font-mono">&lt;ms-badge&gt;</td>
+                            <td class="p-3">Status badges with semantic variants</td>
+                        </tr>
+                        <tr class="border-b border-theme-tertiary">
+                            <td class="p-3 font-mono">&lt;ms-avatar&gt;</td>
+                            <td class="p-3">User avatars with image/initials fallback</td>
+                        </tr>
+                        <tr class="border-b border-theme-tertiary">
+                            <td class="p-3 font-mono">&lt;ms-card&gt;</td>
+                            <td class="p-3">Content cards with slots</td>
+                        </tr>
+                        <tr class="border-b border-theme-tertiary">
+                            <td class="p-3 font-mono">&lt;ms-alert&gt;</td>
+                            <td class="p-3">Alert messages with dismiss</td>
+                        </tr>
+                        <tr>
+                            <td class="p-3 font-mono">&lt;ms-modal&gt;</td>
+                            <td class="p-3">Modal dialogs</td>
+                        </tr>
+                    </tbody>
+                </table>
+
+                <h3 class="text-lg font-bold mt-6 mb-3">Usage Examples (Copy-Paste)</h3>
+                <pre class="p-4 rounded overflow-x-auto text-sm"><code>&lt;!-- Button variants --&gt;
+&lt;ms-button variant="primary"&gt;Primary&lt;/ms-button&gt;
+&lt;ms-button variant="secondary" size="lg"&gt;Large Secondary&lt;/ms-button&gt;
+&lt;ms-button variant="outline" loading&gt;Loading...&lt;/ms-button&gt;
+
+&lt;!-- Badge with dot indicator --&gt;
+&lt;ms-badge variant="success" dot&gt;Active&lt;/ms-badge&gt;
+&lt;ms-badge variant="error"&gt;Urgent&lt;/ms-badge&gt;
+
+&lt;!-- Avatar --&gt;
+&lt;ms-avatar src="/user.jpg" alt="John" status="online"&gt;&lt;/ms-avatar&gt;
+&lt;ms-avatar initials="JD" size="lg"&gt;&lt;/ms-avatar&gt;
+
+&lt;!-- Card with slots --&gt;
+&lt;ms-card hoverable&gt;
+  &lt;h3&gt;Card Title&lt;/h3&gt;
+  &lt;p&gt;Card content here&lt;/p&gt;
+  &lt;ms-button slot="footer" variant="primary"&gt;Action&lt;/ms-button&gt;
+&lt;/ms-card&gt;
+
+&lt;!-- Alert --&gt;
+&lt;ms-alert variant="info" title="Heads Up" dismissible&gt;
+  This is an informational message.
+&lt;/ms-alert&gt;
+
+&lt;!-- Modal (controlled via open attribute) --&gt;
+&lt;ms-modal title="Confirm Action" open&gt;
+  &lt;p&gt;Are you sure?&lt;/p&gt;
+  &lt;div slot="footer"&gt;
+    &lt;ms-button variant="outline"&gt;Cancel&lt;/ms-button&gt;
+    &lt;ms-button variant="primary"&gt;Confirm&lt;/ms-button&gt;
+  &lt;/div&gt;
+&lt;/ms-modal&gt;</code></pre>
             </section>
 
             <!-- Modal -->
