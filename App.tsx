@@ -566,7 +566,7 @@ const App: React.FC = () => {
                 </aside>
 
                 {/* Right Content: Detail Panel or Kanban Board */}
-                <section style={{ flex: 1, minWidth: 0 }}>
+                <section style={{ flex: 1, minWidth: 0, height: '100%', overflow: 'hidden' }}>
                     {activeView === 'Kanban Board' ? (
                         <KanbanBoard
                             tasks={outreachTasks}

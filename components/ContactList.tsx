@@ -17,7 +17,19 @@ const ContactList: React.FC<ContactListProps> = ({ contacts, selectedId, onSelec
       case Priority.Medium: return 'warning';
       case Priority.Low: return 'info';
       case Priority.Ignore: return 'error';
+      case Priority.Unprocessed: return undefined;
       default: return undefined;
+    }
+  };
+
+  const getPriorityLabel = (p: Priority): string => {
+    switch (p) {
+      case Priority.High: return '🔥 High';
+      case Priority.Medium: return '→ Medium';
+      case Priority.Low: return '↓ Low';
+      case Priority.Ignore: return '✕ Skip';
+      case Priority.Unprocessed: return '✨ New';
+      default: return p;
     }
   };
 
@@ -32,6 +44,7 @@ const ContactList: React.FC<ContactListProps> = ({ contacts, selectedId, onSelec
             onSelect={() => onSelect(contact.id)}
             kanbanMode={kanbanMode}
             getPriorityVariant={getPriorityVariant}
+            getPriorityLabel={getPriorityLabel}
           />
         ))}
       </div>
@@ -46,6 +59,7 @@ interface ContactCardProps {
   onSelect: () => void;
   kanbanMode: boolean;
   getPriorityVariant: (p: Priority) => 'success' | 'warning' | 'info' | 'error' | undefined;
+  getPriorityLabel: (p: Priority) => string;
 }
 
 const ContactCard: React.FC<ContactCardProps> = ({
@@ -53,7 +67,8 @@ const ContactCard: React.FC<ContactCardProps> = ({
   isSelected,
   onSelect,
   kanbanMode,
-  getPriorityVariant
+  getPriorityVariant,
+  getPriorityLabel
 }) => {
   const [isDragging, setIsDragging] = useState(false);
 
@@ -137,7 +152,7 @@ const ContactCard: React.FC<ContactCardProps> = ({
                 </Badge>
               )}
               <Badge variant={getPriorityVariant(contact.priority)}>
-                {contact.priority}
+                {getPriorityLabel(contact.priority)}
               </Badge>
             </div>
           </div>

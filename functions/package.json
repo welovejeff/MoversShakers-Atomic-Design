@@ -1,0 +1,33 @@
+{
+    "name": "crm-outreach-functions",
+    "version": "1.0.0",
+    "description": "Cloud Functions with Genkit for CRM Outreach Agent",
+    "main": "lib/index.js",
+    "scripts": {
+        "build": "tsc",
+        "build:watch": "tsc --watch",
+        "serve": "npm run build && firebase emulators:start --only functions",
+        "shell": "npm run build && firebase functions:shell",
+        "start": "npm run shell",
+        "deploy": "firebase deploy --only functions",
+        "logs": "firebase functions:log",
+        "genkit:dev": "GENKIT_ENV=dev npx tsx --watch src/index.ts",
+        "genkit:start": "genkit start -- npm run genkit:dev"
+    },
+    "engines": {
+        "node": "22"
+    },
+    "dependencies": {
+        "@genkit-ai/firebase": "^1.0.0",
+        "@genkit-ai/googleai": "^1.0.0",
+        "firebase-admin": "^13.0.0",
+        "firebase-functions": "^7.0.1",
+        "genkit": "^1.0.0",
+        "zod": "^3.23.0"
+    },
+    "devDependencies": {
+        "@types/node": "^22.0.0",
+        "tsx": "^4.19.0",
+        "typescript": "~5.8.0"
+    }
+}

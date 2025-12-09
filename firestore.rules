@@ -1,0 +1,25 @@
+rules_version = '2';
+
+service cloud.firestore {
+  match /databases/{database}/documents {
+    // Contacts collection
+    match /contacts/{contactId} {
+      allow read, write: if true; // TODO: Add auth rules when Firebase Auth is implemented
+    }
+    
+    // Research cache collection
+    match /research/{researchId} {
+      allow read, write: if true;
+    }
+    
+    // Outreach tasks collection
+    match /outreachTasks/{taskId} {
+      allow read, write: if true;
+    }
+    
+    // User settings collection
+    match /userSettings/{userId} {
+      allow read, write: if true;
+    }
+  }
+}

@@ -1,7 +1,9 @@
-import React, { useState } from 'react';
+import React, { useState, useEffect } from 'react';
 import { Contact, Priority } from '../types';
 import { researchContact, draftMessage } from '../services/geminiService';
 import { Card, Button, Input, Badge, Loader, Typography, Alert } from '@welovejeff/movers-react';
+import { db } from '../services/firebaseConfig';
+import { doc, getDoc } from 'firebase/firestore';
 
 interface DetailPanelProps {
     contact: Contact;
@@ -20,6 +22,34 @@ const DetailPanel: React.FC<DetailPanelProps> = ({ contact, onUpdateContact }) =
     const [activeTab, setActiveTab] = useState<'notes' | 'research' | 'writer'>('notes');
 
     const statusOptions = ['Familiar', 'Unfamiliar', 'Remove', 'Hot Lead', 'Warm', 'Cold'];
+
+    // Load cached research from Firestore on contact change
+    useEffect(() => {
+        const fetchCachedResearch = async () => {
+            if (contact.researchNotes) return; // Already have notes locally
+
+            try {
+                const docRef = doc(db, 'research', contact.id);
+                const docSnap = await getDoc(docRef);
+
+                if (docSnap.exists()) {
+                    const data = docSnap.data();
+                    // Check if cache is still valid
+                    if (data.expiresAt && data.expiresAt.toMillis() > Date.now()) {
+                        onUpdateContact({
+                            ...contact,
+                            researchNotes: data.notes,
+                            researchSources: data.sources || []
+                        });
+                    }
+                }
+            } catch (e) {
+                console.log('No cached research found:', e);
+            }
+        };
+
+        fetchCachedResearch();
+    }, [contact.id]);
 
     const handleResearch = async () => {
         setResearching(true);
@@ -54,7 +84,7 @@ const DetailPanel: React.FC<DetailPanelProps> = ({ contact, onUpdateContact }) =
     };
 
     return (
-        <Card style={{ height: '100%', display: 'flex', flexDirection: 'column', overflow: 'hidden' }}>
+        <Card style={{ height: '100%', display: 'flex', flexDirection: 'column', minHeight: 0 }}>
             {/* Header */}
             <div style={{
                 padding: '1.5rem',
@@ -265,7 +295,7 @@ const DetailPanel: React.FC<DetailPanelProps> = ({ contact, onUpdateContact }) =
                 ))}
             </div>
 
-            <div style={{ flex: 1, overflowY: 'auto', padding: '1.5rem' }}>
+            <div style={{ flex: 1, overflowY: 'auto', padding: '1.5rem', minHeight: 0 }}>
 
                 {/* Notes Tab */}
                 {activeTab === 'notes' && (
@@ -369,7 +399,8 @@ const DetailPanel: React.FC<DetailPanelProps> = ({ contact, onUpdateContact }) =
                             justifyContent: 'space-between',
                             padding: '1rem',
                             background: '#f5f5f5',
-                            border: '2px solid #111'
+                            border: '2px solid #111',
+                            marginBottom: '1rem'
                         }}>
                             {[
                                 { num: 1, label: 'COMPANY', done: !!contact.researchNotes },
@@ -409,6 +440,163 @@ const DetailPanel: React.FC<DetailPanelProps> = ({ contact, onUpdateContact }) =
                                 </React.Fragment>
                             ))}
                         </div>
+
+                        {/* Research Output */}
+                        {contact.researchNotes && (
+                            <div style={{
+                                background: 'linear-gradient(135deg, #ffffff 0%, #f8f9fa 100%)',
+                                border: '2px solid #111',
+                                boxShadow: '4px 4px 0 #111',
+                                padding: '1.5rem',
+                                marginBottom: '1rem'
+                            }}>
+                                <div style={{
+                                    display: 'flex',
+                                    alignItems: 'center',
+                                    gap: '0.5rem',
+                                    marginBottom: '1rem',
+                                    paddingBottom: '0.75rem',
+                                    borderBottom: '2px solid #FFF000'
+                                }}>
+                                    <span style={{ fontSize: '1.5rem' }}>📊</span>
+                                    <Typography variant="h3" style={{ margin: 0 }}>
+                                        Research Findings
+                                    </Typography>
+                                </div>
+
+                                {/* Parse and render markdown-style content */}
+                                <div style={{
+                                    display: 'flex',
+                                    flexDirection: 'column',
+                                    gap: '1rem'
+                                }}>
+                                    {contact.researchNotes.split('\n').map((line, idx) => {
+                                        const trimmedLine = line.trim();
+                                        if (!trimmedLine) return null;
+
+                                        // Section headers (lines with **Title:**)
+                                        const sectionMatch = trimmedLine.match(/^\*\*(.+?):\*\*$/);
+                                        if (sectionMatch) {
+                                            return (
+                                                <div key={idx} style={{
+                                                    background: '#FFF000',
+                                                    padding: '0.5rem 0.75rem',
+                                                    marginTop: idx > 0 ? '0.5rem' : 0,
+                                                    border: '2px solid #111',
+                                                    fontWeight: 700,
+                                                    fontSize: '0.875rem',
+                                                    textTransform: 'uppercase',
+                                                    letterSpacing: '0.5px'
+                                                }}>
+                                                    {sectionMatch[1]}
+                                                </div>
+                                            );
+                                        }
+
+                                        // Bullet points (lines starting with * or -)
+                                        if (trimmedLine.startsWith('*') || trimmedLine.startsWith('-')) {
+                                            const bulletContent = trimmedLine.replace(/^[\*\-]\s*/, '');
+                                            // Parse bold text within bullets
+                                            const parts = bulletContent.split(/\*\*([^*]+)\*\*/g);
+
+                                            return (
+                                                <div key={idx} style={{
+                                                    display: 'flex',
+                                                    gap: '0.75rem',
+                                                    paddingLeft: '0.5rem',
+                                                    alignItems: 'flex-start'
+                                                }}>
+                                                    <span style={{
+                                                        width: '8px',
+                                                        height: '8px',
+                                                        background: '#FFF000',
+                                                        border: '2px solid #111',
+                                                        borderRadius: '50%',
+                                                        flexShrink: 0,
+                                                        marginTop: '0.4rem'
+                                                    }} />
+                                                    <span style={{
+                                                        fontSize: '0.875rem',
+                                                        lineHeight: 1.6,
+                                                        color: '#333'
+                                                    }}>
+                                                        {parts.map((part, i) =>
+                                                            i % 2 === 1
+                                                                ? <strong key={i} style={{ color: '#111', fontWeight: 700 }}>{part}</strong>
+                                                                : part
+                                                        )}
+                                                    </span>
+                                                </div>
+                                            );
+                                        }
+
+                                        // Regular paragraph text - also parse bold
+                                        const parts = trimmedLine.split(/\*\*([^*]+)\*\*/g);
+                                        return (
+                                            <p key={idx} style={{
+                                                margin: 0,
+                                                fontSize: '0.875rem',
+                                                lineHeight: 1.6,
+                                                color: '#444'
+                                            }}>
+                                                {parts.map((part, i) =>
+                                                    i % 2 === 1
+                                                        ? <strong key={i} style={{ color: '#111', fontWeight: 700 }}>{part}</strong>
+                                                        : part
+                                                )}
+                                            </p>
+                                        );
+                                    })}
+                                </div>
+                            </div>
+                        )}
+
+                        {/* Research Sources */}
+                        {contact.researchSources && contact.researchSources.length > 0 && (
+                            <div style={{
+                                background: '#f5f5f5',
+                                border: '2px solid #111',
+                                padding: '1rem'
+                            }}>
+                                <Typography variant="overline" style={{ marginBottom: '0.5rem', display: 'block' }}>
+                                    Sources ({contact.researchSources.length})
+                                </Typography>
+                                <div style={{ display: 'flex', flexDirection: 'column', gap: '0.5rem' }}>
+                                    {contact.researchSources.map((source, idx) => (
+                                        <a
+                                            key={idx}
+                                            href={source.uri}
+                                            target="_blank"
+                                            rel="noreferrer"
+                                            style={{
+                                                display: 'flex',
+                                                alignItems: 'center',
+                                                gap: '0.5rem',
+                                                fontSize: '0.8rem',
+                                                color: '#0A66C2',
+                                                textDecoration: 'none'
+                                            }}
+                                        >
+                                            🔗 {source.title || source.uri}
+                                        </a>
+                                    ))}
+                                </div>
+                            </div>
+                        )}
+
+                        {/* Empty State */}
+                        {!contact.researchNotes && !researching && (
+                            <div style={{
+                                background: '#fff',
+                                border: '2px dashed #ddd',
+                                padding: '2rem',
+                                textAlign: 'center'
+                            }}>
+                                <Typography variant="body1" style={{ color: '#888' }}>
+                                    Click "Run Deep Research" to gather insights about this contact.
+                                </Typography>
+                            </div>
+                        )}
                     </section>
                 )}
 

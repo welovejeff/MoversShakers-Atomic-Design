@@ -1,9 +1,23 @@
-import { GoogleGenAI, Type, Schema } from "@google/genai";
-import { Contact, PrioritizationResult, ResearchResult, Priority } from "../types";
+/**
+ * Gemini Service - AI operations via Cloud Functions or direct API
+ * 
+ * This service provides a unified interface for AI operations.
+ * In development: Can use direct Gemini API
+ * In production: Should use Cloud Functions for security
+ */
 
-// Initialize the client. API_KEY is managed via environment variable injection in this environment.
-// Note: In a real production app, ensure backend proxy or secure handling.
-const ai = new GoogleGenAI({ apiKey: process.env.API_KEY });
+import { httpsCallable } from 'firebase/functions';
+import { functions } from './firebaseConfig';
+import { Contact, PrioritizationResult, ResearchResult, Priority } from '../types';
+
+// Flag to toggle between direct API and Cloud Functions
+// Set to true when Firebase is fully configured
+const USE_CLOUD_FUNCTIONS = import.meta.env.VITE_USE_CLOUD_FUNCTIONS === 'true';
+
+// Direct API imports (fallback for development)
+import { GoogleGenAI, Type, Schema } from "@google/genai";
+const ai = new GoogleGenAI({ apiKey: import.meta.env.VITE_GEMINI_API_KEY || '' });
+const MODEL_ID = "gemini-3-pro-preview";
 
 /**
  * Batch prioritizes contacts based on user-defined criteria.
@@ -12,9 +26,25 @@ export const prioritizeContacts = async (
   contacts: Contact[],
   criteria: string
 ): Promise<PrioritizationResult[]> => {
-  const modelId = "gemini-2.5-flash"; // Fast and efficient for logic
+  if (USE_CLOUD_FUNCTIONS) {
+    const prioritization = httpsCallable(functions, 'prioritization');
+    const result = await prioritization({
+      contacts: contacts.map(c => ({
+        id: c.id,
+        firstName: c.firstName,
+        lastName: c.lastName,
+        company: c.company,
+        position: c.position,
+        category: c.category,
+        location: c.location,
+        familiarity: c.familiarity,
+      })),
+      criteria,
+    });
+    return (result.data as any).results;
+  }
 
-  // We only send relevant fields to save tokens and reduce noise
+  // Direct API fallback
   const simplifiedContacts = contacts.map(c => ({
     id: c.id,
     name: `${c.firstName} ${c.lastName}`,
@@ -42,9 +72,9 @@ export const prioritizeContacts = async (
       type: Type.OBJECT,
       properties: {
         id: { type: Type.STRING },
-        priority: { 
-            type: Type.STRING, 
-            enum: [Priority.High, Priority.Medium, Priority.Low, Priority.Ignore] 
+        priority: {
+          type: Type.STRING,
+          enum: [Priority.High, Priority.Medium, Priority.Low, Priority.Ignore]
         },
         reasoning: { type: Type.STRING }
       },
@@ -54,7 +84,7 @@ export const prioritizeContacts = async (
 
   try {
     const response = await ai.models.generateContent({
-      model: modelId,
+      model: MODEL_ID,
       contents: JSON.stringify(simplifiedContacts) + "\n\n" + prompt,
       config: {
         responseMimeType: "application/json",
@@ -77,9 +107,25 @@ export const prioritizeContacts = async (
  * Performs deep research on a specific contact using Google Search grounding.
  */
 export const researchContact = async (contact: Contact): Promise<ResearchResult> => {
-  // We use 2.5 flash as it supports search and is fast.
-  const modelId = "gemini-2.5-flash"; 
+  if (USE_CLOUD_FUNCTIONS) {
+    const research = httpsCallable(functions, 'research');
+    const result = await research({
+      contactId: contact.id,
+      firstName: contact.firstName,
+      lastName: contact.lastName,
+      company: contact.company,
+      position: contact.position,
+      category: contact.category,
+      location: contact.location,
+    });
+    const data = result.data as any;
+    return {
+      notes: data.notes,
+      sources: data.sources,
+    };
+  }
 
+  // Direct API fallback
   const prompt = `
     Research the following individual and their company for a sales outreach context.
     
@@ -99,7 +145,7 @@ export const researchContact = async (contact: Contact): Promise<ResearchResult>
 
   try {
     const response = await ai.models.generateContent({
-      model: modelId,
+      model: MODEL_ID,
       contents: prompt,
       config: {
         tools: [{ googleSearch: {} }],
@@ -112,8 +158,7 @@ export const researchContact = async (contact: Contact): Promise<ResearchResult>
       .filter((chunk: any) => chunk.web?.uri && chunk.web?.title)
       .map((chunk: any) => ({ uri: chunk.web.uri, title: chunk.web.title }));
 
-    // Remove duplicates based on URI
-    const uniqueSources = Array.from(new Map(sources.map((item: any) => [item.uri, item])).values()) as Array<{uri: string, title: string}>;
+    const uniqueSources = Array.from(new Map(sources.map((item: any) => [item.uri, item])).values()) as Array<{ uri: string, title: string }>;
 
     return {
       notes: response.text || "No research gathered.",
@@ -130,12 +175,28 @@ export const researchContact = async (contact: Contact): Promise<ResearchResult>
  * Drafts a LinkedIn message based on contact info and research notes.
  */
 export const draftMessage = async (
-  contact: Contact, 
+  contact: Contact,
   researchNotes: string,
   userDirectives: string
 ): Promise<string> => {
-  const modelId = "gemini-2.5-flash";
+  if (USE_CLOUD_FUNCTIONS) {
+    const outreach = httpsCallable(functions, 'outreach');
+    const result = await outreach({
+      contactId: contact.id,
+      firstName: contact.firstName,
+      lastName: contact.lastName,
+      company: contact.company,
+      position: contact.position,
+      category: contact.category,
+      location: contact.location,
+      familiarity: contact.familiarity,
+      userDirectives,
+      existingResearchNotes: researchNotes,
+    });
+    return (result.data as any).draftMessage;
+  }
 
+  // Direct API fallback
   const prompt = `
     Draft a personalized, professional, and concise LinkedIn connection message (max 300 chars if possible, but up to 100 words is okay if connection request is not the goal) for this prospect.
     
@@ -150,7 +211,7 @@ export const draftMessage = async (
 
   try {
     const response = await ai.models.generateContent({
-      model: modelId,
+      model: MODEL_ID,
       contents: prompt
     });
     return response.text || "";
