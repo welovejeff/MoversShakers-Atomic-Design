@@ -1,21 +1,27 @@
 import React from 'react';
-import { OutreachTask, OutreachStatus } from '../types';
+import { OutreachTask, OutreachStatus, Contact } from '../types';
 import KanbanColumn from './KanbanColumn';
 
 interface KanbanBoardProps {
     tasks: OutreachTask[];
+    contacts: Contact[];
     columnNames: Record<OutreachStatus, string>;
     onTaskMove: (taskId: string, newStatus: OutreachStatus) => void;
     onRenameColumn: (status: OutreachStatus, newName: string) => void;
     onDropProspect?: (e: React.DragEvent, status: OutreachStatus) => void;
+    onDescriptionChange: (taskId: string, newDescription: string) => void;
+    onDeleteTask: (taskId: string) => void;
 }
 
 const KanbanBoard: React.FC<KanbanBoardProps> = ({
     tasks,
+    contacts,
     columnNames,
     onTaskMove,
     onRenameColumn,
-    onDropProspect
+    onDropProspect,
+    onDescriptionChange,
+    onDeleteTask
 }) => {
     const columns: OutreachStatus[] = [
         OutreachStatus.Queued,
@@ -72,11 +78,14 @@ const KanbanBoard: React.FC<KanbanBoardProps> = ({
                     key={status}
                     status={status}
                     tasks={getTasksByStatus(status)}
+                    contacts={contacts}
                     customTitle={columnNames[status]}
                     onDragStart={handleDragStart}
                     onDragOver={handleDragOver}
                     onDrop={handleDrop}
                     onRenameColumn={onRenameColumn}
+                    onDescriptionChange={onDescriptionChange}
+                    onDeleteTask={onDeleteTask}
                 />
             ))}
         </div>

@@ -6,7 +6,7 @@ import DetailPanel from './components/DetailPanel';
 import KanbanBoard from './components/KanbanBoard';
 import PillSlider from './components/PillSlider';
 import { prioritizeContacts } from './services/geminiService';
-import { contactsService } from './services/firestoreService';
+import { contactsService, tasksService, settingsService } from './services/firestoreService';
 import { Navbar, Card, Button, Modal, Input, Loader, useToast, Typography } from '@welovejeff/movers-react';
 
 const App: React.FC = () => {
@@ -53,6 +53,7 @@ const App: React.FC = () => {
 
     const loadContacts = async () => {
         try {
+            // Load contacts
             const firestoreContacts = await contactsService.getAll();
             if (firestoreContacts.length > 0) {
                 setContacts(firestoreContacts);
@@ -62,6 +63,16 @@ const App: React.FC = () => {
                 const seeded = await contactsService.bulkCreate(contactsToSeed);
                 setContacts(seeded);
                 toast.success('Initialized contacts database');
+            }
+
+            // Load outreach tasks from Firestore
+            const firestoreTasks = await tasksService.getAll();
+            setOutreachTasks(firestoreTasks);
+
+            // Load column names from Firestore
+            const savedColumnNames = await settingsService.getColumnNames();
+            if (savedColumnNames) {
+                setColumnNames(savedColumnNames);
             }
         } catch (error) {
             console.error('Failed to load contacts:', error);
@@ -267,19 +278,28 @@ const App: React.FC = () => {
     };
 
     // Kanban Handlers
-    const handleTaskMove = (taskId: string, newStatus: OutreachStatus) => {
+    const handleTaskMove = async (taskId: string, newStatus: OutreachStatus) => {
         setOutreachTasks(prev => prev.map(task =>
             task.id === taskId ? { ...task, status: newStatus } : task
         ));
+        // Persist to Firestore
+        try {
+            await tasksService.updateStatus(taskId, newStatus);
+        } catch (error) {
+            console.error('Failed to save task move:', error);
+            toast.error('Failed to save task position');
+        }
     };
 
-    const handleDropProspect = (e: React.DragEvent, status: OutreachStatus) => {
+    const handleDropProspect = async (e: React.DragEvent, status: OutreachStatus) => {
         const contactId = e.dataTransfer.getData('contactId');
         const contactName = e.dataTransfer.getData('contactName');
         const contactCompany = e.dataTransfer.getData('contactCompany');
         const contactPriority = e.dataTransfer.getData('contactPriority');
 
-        if (!contactId) return;
+        if (!contactId) {
+            return;
+        }
 
         // Check if task already exists for this contact
         const exists = outreachTasks.some(t => t.contactId === contactId);
@@ -288,19 +308,25 @@ const App: React.FC = () => {
             return;
         }
 
-        const newTask: OutreachTask = {
-            id: `task-${Date.now()}`,
+        const taskData = {
             contactId,
             title: contactName || 'Outreach Task',
             description: contactCompany ? `Reach out to ${contactCompany}` : undefined,
-            priority: contactPriority === 'High' ? 'HIGH' : contactPriority === 'Low' ? 'LOW' : 'MEDIUM',
+            priority: (contactPriority === 'High' ? 'HIGH' : contactPriority === 'Low' ? 'LOW' : 'MEDIUM') as 'HIGH' | 'MEDIUM' | 'LOW',
             status,
             tags: ['Outreach'],
             assignees: ['JD']
         };
 
-        setOutreachTasks(prev => [...prev, newTask]);
-        toast.success(`Added task for ${contactName}`);
+        try {
+            // Create in Firestore and get the persisted task with ID
+            const createdTask = await tasksService.create(taskData);
+            setOutreachTasks(prev => [...prev, createdTask]);
+            toast.success(`Added task for ${contactName}`);
+        } catch (error) {
+            console.error('Failed to create task:', error);
+            toast.error('Failed to create task');
+        }
     };
 
     const handleAddTask = (status: OutreachStatus) => {
@@ -308,12 +334,60 @@ const App: React.FC = () => {
         toast.info('Select a prospect from the list and drag it here');
     };
 
-    const handleRenameColumn = (status: OutreachStatus, newName: string) => {
+    const handleRenameColumn = async (status: OutreachStatus, newName: string) => {
         setColumnNames(prev => ({
             ...prev,
             [status]: newName
         }));
-        toast.success(`Column renamed to "${newName}"`);
+
+        // Persist to Firestore
+        try {
+            await settingsService.updateColumnName(status, newName);
+            toast.success(`Column renamed to "${newName}"`);
+        } catch (error) {
+            console.error('Failed to save column name:', error);
+            toast.error('Failed to save column name');
+        }
+    };
+
+    const handleDescriptionChange = async (taskId: string, newDescription: string) => {
+        setOutreachTasks(prev => prev.map(task =>
+            task.id === taskId ? { ...task, description: newDescription } : task
+        ));
+        // Persist to Firestore
+        try {
+            await tasksService.update(taskId, { description: newDescription });
+        } catch (error) {
+            console.error('Failed to save task description:', error);
+            toast.error('Failed to save description');
+        }
+    };
+
+    const handleDeleteTask = async (taskId: string) => {
+        setOutreachTasks(prev => prev.filter(task => task.id !== taskId));
+        // Delete from Firestore
+        try {
+            await tasksService.delete(taskId);
+            toast.success('Task deleted');
+        } catch (error) {
+            console.error('Failed to delete task:', error);
+            toast.error('Failed to delete task');
+        }
+    };
+
+    // Update a contact's familiarity status from the Kanban card
+    const handleFamiliarityChange = async (contactId: string, newFamiliarity: string) => {
+        // Update local state
+        setContacts(prev => prev.map(contact =>
+            contact.id === contactId ? { ...contact, familiarity: newFamiliarity } : contact
+        ));
+        // Persist to Firestore
+        try {
+            await contactsService.update(contactId, { familiarity: newFamiliarity });
+        } catch (error) {
+            console.error('Failed to save familiarity:', error);
+            toast.error('Failed to save status');
+        }
     };
 
     const navItems = [
@@ -616,6 +690,8 @@ const App: React.FC = () => {
                                 selectedId={selectedId}
                                 onSelect={setSelectedId}
                                 kanbanMode={activeView === 'Kanban Board'}
+                                outreachTasks={outreachTasks}
+                                columnNames={columnNames}
                             />
                         )}
                     </div>
@@ -626,10 +702,13 @@ const App: React.FC = () => {
                     {activeView === 'Kanban Board' ? (
                         <KanbanBoard
                             tasks={outreachTasks}
+                            contacts={contacts}
                             columnNames={columnNames}
                             onTaskMove={handleTaskMove}
                             onRenameColumn={handleRenameColumn}
                             onDropProspect={handleDropProspect}
+                            onDescriptionChange={handleDescriptionChange}
+                            onDeleteTask={handleDeleteTask}
                         />
                     ) : selectedContact ? (
                         <DetailPanel

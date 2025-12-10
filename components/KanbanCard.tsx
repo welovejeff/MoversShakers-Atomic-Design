@@ -1,36 +1,40 @@
 import React, { useState } from 'react';
-import { OutreachTask } from '../types';
-import { Card, Badge, Typography } from '@welovejeff/movers-react';
+import { OutreachTask, OutreachStatus } from '../types';
+import { Card, Typography } from '@welovejeff/movers-react';
 
 interface KanbanCardProps {
     task: OutreachTask;
+    contactFamiliarity?: string;
     onDragStart: (e: React.DragEvent, task: OutreachTask) => void;
+    onDescriptionChange: (taskId: string, newDescription: string) => void;
+    onDeleteTask: (taskId: string) => void;
 }
 
-const KanbanCard: React.FC<KanbanCardProps> = ({ task, onDragStart }) => {
+const KanbanCard: React.FC<KanbanCardProps> = ({
+    task,
+    contactFamiliarity = '',
+    onDragStart,
+    onDescriptionChange,
+    onDeleteTask
+}) => {
     const [isDragging, setIsDragging] = useState(false);
+    const [isEditingDescription, setIsEditingDescription] = useState(false);
+    const [editDescription, setEditDescription] = useState(task.description || '');
+    const [isMenuOpen, setIsMenuOpen] = useState(false);
 
-    const getPriorityColor = (priority: string) => {
-        switch (priority) {
-            case 'HIGH': return { bg: '#FF4444', text: '#fff' };
-            case 'MEDIUM': return { bg: '#FFF000', text: '#111' };
-            case 'LOW': return { bg: '#4CAF50', text: '#fff' };
-            default: return { bg: '#999', text: '#fff' };
+    const getFamiliarityColor = (familiarity: string) => {
+        switch (familiarity) {
+            case 'Hot Lead': return { bg: '#FF4444', text: '#fff' };
+            case 'Warm': return { bg: '#FFF000', text: '#111' };
+            case 'Cold': return { bg: '#2196F3', text: '#fff' };
+            case 'Familiar': return { bg: '#4CAF50', text: '#fff' };
+            case 'Unfamiliar': return { bg: '#9E9E9E', text: '#fff' };
+            case 'Remove': return { bg: '#111', text: '#fff' };
+            default: return { bg: '#eee', text: '#111' };
         }
     };
 
-    const getTagColor = (tag: string) => {
-        const colors: Record<string, { bg: string, text: string }> = {
-            'Design': { bg: '#E3F2FD', text: '#1976D2' },
-            'Dev': { bg: '#E8F5E9', text: '#388E3C' },
-            'Content': { bg: '#FFF8E1', text: '#F57C00' },
-            'Research': { bg: '#F3E5F5', text: '#7B1FA2' },
-            'Outreach': { bg: '#FFEBEE', text: '#C62828' }
-        };
-        return colors[tag] || { bg: '#f0f0f0', text: '#444' };
-    };
-
-    const priorityColors = getPriorityColor(task.priority);
+    const statusColors = getFamiliarityColor(contactFamiliarity);
 
     const handleDragStart = (e: React.DragEvent) => {
         setIsDragging(true);
@@ -52,6 +56,22 @@ const KanbanCard: React.FC<KanbanCardProps> = ({ task, onDragStart }) => {
         setIsDragging(false);
     };
 
+    const handleDescriptionBlur = () => {
+        setIsEditingDescription(false);
+        if (editDescription !== task.description) {
+            onDescriptionChange(task.id, editDescription);
+        }
+    };
+
+    const handleDescriptionKeyDown = (e: React.KeyboardEvent) => {
+        if (e.key === 'Enter') {
+            handleDescriptionBlur();
+        } else if (e.key === 'Escape') {
+            setEditDescription(task.description || '');
+            setIsEditingDescription(false);
+        }
+    };
+
     return (
         <Card
             draggable
@@ -69,7 +89,7 @@ const KanbanCard: React.FC<KanbanCardProps> = ({ task, onDragStart }) => {
             }}
             hoverable
         >
-            {/* Drag Handle + Priority Badge Row */}
+            {/* Drag Handle + Status Badge Row */}
             <div style={{ display: 'flex', alignItems: 'center', marginBottom: '0.5rem' }}>
                 {/* Drag Handle */}
                 <span style={{
@@ -80,37 +100,83 @@ const KanbanCard: React.FC<KanbanCardProps> = ({ task, onDragStart }) => {
                     userSelect: 'none'
                 }}>⋮⋮</span>
 
-                <span
-                    style={{
-                        display: 'inline-block',
-                        padding: '2px 8px',
-                        background: priorityColors.bg,
-                        color: priorityColors.text,
-                        fontSize: '0.65rem',
-                        fontWeight: 700,
-                        fontFamily: 'Oswald, sans-serif',
-                        textTransform: 'uppercase',
-                        border: '2px solid #111',
-                        letterSpacing: '0.5px'
-                    }}
-                >
-                    {task.priority}
-                </span>
+                {/* Static Status Badge */}
+                {contactFamiliarity && (
+                    <span
+                        style={{
+                            display: 'inline-block',
+                            padding: '2px 8px',
+                            background: statusColors.bg,
+                            color: statusColors.text,
+                            fontSize: '0.65rem',
+                            fontWeight: 700,
+                            fontFamily: 'Oswald, sans-serif',
+                            textTransform: 'uppercase',
+                            border: '2px solid #111',
+                            letterSpacing: '0.5px'
+                        }}
+                    >
+                        {contactFamiliarity}
+                    </span>
+                )}
 
                 {/* Menu button */}
-                <button
-                    style={{
-                        marginLeft: 'auto',
-                        background: 'none',
-                        border: 'none',
-                        cursor: 'pointer',
-                        fontSize: '1rem',
-                        color: '#666',
-                        padding: '0 4px'
-                    }}
-                >
-                    ⋯
-                </button>
+                <div style={{ marginLeft: 'auto', position: 'relative' }}>
+                    <button
+                        onClick={(e) => { e.stopPropagation(); setIsMenuOpen(!isMenuOpen); }}
+                        style={{
+                            background: 'none',
+                            border: 'none',
+                            cursor: 'pointer',
+                            fontSize: '1rem',
+                            color: '#666',
+                            padding: '0 4px'
+                        }}
+                    >
+                        ⋯
+                    </button>
+
+                    {isMenuOpen && (
+                        <div style={{
+                            position: 'absolute',
+                            top: '100%',
+                            right: 0,
+                            marginTop: '2px',
+                            background: '#fff',
+                            border: '2px solid #111',
+                            boxShadow: '3px 3px 0 #111',
+                            zIndex: 100,
+                            minWidth: '120px'
+                        }}>
+                            <div
+                                onClick={() => { setIsMenuOpen(false); setIsEditingDescription(true); }}
+                                style={{
+                                    padding: '0.5rem 0.75rem',
+                                    cursor: 'pointer',
+                                    fontSize: '0.8rem',
+                                    borderBottom: '1px solid #eee'
+                                }}
+                                onMouseEnter={(e) => (e.currentTarget.style.background = '#f5f5f5')}
+                                onMouseLeave={(e) => (e.currentTarget.style.background = '#fff')}
+                            >
+                                ✏️ Edit
+                            </div>
+                            <div
+                                onClick={() => { setIsMenuOpen(false); onDeleteTask(task.id); }}
+                                style={{
+                                    padding: '0.5rem 0.75rem',
+                                    cursor: 'pointer',
+                                    fontSize: '0.8rem',
+                                    color: '#C62828'
+                                }}
+                                onMouseEnter={(e) => (e.currentTarget.style.background = '#ffebee')}
+                                onMouseLeave={(e) => (e.currentTarget.style.background = '#fff')}
+                            >
+                                🗑️ Remove
+                            </div>
+                        </div>
+                    )}
+                </div>
             </div>
 
             {/* Title */}
@@ -118,41 +184,44 @@ const KanbanCard: React.FC<KanbanCardProps> = ({ task, onDragStart }) => {
                 {task.title}
             </Typography>
 
-            {/* Description */}
-            {task.description && (
-                <Typography variant="body2" style={{ color: '#666', fontSize: '0.8rem', marginBottom: '0.75rem' }}>
-                    {task.description}
+            {/* Description - Editable */}
+            {isEditingDescription ? (
+                <input
+                    autoFocus
+                    value={editDescription}
+                    onChange={(e) => setEditDescription(e.target.value)}
+                    onBlur={handleDescriptionBlur}
+                    onKeyDown={handleDescriptionKeyDown}
+                    style={{
+                        width: '100%',
+                        padding: '0.5rem',
+                        fontSize: '0.8rem',
+                        fontFamily: 'Inter, sans-serif',
+                        border: '2px solid #FFF000',
+                        background: '#fffdf0',
+                        marginBottom: '0.5rem'
+                    }}
+                    placeholder="Add a description..."
+                />
+            ) : (
+                <Typography
+                    variant="body2"
+                    onClick={() => setIsEditingDescription(true)}
+                    style={{
+                        color: task.description ? '#666' : '#999',
+                        fontSize: '0.8rem',
+                        marginBottom: '0.5rem',
+                        cursor: 'pointer',
+                        fontStyle: task.description ? 'normal' : 'italic'
+                    }}
+                >
+                    {task.description || 'Click to add description...'}
                 </Typography>
-            )}
-
-            {/* Tags */}
-            {task.tags && task.tags.length > 0 && (
-                <div style={{ display: 'flex', gap: '0.25rem', flexWrap: 'wrap', marginBottom: '0.75rem' }}>
-                    {task.tags.map((tag) => {
-                        const tagColor = getTagColor(tag);
-                        return (
-                            <span
-                                key={tag}
-                                style={{
-                                    padding: '2px 8px',
-                                    background: tagColor.bg,
-                                    color: tagColor.text,
-                                    fontSize: '0.7rem',
-                                    fontWeight: 500,
-                                    border: '1px solid currentColor',
-                                    borderRadius: '2px'
-                                }}
-                            >
-                                {tag}
-                            </span>
-                        );
-                    })}
-                </div>
             )}
 
             {/* Progress Bar (for In Progress tasks) */}
             {task.progress !== undefined && task.progress > 0 && (
-                <div style={{ marginBottom: '0.75rem' }}>
+                <div style={{ marginBottom: '0.5rem' }}>
                     <div style={{ display: 'flex', justifyContent: 'space-between', marginBottom: '0.25rem' }}>
                         <Typography variant="caption" style={{ color: '#666', fontSize: '0.7rem' }}>Progress</Typography>
                         <Typography variant="caption" style={{ fontWeight: 600, fontSize: '0.7rem' }}>{task.progress}%</Typography>
@@ -172,59 +241,15 @@ const KanbanCard: React.FC<KanbanCardProps> = ({ task, onDragStart }) => {
 
             {/* Due Date */}
             {task.dueDate && (
-                <div style={{ display: 'flex', alignItems: 'center', gap: '0.25rem', marginBottom: '0.5rem' }}>
+                <div style={{ display: 'flex', alignItems: 'center', gap: '0.25rem' }}>
                     <span style={{ fontSize: '0.75rem' }}>📅</span>
                     <Typography variant="caption" style={{ color: task.dueDate.includes('today') ? '#FF4444' : '#666', fontSize: '0.75rem' }}>
                         {task.dueDate}
                     </Typography>
                 </div>
             )}
-
-            {/* Bottom row: Assignees and counts */}
-            <div style={{ display: 'flex', justifyContent: 'space-between', alignItems: 'center', marginTop: '0.5rem' }}>
-                {/* Assignees */}
-                <div style={{ display: 'flex' }}>
-                    {task.assignees && task.assignees.map((initials, i) => (
-                        <div
-                            key={i}
-                            style={{
-                                width: '24px',
-                                height: '24px',
-                                borderRadius: '50%',
-                                background: ['#FFF000', '#4CAF50', '#2196F3', '#FF9800'][i % 4],
-                                border: '2px solid #111',
-                                display: 'flex',
-                                alignItems: 'center',
-                                justifyContent: 'center',
-                                fontSize: '0.6rem',
-                                fontWeight: 700,
-                                marginLeft: i > 0 ? '-8px' : 0,
-                                zIndex: task.assignees!.length - i,
-                                fontFamily: 'Oswald, sans-serif'
-                            }}
-                        >
-                            {initials}
-                        </div>
-                    ))}
-                </div>
-
-                {/* Attachment & Subtask counts */}
-                <div style={{ display: 'flex', gap: '0.75rem', alignItems: 'center' }}>
-                    {task.attachmentCount !== undefined && task.attachmentCount > 0 && (
-                        <span style={{ fontSize: '0.75rem', color: '#666' }}>
-                            📎 {task.attachmentCount}
-                        </span>
-                    )}
-                    {task.subtaskCount !== undefined && task.subtaskCount > 0 && (
-                        <span style={{ fontSize: '0.75rem', color: '#666' }}>
-                            ☑ {task.subtasksCompleted || 0}/{task.subtaskCount}
-                        </span>
-                    )}
-                </div>
-            </div>
         </Card>
     );
 };
 
 export default KanbanCard;
-

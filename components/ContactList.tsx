@@ -1,5 +1,5 @@
 import React, { useState } from 'react';
-import { Contact, Priority } from '../types';
+import { Contact, Priority, OutreachTask, OutreachStatus } from '../types';
 import { Card, Badge, Typography } from '@welovejeff/movers-react';
 
 interface ContactListProps {
@@ -7,9 +7,33 @@ interface ContactListProps {
   selectedId: string | null;
   onSelect: (id: string) => void;
   kanbanMode?: boolean;
+  outreachTasks?: OutreachTask[];
+  columnNames?: Record<OutreachStatus, string>;
 }
 
-const ContactList: React.FC<ContactListProps> = ({ contacts, selectedId, onSelect, kanbanMode = false }) => {
+const defaultColumnNames: Record<OutreachStatus, string> = {
+  [OutreachStatus.Queued]: 'QUEUED',
+  [OutreachStatus.Sent]: 'SENT / AWAITING',
+  [OutreachStatus.Followup]: 'FOLLOW UP',
+};
+
+const ContactList: React.FC<ContactListProps> = ({
+  contacts,
+  selectedId,
+  onSelect,
+  kanbanMode = false,
+  outreachTasks = [],
+  columnNames = defaultColumnNames
+}) => {
+
+  const getOutreachInfo = (contactId: string): { status: OutreachStatus; columnName: string } | null => {
+    const task = outreachTasks.find(t => t.contactId === contactId);
+    if (!task) return null;
+    return {
+      status: task.status,
+      columnName: columnNames[task.status] || task.status
+    };
+  };
 
   const getPriorityVariant = (p: Priority): 'success' | 'warning' | 'info' | 'error' | undefined => {
     switch (p) {
@@ -43,6 +67,7 @@ const ContactList: React.FC<ContactListProps> = ({ contacts, selectedId, onSelec
             isSelected={selectedId === contact.id}
             onSelect={() => onSelect(contact.id)}
             kanbanMode={kanbanMode}
+            outreachInfo={getOutreachInfo(contact.id)}
             getPriorityVariant={getPriorityVariant}
             getPriorityLabel={getPriorityLabel}
           />
@@ -52,12 +77,12 @@ const ContactList: React.FC<ContactListProps> = ({ contacts, selectedId, onSelec
   );
 };
 
-// Unified contact card - same styling, with optional drag functionality
 interface ContactCardProps {
   contact: Contact;
   isSelected: boolean;
   onSelect: () => void;
   kanbanMode: boolean;
+  outreachInfo: { status: OutreachStatus; columnName: string } | null;
   getPriorityVariant: (p: Priority) => 'success' | 'warning' | 'info' | 'error' | undefined;
   getPriorityLabel: (p: Priority) => string;
 }
@@ -67,10 +92,20 @@ const ContactCard: React.FC<ContactCardProps> = ({
   isSelected,
   onSelect,
   kanbanMode,
+  outreachInfo,
   getPriorityVariant,
   getPriorityLabel
 }) => {
   const [isDragging, setIsDragging] = useState(false);
+
+  const getStatusIcon = (status: OutreachStatus): string => {
+    switch (status) {
+      case OutreachStatus.Queued: return '📋';
+      case OutreachStatus.Sent: return '📤';
+      case OutreachStatus.Followup: return '🔄';
+      default: return '📌';
+    }
+  };
 
   const handleDragStart = (e: React.DragEvent) => {
     setIsDragging(true);
@@ -79,7 +114,7 @@ const ContactCard: React.FC<ContactCardProps> = ({
     e.dataTransfer.setData('contactName', `${contact.firstName} ${contact.lastName}`);
     e.dataTransfer.setData('contactCompany', contact.company);
     e.dataTransfer.setData('contactPriority', contact.priority);
-    e.dataTransfer.effectAllowed = 'copy';
+    e.dataTransfer.effectAllowed = 'copyMove';
 
     // Create custom drag image with rotation
     const dragEl = e.currentTarget.cloneNode(true) as HTMLElement;
@@ -151,9 +186,23 @@ const ContactCard: React.FC<ContactCardProps> = ({
                   {contact.category}
                 </Badge>
               )}
-              <Badge variant={getPriorityVariant(contact.priority)}>
-                {getPriorityLabel(contact.priority)}
-              </Badge>
+              {/* Show column name if on Kanban board, otherwise show priority */}
+              {outreachInfo ? (
+                <Badge
+                  variant="warning"
+                  style={{
+                    background: outreachInfo.status === OutreachStatus.Sent ? '#FFF000' :
+                      outreachInfo.status === OutreachStatus.Followup ? '#4CAF50' : '#eee',
+                    color: outreachInfo.status === OutreachStatus.Followup ? '#fff' : '#111'
+                  }}
+                >
+                  {getStatusIcon(outreachInfo.status)} {outreachInfo.columnName}
+                </Badge>
+              ) : (
+                <Badge variant={getPriorityVariant(contact.priority)}>
+                  {getPriorityLabel(contact.priority)}
+                </Badge>
+              )}
             </div>
           </div>
 

@@ -1,26 +1,32 @@
 import React, { useState } from 'react';
-import { OutreachTask, OutreachStatus } from '../types';
+import { OutreachTask, OutreachStatus, Contact } from '../types';
 import { Typography, Button } from '@welovejeff/movers-react';
 import KanbanCard from './KanbanCard';
 
 interface KanbanColumnProps {
     status: OutreachStatus;
     tasks: OutreachTask[];
+    contacts: Contact[];
     customTitle?: string;
     onDragStart: (e: React.DragEvent, task: OutreachTask) => void;
     onDragOver: (e: React.DragEvent) => void;
     onDrop: (e: React.DragEvent, status: OutreachStatus) => void;
     onRenameColumn?: (status: OutreachStatus, newName: string) => void;
+    onDescriptionChange: (taskId: string, newDescription: string) => void;
+    onDeleteTask: (taskId: string) => void;
 }
 
 const KanbanColumn: React.FC<KanbanColumnProps> = ({
     status,
     tasks,
+    contacts,
     customTitle,
     onDragStart,
     onDragOver,
     onDrop,
-    onRenameColumn
+    onRenameColumn,
+    onDescriptionChange,
+    onDeleteTask
 }) => {
     const [isEditing, setIsEditing] = useState(false);
     const [editValue, setEditValue] = useState('');
@@ -222,13 +228,19 @@ const KanbanColumn: React.FC<KanbanColumnProps> = ({
                     </div>
                 )}
 
-                {tasks.map((task) => (
-                    <KanbanCard
-                        key={task.id}
-                        task={task}
-                        onDragStart={onDragStart}
-                    />
-                ))}
+                {tasks.map((task) => {
+                    const contact = contacts.find(c => c.id === task.contactId);
+                    return (
+                        <KanbanCard
+                            key={task.id}
+                            task={task}
+                            contactFamiliarity={contact?.familiarity}
+                            onDragStart={onDragStart}
+                            onDescriptionChange={onDescriptionChange}
+                            onDeleteTask={onDeleteTask}
+                        />
+                    );
+                })}
             </div>
 
             {/* Keyframe animation for pulse effect */}

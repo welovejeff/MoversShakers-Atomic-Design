@@ -165,3 +165,39 @@ export const researchService = {
         };
     },
 };
+
+/**
+ * Settings Operations (for persisting app settings like column names)
+ */
+const settingsCollection = collection(db, 'settings');
+
+export const settingsService = {
+    async getColumnNames(): Promise<Record<OutreachStatus, string> | null> {
+        const docRef = doc(settingsCollection, 'kanbanColumns');
+        const docSnap = await getDoc(docRef);
+        if (!docSnap.exists()) return null;
+
+        const data = docSnap.data();
+        return {
+            [OutreachStatus.Queued]: data[OutreachStatus.Queued] || 'QUEUED',
+            [OutreachStatus.Sent]: data[OutreachStatus.Sent] || 'SENT / AWAITING',
+            [OutreachStatus.Followup]: data[OutreachStatus.Followup] || 'FOLLOW UP',
+        };
+    },
+
+    async saveColumnNames(columnNames: Record<OutreachStatus, string>): Promise<void> {
+        const docRef = doc(settingsCollection, 'kanbanColumns');
+        await setDoc(docRef, {
+            ...columnNames,
+            updatedAt: Timestamp.now(),
+        });
+    },
+
+    async updateColumnName(status: OutreachStatus, name: string): Promise<void> {
+        const docRef = doc(settingsCollection, 'kanbanColumns');
+        await setDoc(docRef, {
+            [status]: name,
+            updatedAt: Timestamp.now(),
+        }, { merge: true });
+    },
+};
