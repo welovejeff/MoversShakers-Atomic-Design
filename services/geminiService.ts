@@ -122,6 +122,7 @@ export const researchContact = async (contact: Contact): Promise<ResearchResult>
     return {
       notes: data.notes,
       sources: data.sources,
+      citations: data.citations,
     };
   }
 

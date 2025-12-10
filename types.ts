@@ -24,6 +24,7 @@ export interface Contact {
   researchNotes?: string;
   draftMessage?: string;
   researchSources?: Array<{ uri: string, title: string }>;
+  researchCitations?: Citation[];
 }
 
 export interface PrioritizationResult {
@@ -32,9 +33,17 @@ export interface PrioritizationResult {
   reasoning: string;
 }
 
+export interface Citation {
+  text: string;
+  startIndex: number;
+  endIndex: number;
+  sourceIndices: number[];
+}
+
 export interface ResearchResult {
   notes: string;
   sources: Array<{ uri: string, title: string }>;
+  citations?: Citation[];
 }
 
 // Kanban column status for outreach tracking

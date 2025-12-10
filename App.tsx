@@ -1,4 +1,4 @@
-import React, { useState, useRef } from 'react';
+import React, { useState, useRef, useEffect } from 'react';
 import { initialContacts } from './data/initialContacts';
 import { Contact, PrioritizationResult, Priority, OutreachTask, OutreachStatus } from './types';
 import ContactList from './components/ContactList';
@@ -6,10 +6,12 @@ import DetailPanel from './components/DetailPanel';
 import KanbanBoard from './components/KanbanBoard';
 import PillSlider from './components/PillSlider';
 import { prioritizeContacts } from './services/geminiService';
+import { contactsService } from './services/firestoreService';
 import { Navbar, Card, Button, Modal, Input, Loader, useToast, Typography } from '@welovejeff/movers-react';
 
 const App: React.FC = () => {
-    const [contacts, setContacts] = useState<Contact[]>(initialContacts);
+    const [contacts, setContacts] = useState<Contact[]>([]);
+    const [isLoading, setIsLoading] = useState(true);
     const [selectedId, setSelectedId] = useState<string | null>(null);
     const fileInputRef = useRef<HTMLInputElement>(null);
 
@@ -43,6 +45,33 @@ const App: React.FC = () => {
         [OutreachStatus.Sent]: 'SENT / AWAITING',
         [OutreachStatus.Followup]: 'FOLLOW UP'
     });
+
+    // Load contacts from Firestore on mount
+    useEffect(() => {
+        loadContacts();
+    }, []);
+
+    const loadContacts = async () => {
+        try {
+            const firestoreContacts = await contactsService.getAll();
+            if (firestoreContacts.length > 0) {
+                setContacts(firestoreContacts);
+            } else {
+                // Seed with initial contacts if Firestore is empty
+                const contactsToSeed = initialContacts.map(({ id, ...rest }) => rest);
+                const seeded = await contactsService.bulkCreate(contactsToSeed);
+                setContacts(seeded);
+                toast.success('Initialized contacts database');
+            }
+        } catch (error) {
+            console.error('Failed to load contacts:', error);
+            toast.error('Failed to load contacts from database');
+            // Fall back to initial contacts
+            setContacts(initialContacts);
+        } finally {
+            setIsLoading(false);
+        }
+    };
 
     const selectedContact = contacts.find(c => c.id === selectedId) || null;
 
@@ -82,8 +111,15 @@ const App: React.FC = () => {
         }
     };
 
-    const handleUpdateContact = (updated: Contact) => {
+    const handleUpdateContact = async (updated: Contact) => {
         setContacts(contacts.map(c => c.id === updated.id ? updated : c));
+        // Sync to Firestore
+        try {
+            await contactsService.update(updated.id, updated);
+        } catch (error) {
+            console.error('Failed to update contact in Firestore:', error);
+            toast.error('Failed to save contact update');
+        }
     };
 
     const parseCSV = (text: string, category: string): Contact[] => {
@@ -172,7 +208,7 @@ const App: React.FC = () => {
         event.target.value = '';
     };
 
-    const handleConfirmImport = () => {
+    const handleConfirmImport = async () => {
         if (!pendingFile) return;
         if (!importCategory.trim()) {
             toast.warning('Please enter a category name.');
@@ -180,21 +216,25 @@ const App: React.FC = () => {
         }
 
         const reader = new FileReader();
-        reader.onload = (e) => {
+        reader.onload = async (e) => {
             const text = e.target?.result as string;
             try {
-                const newContacts = parseCSV(text, importCategory.trim());
-                if (newContacts.length > 0) {
-                    setContacts(prev => [...prev, ...newContacts]);
+                const parsedContacts = parseCSV(text, importCategory.trim());
+                if (parsedContacts.length > 0) {
+                    // Persist to Firestore first
+                    const contactsToCreate = parsedContacts.map(({ id, ...rest }) => rest);
+                    const createdContacts = await contactsService.bulkCreate(contactsToCreate);
+                    setContacts(prev => [...prev, ...createdContacts]);
                     setIsImportModalOpen(false);
                     setPendingFile(null);
-                    toast.success(`Imported ${newContacts.length} contacts!`);
+                    setImportCategory('');
+                    toast.success(`Imported ${createdContacts.length} contacts!`);
                 } else {
                     toast.error('Could not parse contacts from CSV.');
                 }
             } catch (err) {
                 console.error(err);
-                toast.error('Error parsing CSV.');
+                toast.error('Error importing contacts.');
             }
         };
         reader.readAsText(pendingFile);
@@ -556,17 +596,33 @@ const App: React.FC = () => {
                                 </Button>
                             </div>
                         </div>
-                        <ContactList
-                            contacts={filteredContacts}
-                            selectedId={selectedId}
-                            onSelect={setSelectedId}
-                            kanbanMode={activeView === 'Kanban Board'}
-                        />
+                        {isLoading ? (
+                            <div style={{
+                                flex: 1,
+                                display: 'flex',
+                                flexDirection: 'column',
+                                alignItems: 'center',
+                                justifyContent: 'center',
+                                gap: '1rem'
+                            }}>
+                                <Loader size="large" />
+                                <Typography variant="body2" style={{ color: '#666' }}>
+                                    Loading contacts...
+                                </Typography>
+                            </div>
+                        ) : (
+                            <ContactList
+                                contacts={filteredContacts}
+                                selectedId={selectedId}
+                                onSelect={setSelectedId}
+                                kanbanMode={activeView === 'Kanban Board'}
+                            />
+                        )}
                     </div>
                 </aside>
 
                 {/* Right Content: Detail Panel or Kanban Board */}
-                <section style={{ flex: 1, minWidth: 0, height: '100%', overflow: 'hidden' }}>
+                <section style={{ flex: 1, minWidth: 0, display: 'flex', flexDirection: 'column', overflow: 'hidden' }}>
                     {activeView === 'Kanban Board' ? (
                         <KanbanBoard
                             tasks={outreachTasks}

@@ -2,11 +2,13 @@
  * CRM Outreach Agent - Genkit Cloud Functions
  * 
  * Main entry point for all Genkit flows and Firebase Functions.
- * Uses Gemini 2.0 Flash for AI capabilities.
+ * Uses Gemini 3 Pro for AI capabilities.
+ * Research function uses Google Search grounding for real-time citations.
  */
 
 import { genkit, z } from 'genkit';
 import { googleAI } from '@genkit-ai/googleai';
+import { GoogleGenAI } from '@google/genai';
 import { onCall, HttpsError } from 'firebase-functions/v2/https';
 import { defineSecret } from 'firebase-functions/params';
 import { initializeApp, getApps } from 'firebase-admin/app';
@@ -21,16 +23,17 @@ if (getApps().length === 0) {
 }
 const db = getFirestore();
 
-// Initialize Genkit with Google AI
+// Initialize Genkit with Google AI (for outreach and prioritization)
 const ai = genkit({
     plugins: [googleAI()],
 });
 
 // Model configuration
-const GEMINI_MODEL = 'googleai/gemini-2.0-flash';
+const GEMINI_MODEL = 'googleai/gemini-3-pro-preview';
+const DIRECT_MODEL = 'gemini-2.0-flash';
 
 // =============================================================================
-// RESEARCH FUNCTION
+// RESEARCH FUNCTION (uses direct SDK for Google Search grounding)
 // =============================================================================
 
 export const research = onCall(
@@ -51,13 +54,17 @@ export const research = onCall(
                     return {
                         notes: data.notes,
                         sources: data.sources || [],
+                        citations: data.citations || [],
                         cached: true,
                     };
                 }
             }
         }
 
-        // Perform research using Gemini
+        // Initialize direct Google GenAI SDK (for Google Search grounding)
+        const genAI = new GoogleGenAI({ apiKey: geminiApiKey.value() });
+
+        // Perform research using Gemini with Google Search grounding
         const prompt = `
       Research the following individual and their company for a sales outreach context.
       
@@ -76,15 +83,46 @@ export const research = onCall(
       Be concise but informative. Focus on actionable insights.
     `;
 
-        const response = await ai.generate({
-            model: GEMINI_MODEL,
-            prompt,
-            config: { temperature: 0.1 },
+        // Use direct SDK with Google Search grounding enabled
+        const response = await genAI.models.generateContent({
+            model: DIRECT_MODEL,
+            contents: prompt,
+            config: {
+                tools: [{ googleSearch: {} }],
+                temperature: 0.1
+            }
         });
+
+        // Extract grounding sources from the response metadata
+        const groundingMetadata = response.candidates?.[0]?.groundingMetadata;
+        const groundingChunks = groundingMetadata?.groundingChunks || [];
+        const groundingSupports = groundingMetadata?.groundingSupports || [];
+
+        // Parse sources from grounding chunks
+        const sources = groundingChunks
+            .filter((chunk: any) => chunk.web?.uri && chunk.web?.title)
+            .map((chunk: any) => ({
+                uri: chunk.web.uri,
+                title: chunk.web.title,
+            }));
+
+        // Deduplicate sources by URI and create index mapping
+        const uniqueSources = Array.from(
+            new Map(sources.map((s: any) => [s.uri, s])).values()
+        ) as Array<{ uri: string; title: string }>;
+
+        // Parse grounding supports for inline citations
+        const citations = groundingSupports.map((support: any) => ({
+            text: support.segment?.text || '',
+            startIndex: support.segment?.startIndex || 0,
+            endIndex: support.segment?.endIndex || 0,
+            sourceIndices: support.groundingChunkIndices || [],
+        }));
 
         const result = {
             notes: response.text || 'No research gathered.',
-            sources: [] as Array<{ uri: string; title: string }>,
+            sources: uniqueSources,
+            citations: citations,
             cached: false,
         };
 
@@ -94,7 +132,8 @@ export const research = onCall(
             contactId,
             notes: result.notes,
             sources: result.sources,
-            model: GEMINI_MODEL,
+            citations: result.citations,
+            model: DIRECT_MODEL,
             createdAt: Timestamp.now(),
             expiresAt: Timestamp.fromMillis(Date.now() + CACHE_DURATION_MS),
         });
