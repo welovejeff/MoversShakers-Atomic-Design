@@ -1,6 +1,6 @@
 import React, { useState, useEffect } from 'react';
-import { Contact, Priority, Citation } from '../types';
-import { researchContact, draftMessage } from '../services/geminiService';
+import { Contact, Priority, Citation, Note } from '../types';
+import { researchContact, draftMessage, summarizeComments, startDeepResearch, getResearchProgress } from '../services/geminiService';
 import { Card, Button, Input, Badge, Loader, Typography, Alert } from '@welovejeff/movers-react';
 import { db } from '../services/firebaseConfig';
 import { doc, getDoc } from 'firebase/firestore';
@@ -53,6 +53,36 @@ const CitationSuperscript: React.FC<{ indices: number[]; sources: Array<{ uri: s
     );
 };
 
+// Helper to escape regex special characters
+const escapeRegExp = (string: string) => {
+    return string.replace(/[.*+?^${}()|[\]\\]/g, '\\$&');
+};
+
+// Helper to parse text with markdown-style links and bold
+const parseMarkdownText = (text: string) => {
+    const parts = [];
+    let remaining = text;
+
+    // Pattern for links: [text](url) and citations: [cite: 1] and bold: **text**
+    // We'll prioritize links, then citations, then bold
+    // Actually, simple sequential splitting is easier if we don't nest.
+    // Let's do a simple robust split.
+
+    // Convert [cite: N] to superscript
+    remaining = remaining.replace(/\[cite:\s*(\d+)\]/g, '<sup>[$1]</sup>');
+
+    // We will use dangerouslySetInnerHTML for the processed HTML fragment to handle mixing tags
+    // This requires sanitization if user content is untrusted, but here it's from our AI.
+    // For safety, we'll replace the markdown syntax with HTML tags string-wise first
+
+    // Bold
+    remaining = remaining.replace(/\*\*(.*?)\*\*/g, '<strong>$1</strong>');
+
+    // Links [text](url)
+    remaining = remaining.replace(/\[([^\]]+)\]\(([^)]+)\)/g, '<a href="$2" target="_blank" rel="noreferrer" style="color: #0A66C2; text-decoration: underline;">$1</a>');
+
+    return <span dangerouslySetInnerHTML={{ __html: remaining }} />;
+};
 // Helper to render text with inline citations
 const renderTextWithCitations = (
     text: string,
@@ -105,10 +135,70 @@ const DetailPanel: React.FC<DetailPanelProps> = ({ contact, onUpdateContact }) =
     const [draftPrompt, setDraftPrompt] = useState("Highlight our shared focus on retail innovation.");
     const [isEditingCategory, setIsEditingCategory] = useState(false);
     const [categoryValue, setCategoryValue] = useState(contact.category || "");
-    const [commentsValue, setCommentsValue] = useState(contact.comments || "");
-    const [isEditingComments, setIsEditingComments] = useState(false);
+    const [newNoteValue, setNewNoteValue] = useState("");
+    const [isSummarizing, setIsSummarizing] = useState(false);
     const [isStatusDropdownOpen, setIsStatusDropdownOpen] = useState(false);
     const [activeTab, setActiveTab] = useState<'notes' | 'research' | 'writer'>('notes');
+    const [researchInteractionId, setResearchInteractionId] = useState<string | null>(null);
+    const [researchStatus, setResearchStatus] = useState<string>('idle');
+
+    // Helper to generate unique ID for notes
+    const generateNoteId = () => Date.now().toString(36) + Math.random().toString(36).substring(2);
+
+    // Helper to format relative time
+    const getRelativeTime = (timestamp: string): string => {
+        const now = new Date();
+        const then = new Date(timestamp);
+        const diffMs = now.getTime() - then.getTime();
+        const diffMins = Math.floor(diffMs / 60000);
+        const diffHours = Math.floor(diffMs / 3600000);
+        const diffDays = Math.floor(diffMs / 86400000);
+
+        if (diffMins < 1) return 'Just now';
+        if (diffMins < 60) return `${diffMins}m ago`;
+        if (diffHours < 24) return `${diffHours}h ago`;
+        if (diffDays < 7) return `${diffDays}d ago`;
+        return then.toLocaleDateString();
+    };
+
+    // Add a new note
+    const handleAddNote = () => {
+        if (!newNoteValue.trim()) return;
+
+        const newNote: Note = {
+            id: generateNoteId(),
+            content: newNoteValue.trim(),
+            createdAt: new Date().toISOString()
+        };
+
+        const updatedNotes = [...(contact.notes || []), newNote];
+        onUpdateContact({ ...contact, notes: updatedNotes });
+        setNewNoteValue("");
+    };
+
+    // Delete a note
+    const handleDeleteNote = (noteId: string) => {
+        const updatedNotes = (contact.notes || []).filter(n => n.id !== noteId);
+        onUpdateContact({ ...contact, notes: updatedNotes, commentsSummary: updatedNotes.length === 0 ? undefined : contact.commentsSummary });
+    };
+
+    // Generate AI summary
+    const handleSummarize = async () => {
+        if (!contact.notes || contact.notes.length === 0) return;
+
+        setIsSummarizing(true);
+        try {
+            const summary = await summarizeComments(
+                contact.notes,
+                `${contact.firstName} ${contact.lastName}`
+            );
+            onUpdateContact({ ...contact, commentsSummary: summary });
+        } catch (e) {
+            console.error('Summarization failed:', e);
+        } finally {
+            setIsSummarizing(false);
+        }
+    };
 
     const statusOptions = ['Familiar', 'Unfamiliar', 'Remove', 'Hot Lead', 'Warm', 'Cold'];
 
@@ -141,20 +231,71 @@ const DetailPanel: React.FC<DetailPanelProps> = ({ contact, onUpdateContact }) =
         fetchCachedResearch();
     }, [contact.id]);
 
+    // Poll for research progress
+    useEffect(() => {
+        let pollInterval: NodeJS.Timeout;
+
+        if (researching && researchInteractionId) {
+            pollInterval = setInterval(async () => {
+                try {
+                    const progress = await getResearchProgress(contact.id, researchInteractionId);
+                    setResearchStatus(progress.status);
+
+                    if (progress.status === 'completed' && progress.data) {
+                        onUpdateContact({
+                            ...contact,
+                            researchNotes: progress.data.notes,
+                            researchSources: progress.data.sources,
+                            researchCitations: progress.data.citations
+                        });
+                        setResearching(false);
+                        setResearchInteractionId(null);
+                        setResearchStatus('idle');
+                    } else if (progress.status === 'failed') {
+                        setResearching(false);
+                        setResearchInteractionId(null);
+                        setResearchStatus('idle');
+                        alert("Deep research failed. Please try again.");
+                    }
+                } catch (e) {
+                    console.error("Polling error:", e);
+                    // Don't stop polling on transient errors
+                }
+            }, 5000); // Poll every 5s
+        }
+
+        return () => {
+            if (pollInterval) clearInterval(pollInterval);
+        };
+    }, [researching, researchInteractionId, contact.id]);
+
     const handleResearch = async () => {
         setResearching(true);
+        setResearchStatus('starting');
         try {
-            const result = await researchContact(contact);
-            onUpdateContact({
-                ...contact,
-                researchNotes: result.notes,
-                researchSources: result.sources,
-                researchCitations: result.citations
-            });
+            const result = await startDeepResearch(contact);
+            setResearchInteractionId(result.interactionId);
+            setResearchStatus(result.status);
+            // NOTE: researching state remains true to trigger polling
         } catch (e) {
-            alert("Research failed. Check API configuration.");
-        } finally {
-            setResearching(false);
+            console.error(e);
+            alert("Deep research failed to start. Falling back to quick research.");
+
+            // Fallback to quick research
+            try {
+                const result = await researchContact(contact);
+                onUpdateContact({
+                    ...contact,
+                    researchNotes: result.notes,
+                    researchSources: result.sources,
+                    researchCitations: result.citations
+                });
+            } catch (fallbackError) {
+                alert("Quick research also failed.");
+            } finally {
+                setResearching(false);
+                setResearchStatus('idle');
+            }
         }
     };
 
@@ -403,78 +544,159 @@ const DetailPanel: React.FC<DetailPanelProps> = ({ contact, onUpdateContact }) =
 
                     {/* Notes Tab */}
                     {activeTab === 'notes' && (
-                        <section style={{
-                            padding: '1rem',
-                            background: '#f5f5f5',
-                            border: '2px solid #111'
-                        }}>
-                            <div style={{ display: 'flex', flexDirection: 'column', gap: '0.75rem' }}>
-                                <div style={{ display: 'flex', alignItems: 'flex-start', gap: '0.5rem' }}>
-                                    <Typography variant="caption" style={{ fontWeight: 600, minWidth: '100px', paddingTop: '0.5rem' }}>
-                                        Comments:
-                                    </Typography>
-                                    {isEditingComments ? (
-                                        <div style={{ flex: 1, display: 'flex', flexDirection: 'column', gap: '0.5rem' }}>
-                                            <textarea
-                                                value={commentsValue}
-                                                onChange={(e) => setCommentsValue(e.target.value)}
-                                                placeholder="Add notes about this contact..."
-                                                style={{
-                                                    width: '100%',
-                                                    padding: '0.5rem',
-                                                    border: '2px solid #111',
-                                                    fontFamily: 'Inter, sans-serif',
-                                                    fontSize: '0.875rem',
-                                                    resize: 'vertical',
-                                                    minHeight: '60px'
-                                                }}
-                                                autoFocus
-                                            />
-                                            <div style={{ display: 'flex', gap: '0.5rem' }}>
-                                                <Button
-                                                    variant="primary"
-                                                    size="small"
-                                                    onClick={() => {
-                                                        onUpdateContact({ ...contact, comments: commentsValue.trim() });
-                                                        setIsEditingComments(false);
-                                                    }}
-                                                >
-                                                    Save
-                                                </Button>
-                                                <Button
-                                                    variant="ghost"
-                                                    size="small"
-                                                    onClick={() => {
-                                                        setCommentsValue(contact.comments || "");
-                                                        setIsEditingComments(false);
-                                                    }}
-                                                >
-                                                    Cancel
-                                                </Button>
-                                            </div>
-                                        </div>
-                                    ) : (
+                        <section style={{ display: 'flex', flexDirection: 'column', gap: '1rem' }}>
+                            {/* Add Note Input */}
+                            <div style={{
+                                display: 'flex',
+                                gap: '0.5rem',
+                                padding: '1rem',
+                                background: '#FFF000',
+                                border: '2px solid #111',
+                                boxShadow: '3px 3px 0 #111'
+                            }}>
+                                <input
+                                    type="text"
+                                    value={newNoteValue}
+                                    onChange={(e) => setNewNoteValue(e.target.value)}
+                                    onKeyDown={(e) => e.key === 'Enter' && handleAddNote()}
+                                    placeholder="Add a note about this contact..."
+                                    style={{
+                                        flex: 1,
+                                        padding: '0.75rem',
+                                        border: '2px solid #111',
+                                        fontFamily: 'Inter, sans-serif',
+                                        fontSize: '0.875rem',
+                                        background: '#fff'
+                                    }}
+                                />
+                                <Button
+                                    variant="primary"
+                                    onClick={handleAddNote}
+                                    disabled={!newNoteValue.trim()}
+                                >
+                                    + Add
+                                </Button>
+                            </div>
+
+                            {/* Notes Timeline */}
+                            {contact.notes && contact.notes.length > 0 ? (
+                                <div style={{ display: 'flex', flexDirection: 'column', gap: '0.75rem' }}>
+                                    {contact.notes.slice().reverse().map((note) => (
                                         <div
+                                            key={note.id}
                                             style={{
-                                                flex: 1,
-                                                padding: '0.5rem',
-                                                background: '#fff',
-                                                border: '2px solid #ddd',
-                                                cursor: 'pointer',
-                                                minHeight: '40px'
-                                            }}
-                                            onClick={() => {
-                                                setCommentsValue(contact.comments || "");
-                                                setIsEditingComments(true);
+                                                display: 'flex',
+                                                gap: '0.75rem',
+                                                alignItems: 'flex-start'
                                             }}
                                         >
-                                            <Typography variant="body1" style={{ color: contact.comments ? '#333' : '#999' }}>
-                                                {contact.comments || 'Click to add notes...'}
-                                            </Typography>
+                                            {/* Timeline Spoke */}
+                                            <div style={{
+                                                display: 'flex',
+                                                flexDirection: 'column',
+                                                alignItems: 'center',
+                                                paddingTop: '0.5rem'
+                                            }}>
+                                                <div style={{
+                                                    width: '12px',
+                                                    height: '12px',
+                                                    borderRadius: '50%',
+                                                    background: '#FFF000',
+                                                    border: '2px solid #111',
+                                                    flexShrink: 0
+                                                }} />
+                                                <div style={{
+                                                    width: '2px',
+                                                    flex: 1,
+                                                    background: '#ddd',
+                                                    marginTop: '4px'
+                                                }} />
+                                            </div>
+
+                                            {/* Note Card */}
+                                            <div style={{
+                                                flex: 1,
+                                                padding: '0.75rem 1rem',
+                                                background: '#fff',
+                                                border: '2px solid #111',
+                                                boxShadow: '2px 2px 0 #111',
+                                                position: 'relative'
+                                            }}>
+                                                {/* Delete Button */}
+                                                <button
+                                                    onClick={() => handleDeleteNote(note.id)}
+                                                    style={{
+                                                        position: 'absolute',
+                                                        top: '0.5rem',
+                                                        right: '0.5rem',
+                                                        background: 'transparent',
+                                                        border: 'none',
+                                                        cursor: 'pointer',
+                                                        fontSize: '1rem',
+                                                        color: '#999',
+                                                        padding: '0 4px',
+                                                        lineHeight: 1
+                                                    }}
+                                                    title="Delete note"
+                                                >
+                                                    ×
+                                                </button>
+
+                                                <Typography variant="body1" style={{ paddingRight: '1.5rem', lineHeight: 1.5 }}>
+                                                    {note.content}
+                                                </Typography>
+                                                <Typography variant="caption" style={{ color: '#888', marginTop: '0.5rem', display: 'block' }}>
+                                                    {getRelativeTime(note.createdAt)}
+                                                </Typography>
+                                            </div>
                                         </div>
+                                    ))}
+                                </div>
+                            ) : (
+                                <div style={{
+                                    padding: '2rem',
+                                    background: '#f5f5f5',
+                                    border: '2px dashed #ddd',
+                                    textAlign: 'center'
+                                }}>
+                                    <Typography variant="body1" style={{ color: '#888' }}>
+                                        No notes yet. Add your first note above!
+                                    </Typography>
+                                </div>
+                            )}
+
+                            {/* AI Summary Section */}
+                            {contact.notes && contact.notes.length >= 2 && (
+                                <div style={{
+                                    padding: '1rem',
+                                    background: '#f9f9f9',
+                                    border: '2px solid #ddd',
+                                    marginTop: '0.5rem'
+                                }}>
+                                    <div style={{ display: 'flex', alignItems: 'center', justifyContent: 'space-between', marginBottom: contact.commentsSummary ? '0.75rem' : 0 }}>
+                                        <Typography variant="caption" style={{ fontWeight: 600, textTransform: 'uppercase', letterSpacing: '0.5px' }}>
+                                            ✨ AI Summary
+                                        </Typography>
+                                        <Button
+                                            variant="ghost"
+                                            size="small"
+                                            onClick={handleSummarize}
+                                            disabled={isSummarizing}
+                                        >
+                                            {isSummarizing ? (
+                                                <span style={{ display: 'flex', alignItems: 'center', gap: '0.25rem' }}>
+                                                    <Loader size="small" /> Summarizing...
+                                                </span>
+                                            ) : contact.commentsSummary ? 'Regenerate' : 'Generate Summary'}
+                                        </Button>
+                                    </div>
+                                    {contact.commentsSummary && (
+                                        <Typography variant="body2" style={{ fontStyle: 'italic', color: '#555', lineHeight: 1.6 }}>
+                                            {contact.commentsSummary}
+                                        </Typography>
                                     )}
                                 </div>
-                            </div>
+                            )}
                         </section>
                     )}
 
@@ -490,7 +712,10 @@ const DetailPanel: React.FC<DetailPanelProps> = ({ contact, onUpdateContact }) =
                                 >
                                     {researching ? (
                                         <span style={{ display: 'flex', alignItems: 'center', gap: '0.5rem' }}>
-                                            <Loader size="small" /> Researching...
+                                            <Loader size="small" />
+                                            {researchStatus === 'starting' ? 'Starting...' :
+                                                researchStatus === 'in_progress' ? 'Deep Researching...' :
+                                                    'Processing...'}
                                         </span>
                                     ) : 'Run Deep Research'}
                                 </Button>
@@ -569,46 +794,127 @@ const DetailPanel: React.FC<DetailPanelProps> = ({ contact, onUpdateContact }) =
                                     </div>
 
                                     {/* Parse and render markdown-style content */}
+                                    {/* Action Buttons */}
+                                    <div style={{
+                                        display: 'flex',
+                                        gap: '0.5rem',
+                                        marginBottom: '1rem',
+                                        justifyContent: 'flex-end'
+                                    }}>
+                                        <Button
+                                            variant="ghost"
+                                            size="small"
+                                            onClick={() => {
+                                                if (contact.researchNotes) {
+                                                    navigator.clipboard.writeText(contact.researchNotes);
+                                                    alert("Research copied to clipboard!");
+                                                }
+                                            }}
+                                        >
+                                            📋 Copy
+                                        </Button>
+                                        <Button
+                                            variant="ghost"
+                                            size="small"
+                                            onClick={() => {
+                                                if (contact.researchNotes) {
+                                                    const newNote: Note = {
+                                                        id: generateNoteId(),
+                                                        content: "Saved Research: " + contact.researchNotes.slice(0, 50) + "...",
+                                                        createdAt: new Date().toISOString()
+                                                    };
+                                                    // Add full research as a note? Might be too long. 
+                                                    // Let's add a note saying "Research Saved" and maybe append to a separate field or just add it.
+                                                    // User asked "Save this research elsewhere". A note ensures it's in the specialized "Notes" tab.
+                                                    // But notes are small cards. Let's add it anyway.
+                                                    const updatedNotes = [...(contact.notes || []), { ...newNote, content: "RESEARCH SAVED: \n" + contact.researchNotes }];
+                                                    onUpdateContact({ ...contact, notes: updatedNotes });
+                                                    alert("Research saved to Notes tab.");
+                                                }
+                                            }}
+                                        >
+                                            💾 Save to Notes
+                                        </Button>
+                                    </div>
+
+                                    {/* Parse and render markdown-style content */}
                                     <div style={{
                                         display: 'flex',
                                         flexDirection: 'column',
-                                        gap: '1rem'
+                                        gap: '0.75rem',
+                                        fontFamily: 'Inter, sans-serif'
                                     }}>
                                         {contact.researchNotes.split('\n').map((line, idx) => {
                                             const trimmedLine = line.trim();
-                                            if (!trimmedLine) return null;
+                                            if (!trimmedLine) return <div key={idx} style={{ height: '0.25rem' }} />;
 
-                                            // Section headers (lines with **Title:**)
-                                            const sectionMatch = trimmedLine.match(/^\*\*(.+?):\*\*$/);
-                                            if (sectionMatch) {
+                                            // H1: # Title
+                                            if (trimmedLine.startsWith('# ')) {
                                                 return (
                                                     <div key={idx} style={{
                                                         background: '#FFF000',
                                                         padding: '0.5rem 0.75rem',
-                                                        marginTop: idx > 0 ? '0.5rem' : 0,
+                                                        marginTop: '1rem',
+                                                        marginBottom: '0.5rem',
                                                         border: '2px solid #111',
-                                                        fontWeight: 700,
-                                                        fontSize: '0.875rem',
+                                                        fontWeight: 800,
+                                                        fontSize: '1.25rem',
                                                         textTransform: 'uppercase',
                                                         letterSpacing: '0.5px'
                                                     }}>
-                                                        {sectionMatch[1]}
+                                                        {trimmedLine.replace(/^#\s*/, '')}
                                                     </div>
                                                 );
                                             }
 
+                                            // H2: ## Title
+                                            if (trimmedLine.startsWith('## ')) {
+                                                return (
+                                                    <h2 key={idx} style={{
+                                                        fontSize: '1.1rem',
+                                                        fontWeight: 700,
+                                                        margin: '1.5rem 0 0.5rem 0',
+                                                        borderBottom: '2px solid #FFF000',
+                                                        display: 'inline-block',
+                                                        paddingBottom: '2px'
+                                                    }}>
+                                                        {trimmedLine.replace(/^##\s*/, '')}
+                                                    </h2>
+                                                );
+                                            }
+
+                                            // H3: ### Title (or just bolded line commonly)
+                                            if (trimmedLine.startsWith('### ')) {
+                                                return (
+                                                    <h3 key={idx} style={{
+                                                        fontSize: '1rem',
+                                                        fontWeight: 700,
+                                                        margin: '1rem 0 0.25rem 0',
+                                                        color: '#111'
+                                                    }}>
+                                                        {trimmedLine.replace(/^###\s*/, '')}
+                                                    </h3>
+                                                );
+                                            }
+
+                                            // H4: #### Title
+                                            if (trimmedLine.startsWith('#### ')) {
+                                                return (
+                                                    <h4 key={idx} style={{
+                                                        fontSize: '0.9rem',
+                                                        fontWeight: 700,
+                                                        margin: '0.75rem 0 0.25rem 0',
+                                                        color: '#444',
+                                                        textTransform: 'uppercase'
+                                                    }}>
+                                                        {trimmedLine.replace(/^####\s*/, '')}
+                                                    </h4>
+                                                );
+                                            }
+
                                             // Bullet points (lines starting with * or -)
-                                            if (trimmedLine.startsWith('*') || trimmedLine.startsWith('-')) {
+                                            if (trimmedLine.match(/^[\*\-]\s/)) {
                                                 const bulletContent = trimmedLine.replace(/^[\*\-]\s*/, '');
-                                                // Parse bold text within bullets
-                                                const parts = bulletContent.split(/\*\*([^*]+)\*\*/g);
-
-                                                // Find citations that match this line's text
-                                                const lineCitations = contact.researchCitations?.filter(
-                                                    (c) => bulletContent.toLowerCase().includes(c.text.toLowerCase().slice(0, 50))
-                                                ) || [];
-                                                const citationIndices = lineCitations.flatMap(c => c.sourceIndices);
-
                                                 return (
                                                     <div key={idx} style={{
                                                         display: 'flex',
@@ -617,58 +923,37 @@ const DetailPanel: React.FC<DetailPanelProps> = ({ contact, onUpdateContact }) =
                                                         alignItems: 'flex-start'
                                                     }}>
                                                         <span style={{
-                                                            width: '8px',
-                                                            height: '8px',
-                                                            background: '#FFF000',
-                                                            border: '2px solid #111',
+                                                            width: '6px',
+                                                            height: '6px',
+                                                            background: '#111',
                                                             borderRadius: '50%',
                                                             flexShrink: 0,
-                                                            marginTop: '0.4rem'
+                                                            marginTop: '0.6rem'
                                                         }} />
                                                         <span style={{
-                                                            fontSize: '0.875rem',
+                                                            fontSize: '0.9rem',
                                                             lineHeight: 1.6,
                                                             color: '#333'
                                                         }}>
-                                                            {parts.map((part, i) =>
-                                                                i % 2 === 1
-                                                                    ? <strong key={i} style={{ color: '#111', fontWeight: 700 }}>{part}</strong>
-                                                                    : part
-                                                            )}
-                                                            {citationIndices.length > 0 && contact.researchSources && (
-                                                                <CitationSuperscript indices={citationIndices} sources={contact.researchSources} />
-                                                            )}
+                                                            {parseMarkdownText(bulletContent)}
                                                         </span>
                                                     </div>
                                                 );
                                             }
 
-                                            // Regular paragraph text - also parse bold
-                                            const parts = trimmedLine.split(/\*\*([^*]+)\*\*/g);
-
-                                            // Find citations that match this line's text
-                                            const lineCitations = contact.researchCitations?.filter(
-                                                (c) => trimmedLine.toLowerCase().includes(c.text.toLowerCase().slice(0, 50))
-                                            ) || [];
-                                            const citationIndices = lineCitations.flatMap(c => c.sourceIndices);
-
+                                            // Regular paragraph text
                                             return (
                                                 <p key={idx} style={{
                                                     margin: 0,
-                                                    fontSize: '0.875rem',
+                                                    fontSize: '0.9rem',
                                                     lineHeight: 1.6,
                                                     color: '#444'
                                                 }}>
-                                                    {parts.map((part, i) =>
-                                                        i % 2 === 1
-                                                            ? <strong key={i} style={{ color: '#111', fontWeight: 700 }}>{part}</strong>
-                                                            : part
-                                                    )}
-                                                    {citationIndices.length > 0 && contact.researchSources && (
-                                                        <CitationSuperscript indices={citationIndices} sources={contact.researchSources} />
-                                                    )}
+                                                    {parseMarkdownText(trimmedLine)}
                                                 </p>
                                             );
+
+
                                         })}
                                     </div>
                                 </div>
@@ -791,7 +1076,7 @@ const DetailPanel: React.FC<DetailPanelProps> = ({ contact, onUpdateContact }) =
 
                 </div>
             </div>
-        </div>
+        </div >
     );
 };
 

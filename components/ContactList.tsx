@@ -213,13 +213,22 @@ const ContactCard: React.FC<ContactCardProps> = ({
             {contact.position}
           </Typography>
 
-          {contact.comments ? (
-            <div style={{ marginTop: '0.5rem', display: 'flex', flexWrap: 'wrap', gap: '0.25rem' }}>
-              <Badge size="small" style={{ maxWidth: '200px', overflow: 'hidden', textOverflow: 'ellipsis', whiteSpace: 'nowrap' }}>
-                📝 {contact.comments}
-              </Badge>
-            </div>
-          ) : null}
+          {/* AI Summary - subtle italicized text */}
+          {contact.commentsSummary && (
+            <Typography
+              variant="caption"
+              style={{
+                fontStyle: 'italic',
+                color: '#777',
+                marginTop: '0.5rem',
+                display: 'block',
+                lineHeight: 1.4,
+                maxWidth: '280px'
+              }}
+            >
+              {contact.commentsSummary}
+            </Typography>
+          )}
         </div>
       </div>
     </Card>

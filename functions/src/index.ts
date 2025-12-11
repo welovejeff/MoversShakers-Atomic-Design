@@ -271,3 +271,132 @@ export const prioritization = onCall(
         return response.output || { results: [] };
     }
 );
+
+// =============================================================================
+// DEEP RESEARCH FUNCTION (Interactions API)
+// =============================================================================
+
+const DEEP_RESEARCH_AGENT = 'deep-research-pro-preview-12-2025';
+
+export const deepResearch = onCall(
+    { secrets: [geminiApiKey], timeoutSeconds: 300 },
+    async (request) => {
+        const { contactId, firstName, lastName, company, position, category, location } = request.data;
+
+        if (!contactId) {
+            throw new HttpsError('invalid-argument', 'Missing contactId');
+        }
+
+        const client = new GoogleGenAI({ apiKey: geminiApiKey.value() });
+
+        const prompt = `
+            Research the following individual and their company for a sales outreach context.
+            
+            Person: ${firstName} ${lastName}
+            Role: ${position || 'Unknown'}
+            Company: ${company}
+            Industry Category: ${category || 'Unknown'}
+            Location: ${location || 'Unknown'}
+
+            Find:
+            1. Recent news about the company (last 6 months).
+            2. Any public podcasts, articles, or posts by the individual (if notable).
+            3. Verify if the company is growing or facing challenges.
+            
+            Summarize the findings in bullet points suitable for personalizing a LinkedIn message.
+        `;
+
+        try {
+            const interaction = await client.interactions.create({
+                agent: DEEP_RESEARCH_AGENT,
+                input: prompt,
+                background: true
+            });
+
+            // Store interaction ID for tracking
+            await db.collection('research-jobs').doc(contactId).set({
+                interactionId: interaction.id,
+                contactId,
+                status: 'in_progress',
+                startedAt: Timestamp.now(),
+                model: DEEP_RESEARCH_AGENT
+            });
+
+            return {
+                interactionId: interaction.id,
+                status: 'in_progress',
+                formattedStatus: 'Research started'
+            };
+        } catch (error: any) {
+            console.error("Deep Research Start Failed:", error);
+            throw new HttpsError('internal', `Failed to start research: ${error.message}`);
+        }
+    }
+);
+
+export const getResearchStatus = onCall(
+    { secrets: [geminiApiKey] },
+    async (request) => {
+        const { contactId, interactionId } = request.data;
+
+        if (!interactionId) {
+            throw new HttpsError('invalid-argument', 'Missing interactionId');
+        }
+
+        const client = new GoogleGenAI({ apiKey: geminiApiKey.value() });
+
+        try {
+            const result = await client.interactions.get(interactionId);
+
+            let researchResult = null;
+
+            if (result.status === 'completed') {
+                const output = result.outputs?.[result.outputs.length - 1];
+                const researchText = (output as any)?.text || "Research completed but no text returned.";
+
+                // Deep Research typically embeds sources in the text or metadata
+                // For now, we initialize sources as empty, to be possibly parsed or extracted if available
+                const sources: any[] = [];
+
+                researchResult = {
+                    notes: researchText,
+                    sources: sources,
+                    citations: [],
+                    cached: false
+                };
+
+                // Cache complete research
+                const CACHE_DURATION_MS = 7 * 24 * 60 * 60 * 1000;
+                await db.collection('research').doc(contactId).set({
+                    contactId,
+                    notes: researchResult.notes,
+                    sources: researchResult.sources,
+                    model: DEEP_RESEARCH_AGENT,
+                    createdAt: Timestamp.now(),
+                    expiresAt: Timestamp.fromMillis(Date.now() + CACHE_DURATION_MS),
+                });
+
+                // Update job status
+                await db.collection('research-jobs').doc(contactId).update({
+                    status: 'completed',
+                    completedAt: Timestamp.now()
+                });
+            } else if (result.status === 'failed') {
+                await db.collection('research-jobs').doc(contactId).update({
+                    status: 'failed',
+                    error: (result as any).error?.message || "Unknown error",
+                    completedAt: Timestamp.now()
+                });
+            }
+
+            return {
+                status: result.status,
+                data: researchResult
+            };
+
+        } catch (error: any) {
+            console.error("Get Research Status Failed:", error);
+            throw new HttpsError('internal', `Failed to get status: ${error.message}`);
+        }
+    }
+);

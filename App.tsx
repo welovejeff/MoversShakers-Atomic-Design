@@ -123,7 +123,7 @@ const App: React.FC = () => {
     };
 
     const handleUpdateContact = async (updated: Contact) => {
-        setContacts(contacts.map(c => c.id === updated.id ? updated : c));
+        setContacts(prev => prev.map(c => c.id === updated.id ? updated : c));
         // Sync to Firestore
         try {
             await contactsService.update(updated.id, updated);

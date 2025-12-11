@@ -8,7 +8,7 @@
 
 import { httpsCallable } from 'firebase/functions';
 import { functions } from './firebaseConfig';
-import { Contact, PrioritizationResult, ResearchResult, Priority } from '../types';
+import { Contact, PrioritizationResult, ResearchResult, Priority, Note } from '../types';
 
 // Flag to toggle between direct API and Cloud Functions
 // Set to true when Firebase is fully configured
@@ -219,5 +219,91 @@ export const draftMessage = async (
   } catch (error) {
     console.error("Drafting failed:", error);
     throw error;
+  }
+};
+
+/**
+ * Summarizes an array of notes into a brief 1-2 sentence summary.
+ */
+export const summarizeComments = async (
+  notes: Note[],
+  contactName: string
+): Promise<string> => {
+  // Handle empty notes
+  if (!notes || notes.length === 0) {
+    return '';
+  }
+
+  // If only one short note, just return it
+  if (notes.length === 1 && notes[0].content.length < 100) {
+    return notes[0].content;
+  }
+
+  const notesText = notes
+    .map((n, i) => `${i + 1}. ${n.content}`)
+    .join('\n');
+
+  const prompt = `
+    Summarize these notes about ${contactName} into 1-2 brief sentences suitable for a CRM card preview.
+    Be concise and capture the key insights. Use third person.
+    
+    NOTES:
+    ${notesText}
+    
+    SUMMARY:
+  `;
+
+  try {
+    const response = await ai.models.generateContent({
+      model: MODEL_ID,
+      contents: prompt,
+      config: {
+        temperature: 0.3,
+        maxOutputTokens: 100
+      }
+    });
+    return response.text?.trim() || '';
+  } catch (error) {
+    console.error("Summarization failed:", error);
+    // Return first note content as fallback
+    return notes[0]?.content || '';
+  }
+};
+
+/**
+ * Starts a deep research session for a contact.
+ * Returns the interaction ID for polling.
+ */
+export const startDeepResearch = async (contact: Contact): Promise<{ interactionId: string, status: string }> => {
+  if (USE_CLOUD_FUNCTIONS) {
+    const deepResearch = httpsCallable(functions, 'deepResearch');
+    const result = await deepResearch({
+      contactId: contact.id,
+      firstName: contact.firstName,
+      lastName: contact.lastName,
+      company: contact.company,
+      position: contact.position,
+      category: contact.category,
+      location: contact.location,
+    });
+    return result.data as { interactionId: string, status: string };
+  } else {
+    throw new Error("Deep Research requires Cloud Functions enabled.");
+  }
+};
+
+/**
+ * Checks the status of an ongoing research interaction.
+ */
+export const getResearchProgress = async (contactId: string, interactionId: string): Promise<{ status: string, data?: ResearchResult }> => {
+  if (USE_CLOUD_FUNCTIONS) {
+    const getStatus = httpsCallable(functions, 'getResearchStatus');
+    const result = await getStatus({
+      contactId,
+      interactionId,
+    });
+    return result.data as { status: string, data?: ResearchResult };
+  } else {
+    throw new Error("Deep Research requires Cloud Functions enabled.");
   }
 };

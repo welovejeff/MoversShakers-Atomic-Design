@@ -6,6 +6,13 @@ export enum Priority {
   Ignore = 'Ignore'
 }
 
+// Individual note entry for multi-note comments system
+export interface Note {
+  id: string;
+  content: string;
+  createdAt: string; // ISO timestamp
+}
+
 export interface Contact {
   id: string;
   firstName: string;
@@ -15,8 +22,12 @@ export interface Contact {
   location: string;
   linkedInUrl: string;
   familiarity: string;
-  comments: string;
+  comments: string; // Legacy single comment (for backward compat)
   category: string;
+
+  // Multi-note system
+  notes?: Note[];
+  commentsSummary?: string; // AI-generated summary of notes
 
   // AI Enrichment Fields
   priority: Priority;
@@ -68,4 +79,15 @@ export interface OutreachTask {
   attachmentCount?: number;
   subtaskCount?: number;
   subtasksCompleted?: number;
+}
+
+export type ResearchStatus = 'idle' | 'in_progress' | 'completed' | 'failed';
+
+export interface ResearchJob {
+  interactionId: string;
+  contactId: string;
+  status: ResearchStatus;
+  startedAt?: string;
+  completedAt?: string;
+  error?: string;
 }
