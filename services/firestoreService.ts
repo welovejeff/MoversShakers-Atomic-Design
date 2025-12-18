@@ -15,6 +15,7 @@ import {
     orderBy,
     Timestamp,
     DocumentData,
+    writeBatch
 } from 'firebase/firestore';
 import { db } from './firebaseConfig';
 import { Contact, OutreachTask, OutreachStatus, Priority } from '../types';
@@ -44,6 +45,29 @@ export const contactsService = {
     },
 
     async create(contact: Omit<Contact, 'id'>): Promise<Contact> {
+        // Check for existing duplicate before creating
+        if (contact.linkedInUrl) {
+            const q = query(contactsCollection, where('linkedInUrl', '==', contact.linkedInUrl));
+            const snapshot = await getDocs(q);
+            if (!snapshot.empty) {
+                const existing = snapshot.docs[0];
+                return { id: existing.id, ...existing.data() } as Contact;
+            }
+        } else {
+            // Fallback to name + company check
+            const q = query(
+                contactsCollection,
+                where('firstName', '==', contact.firstName),
+                where('lastName', '==', contact.lastName),
+                where('company', '==', contact.company)
+            );
+            const snapshot = await getDocs(q);
+            if (!snapshot.empty) {
+                const existing = snapshot.docs[0];
+                return { id: existing.id, ...existing.data() } as Contact;
+            }
+        }
+
         const id = crypto.randomUUID();
         const docRef = doc(contactsCollection, id);
         const contactData = {
@@ -68,13 +92,43 @@ export const contactsService = {
         await deleteDoc(docRef);
     },
 
+
     async bulkCreate(contacts: Omit<Contact, 'id'>[]): Promise<Contact[]> {
         const results: Contact[] = [];
+        // Sequential to ensure checks work (could be optimized)
         for (const contact of contacts) {
             const created = await this.create(contact);
             results.push(created);
         }
         return results;
+    },
+
+    async deduplicateContacts(): Promise<number> {
+        const allContacts = await this.getAll();
+        const uniqueKeys = new Set<string>();
+        const batch = writeBatch(db);
+        let deleteCount = 0;
+
+        for (const contact of allContacts) {
+            // Generate unique key preference: LinkedIn URL > Name+Company
+            const key = contact.linkedInUrl
+                ? `linkedin:${contact.linkedInUrl}`
+                : `name:${contact.firstName}|${contact.lastName}|${contact.company}`;
+
+            if (uniqueKeys.has(key)) {
+                // Duplicate found - add to delete batch
+                const docRef = doc(contactsCollection, contact.id);
+                batch.delete(docRef);
+                deleteCount++;
+            } else {
+                uniqueKeys.add(key);
+            }
+        }
+
+        if (deleteCount > 0) {
+            await batch.commit();
+        }
+        return deleteCount;
     },
 };
 

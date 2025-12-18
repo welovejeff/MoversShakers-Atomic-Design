@@ -8,8 +8,16 @@ import PillSlider from './components/PillSlider';
 import { prioritizeContacts } from './services/geminiService';
 import { contactsService, tasksService, settingsService } from './services/firestoreService';
 import { Navbar, Card, Button, Modal, Input, Loader, useToast, Typography } from '@welovejeff/movers-react';
+import UserMenu from './components/UserMenu';
+
+import { onAuthStateChanged, User } from 'firebase/auth';
+import { auth } from './services/firebaseConfig';
+import { authService } from './services/authService';
+import LoginScreen from './components/LoginScreen';
 
 const App: React.FC = () => {
+    const [user, setUser] = useState<User | null>(null);
+    const [authLoading, setAuthLoading] = useState(true);
     const [contacts, setContacts] = useState<Contact[]>([]);
     const [isLoading, setIsLoading] = useState(true);
     const [selectedId, setSelectedId] = useState<string | null>(null);
@@ -46,9 +54,17 @@ const App: React.FC = () => {
         [OutreachStatus.Followup]: 'FOLLOW UP'
     });
 
-    // Load contacts from Firestore on mount
+    // Auth State Observer
     useEffect(() => {
-        loadContacts();
+        const unsubscribe = onAuthStateChanged(auth, (currentUser) => {
+            setUser(currentUser);
+            setAuthLoading(false);
+            if (currentUser) {
+                // Only load data if user is logged in
+                loadContacts();
+            }
+        });
+        return () => unsubscribe();
     }, []);
 
     const loadContacts = async () => {
@@ -99,6 +115,22 @@ const App: React.FC = () => {
         // Category filters
         return contact.category === activeFilter;
     });
+
+    const handleCleanupDuplicates = async () => {
+        if (!window.confirm('Are you sure you want to delete duplicate contacts? This cannot be undone.')) return;
+
+        setIsLoading(true);
+        try {
+            const count = await contactsService.deduplicateContacts();
+            toast.success(`Removed ${count} duplicate contacts!`);
+            await loadContacts();
+        } catch (error) {
+            console.error('Cleanup failed:', error);
+            toast.error('Failed to clean duplicates');
+        } finally {
+            setIsLoading(false);
+        }
+    };
 
     const handleRunPrioritization = async () => {
         setIsPrioritizing(true);
@@ -390,9 +422,20 @@ const App: React.FC = () => {
         }
     };
 
-    const navItems = [
-        { id: 'contacts', label: `${contacts.length} Contacts`, href: '#' }
-    ];
+    const navItems: any[] = [];
+
+    if (authLoading) {
+        return (
+            <div style={{ height: '100vh', display: 'flex', alignItems: 'center', justifyContent: 'center', gap: '1rem' }}>
+                <Loader size="large" />
+                <Typography variant="body1">Loading...</Typography>
+            </div>
+        );
+    }
+
+    if (!user) {
+        return <LoginScreen onLoginSuccess={() => { }} />;
+    }
 
     return (
         <div style={{ height: '100vh', display: 'flex', flexDirection: 'column', background: '#f5f5f5', overflow: 'hidden' }}>
@@ -557,6 +600,19 @@ const App: React.FC = () => {
                         onChange={(v) => setActiveView(v as 'Contact View' | 'Kanban Board')}
                     />
                 </div>
+                <div style={{
+                    position: 'absolute',
+                    right: '1.5rem',
+                    top: '50%',
+                    transform: 'translateY(-50%)',
+                    zIndex: 100
+                }}>
+                    <UserMenu
+                        onCleanup={handleCleanupDuplicates}
+                        userEmail={user.email || 'User'}
+                        onLogout={authService.signOutUser}
+                    />
+                </div>
             </div>
 
             {/* Main Layout */}
@@ -575,7 +631,7 @@ const App: React.FC = () => {
                 <aside style={{ width: '420px', display: 'flex', flexDirection: 'column', gap: '1rem', flexShrink: 0, overflow: 'hidden' }}>
 
                     {/* Contacts List */}
-                    <div style={{ flex: 1, display: 'flex', flexDirection: 'column', minHeight: 0, overflow: 'hidden' }}>
+                    <div style={{ flex: 1, display: 'flex', flexDirection: 'column', minHeight: 0, overflow: 'hidden', position: 'relative' }}>
                         <div style={{ display: 'flex', alignItems: 'center', justifyContent: 'space-between', marginBottom: '0.75rem' }}>
                             <Typography variant="h4">PROSPECTS</Typography>
                             <div style={{ display: 'flex', gap: '0.5rem', alignItems: 'center' }}>
@@ -694,6 +750,24 @@ const App: React.FC = () => {
                                 columnNames={columnNames}
                             />
                         )}
+                        {/* Floating Contact Count Chip */}
+                        <div style={{
+                            position: 'absolute',
+                            bottom: '1.5rem',
+                            left: '50%',
+                            transform: 'translateX(-50%)',
+                            background: '#FFF000',
+                            border: '2px solid #111',
+                            boxShadow: '4px 4px 0px #000',
+                            padding: '0.5rem 1rem',
+                            fontWeight: 'bold',
+                            fontFamily: 'Oswald, sans-serif',
+                            fontSize: '1rem',
+                            zIndex: 20,
+                            pointerEvents: 'none'
+                        }}>
+                            {contacts.length} CONTACTS
+                        </div>
                     </div>
                 </aside>
 
