@@ -295,14 +295,14 @@ export const startDeepResearch = async (contact: Contact): Promise<{ interaction
 /**
  * Checks the status of an ongoing research interaction.
  */
-export const getResearchProgress = async (contactId: string, interactionId: string): Promise<{ status: string, data?: ResearchResult }> => {
+export const getResearchProgress = async (contactId: string, interactionId: string): Promise<{ status: string, data?: ResearchResult, thinkingLog?: string[] }> => {
   if (USE_CLOUD_FUNCTIONS) {
     const getStatus = httpsCallable(functions, 'getResearchStatus');
     const result = await getStatus({
       contactId,
       interactionId,
     });
-    return result.data as { status: string, data?: ResearchResult };
+    return result.data as { status: string, data?: ResearchResult, thinkingLog?: string[] };
   } else {
     throw new Error("Deep Research requires Cloud Functions enabled.");
   }

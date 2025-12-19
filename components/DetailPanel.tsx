@@ -141,6 +141,7 @@ const DetailPanel: React.FC<DetailPanelProps> = ({ contact, onUpdateContact }) =
     const [activeTab, setActiveTab] = useState<'notes' | 'research' | 'writer'>('notes');
     const [researchInteractionId, setResearchInteractionId] = useState<string | null>(null);
     const [researchStatus, setResearchStatus] = useState<string>('idle');
+    const [thinkingLog, setThinkingLog] = useState<string[]>([]);
 
     // Helper to generate unique ID for notes
     const generateNoteId = () => Date.now().toString(36) + Math.random().toString(36).substring(2);
@@ -241,6 +242,11 @@ const DetailPanel: React.FC<DetailPanelProps> = ({ contact, onUpdateContact }) =
                     const progress = await getResearchProgress(contact.id, researchInteractionId);
                     setResearchStatus(progress.status);
 
+                    // Update thinking log if available
+                    if (progress.thinkingLog && progress.thinkingLog.length > 0) {
+                        setThinkingLog(progress.thinkingLog);
+                    }
+
                     if (progress.status === 'completed' && progress.data) {
                         onUpdateContact({
                             ...contact,
@@ -251,10 +257,12 @@ const DetailPanel: React.FC<DetailPanelProps> = ({ contact, onUpdateContact }) =
                         setResearching(false);
                         setResearchInteractionId(null);
                         setResearchStatus('idle');
+                        setThinkingLog([]); // Clear on completion
                     } else if (progress.status === 'failed') {
                         setResearching(false);
                         setResearchInteractionId(null);
                         setResearchStatus('idle');
+                        setThinkingLog([]);
                         alert("Deep research failed. Please try again.");
                     }
                 } catch (e) {
@@ -769,6 +777,63 @@ const DetailPanel: React.FC<DetailPanelProps> = ({ contact, onUpdateContact }) =
                                     </React.Fragment>
                                 ))}
                             </div>
+
+                            {/* Skeleton Loading + Reasoning Feed (when researching) */}
+                            {researching && !contact.researchNotes && (
+                                <div style={{ display: 'flex', flexDirection: 'column', gap: '1rem' }}>
+                                    {/* Reasoning Feed */}
+                                    {thinkingLog.length > 0 && (
+                                        <div style={{
+                                            background: '#f5f5f5',
+                                            border: '2px solid #ddd',
+                                            padding: '1rem',
+                                            maxHeight: '200px',
+                                            overflowY: 'auto'
+                                        }}>
+                                            <Typography variant="caption" style={{ fontWeight: 600, marginBottom: '0.5rem', display: 'block' }}>
+                                                🧠 AI REASONING
+                                            </Typography>
+                                            {thinkingLog.map((thought, idx) => (
+                                                <div key={idx} style={{ fontSize: '0.8rem', color: '#555', marginBottom: '0.5rem', fontStyle: 'italic' }}>
+                                                    {thought.slice(0, 200)}{thought.length > 200 ? '...' : ''}
+                                                </div>
+                                            ))}
+                                        </div>
+                                    )}
+
+                                    {/* Skeleton Placeholders */}
+                                    <div style={{
+                                        background: 'linear-gradient(90deg, #f0f0f0 25%, #e0e0e0 50%, #f0f0f0 75%)',
+                                        backgroundSize: '200% 100%',
+                                        animation: 'shimmer 1.5s infinite',
+                                        height: '24px',
+                                        borderRadius: '4px',
+                                        border: '2px solid #ddd'
+                                    }} />
+                                    <div style={{
+                                        background: 'linear-gradient(90deg, #f0f0f0 25%, #e0e0e0 50%, #f0f0f0 75%)',
+                                        backgroundSize: '200% 100%',
+                                        animation: 'shimmer 1.5s infinite',
+                                        height: '80px',
+                                        borderRadius: '4px',
+                                        border: '2px solid #ddd'
+                                    }} />
+                                    <div style={{
+                                        background: 'linear-gradient(90deg, #f0f0f0 25%, #e0e0e0 50%, #f0f0f0 75%)',
+                                        backgroundSize: '200% 100%',
+                                        animation: 'shimmer 1.5s infinite',
+                                        height: '60px',
+                                        borderRadius: '4px',
+                                        border: '2px solid #ddd'
+                                    }} />
+                                    <style>{`
+                                        @keyframes shimmer {
+                                            0% { background-position: 200% 0; }
+                                            100% { background-position: -200% 0; }
+                                        }
+                                    `}</style>
+                                </div>
+                            )}
 
                             {/* Research Output */}
                             {contact.researchNotes && (

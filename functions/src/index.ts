@@ -349,6 +349,15 @@ export const getResearchStatus = onCall(
             const result = await client.interactions.get(interactionId);
 
             let researchResult = null;
+            let thinkingLog: string[] = [];
+
+            // Extract thinking/reasoning messages from outputs
+            if (result.outputs && result.outputs.length > 0) {
+                thinkingLog = result.outputs
+                    .filter((o: any) => o.type === 'thinking' || o.role === 'model')
+                    .map((o: any) => o.text || o.content || '')
+                    .filter((s: string) => s.length > 0);
+            }
 
             if (result.status === 'completed') {
                 const output = result.outputs?.[result.outputs.length - 1];
@@ -391,7 +400,8 @@ export const getResearchStatus = onCall(
 
             return {
                 status: result.status,
-                data: researchResult
+                data: researchResult,
+                thinkingLog
             };
 
         } catch (error: any) {
