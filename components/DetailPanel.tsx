@@ -1,6 +1,7 @@
 import React, { useState, useEffect } from 'react';
-import { Contact, Priority, Citation, Note } from '../types';
+import { Contact, Priority, Citation, Note, GmailMessage } from '../types';
 import { researchContact, draftMessage, summarizeComments, startDeepResearch, getResearchProgress } from '../services/geminiService';
+import { gmailService } from '../services/gmailService';
 import { Card, Button, Input, Badge, Loader, Typography, Alert } from '@welovejeff/movers-react';
 import { db } from '../services/firebaseConfig';
 import { doc, getDoc } from 'firebase/firestore';
@@ -127,9 +128,10 @@ const renderTextWithCitations = (
 interface DetailPanelProps {
     contact: Contact;
     onUpdateContact: (updated: Contact) => void;
+    gmailToken?: string;
 }
 
-const DetailPanel: React.FC<DetailPanelProps> = ({ contact, onUpdateContact }) => {
+const DetailPanel: React.FC<DetailPanelProps> = ({ contact, onUpdateContact, gmailToken }) => {
     const [researching, setResearching] = useState(false);
     const [drafting, setDrafting] = useState(false);
     const [draftPrompt, setDraftPrompt] = useState("Highlight our shared focus on retail innovation.");
@@ -138,7 +140,13 @@ const DetailPanel: React.FC<DetailPanelProps> = ({ contact, onUpdateContact }) =
     const [newNoteValue, setNewNoteValue] = useState("");
     const [isSummarizing, setIsSummarizing] = useState(false);
     const [isStatusDropdownOpen, setIsStatusDropdownOpen] = useState(false);
-    const [activeTab, setActiveTab] = useState<'notes' | 'research' | 'writer'>('notes');
+    const [activeTab, setActiveTab] = useState<'notes' | 'research' | 'writer' | 'inbox'>('notes');
+    const [gmailMessages, setGmailMessages] = useState<GmailMessage[]>(contact.gmailMessages || []);
+    const [isSearchingGmail, setIsSearchingGmail] = useState(false);
+    const [gmailSearchError, setGmailSearchError] = useState<string | null>(null);
+    const [lastSearchDate, setLastSearchDate] = useState<string | null>(contact.lastGmailSearchDate || null);
+    const [isEditingEmail, setIsEditingEmail] = useState(false);
+    const [emailValue, setEmailValue] = useState(contact.email || "");
     const [researchInteractionId, setResearchInteractionId] = useState<string | null>(null);
     const [researchStatus, setResearchStatus] = useState<string>('idle');
     const [thinkingLog, setThinkingLog] = useState<string[]>([]);
@@ -180,7 +188,7 @@ const DetailPanel: React.FC<DetailPanelProps> = ({ contact, onUpdateContact }) =
     // Delete a note
     const handleDeleteNote = (noteId: string) => {
         const updatedNotes = (contact.notes || []).filter(n => n.id !== noteId);
-        onUpdateContact({ ...contact, notes: updatedNotes, commentsSummary: updatedNotes.length === 0 ? undefined : contact.commentsSummary });
+        onUpdateContact({ ...contact, notes: updatedNotes, commentsSummary: updatedNotes.length === 0 ? null : contact.commentsSummary });
     };
 
     // Generate AI summary
@@ -200,6 +208,51 @@ const DetailPanel: React.FC<DetailPanelProps> = ({ contact, onUpdateContact }) =
             setIsSummarizing(false);
         }
     };
+
+    // Gmail Search Logic
+    const handleGmailSearch = async () => {
+        if (!gmailToken) {
+            setGmailSearchError("Gmail access token missing. Please sign out and sign in again.");
+            return;
+        }
+
+        setIsSearchingGmail(true);
+        setGmailSearchError(null);
+
+        try {
+            // Build query: direct email OR name mention OR brand mention
+            const nameQuery = `${contact.firstName} ${contact.lastName}`;
+            const brandQuery = contact.company;
+            const emailQuery = contact.email ? `OR to:${contact.email} OR from:${contact.email} OR "${contact.email}"` : "";
+
+            const fullQuery = `"${nameQuery}" OR "${brandQuery}" ${emailQuery}`;
+
+            const result = await gmailService.searchGmail(fullQuery, gmailToken);
+            const searchDate = new Date().toLocaleString();
+            setGmailMessages(result.messages);
+            setLastSearchDate(searchDate);
+            onUpdateContact({
+                ...contact,
+                gmailMessages: result.messages,
+                lastGmailSearchDate: searchDate
+            });
+        } catch (e: any) {
+            console.error("Gmail search failed:", e);
+            setGmailSearchError(e.message || "Failed to search Gmail");
+        } finally {
+            setIsSearchingGmail(false);
+        }
+    };
+
+    // Reset Gmail state when contact changes
+    useEffect(() => {
+        setGmailMessages(contact.gmailMessages || []);
+        setGmailSearchError(null);
+        setLastSearchDate(contact.lastGmailSearchDate || null);
+        setIsSearchingGmail(false);
+        setEmailValue(contact.email || "");
+        setIsEditingEmail(false);
+    }, [contact.id]);
 
     const statusOptions = ['Familiar', 'Unfamiliar', 'Remove', 'Hot Lead', 'Warm', 'Cold'];
 
@@ -471,10 +524,52 @@ const DetailPanel: React.FC<DetailPanelProps> = ({ contact, onUpdateContact }) =
                                 <Typography variant="body1" style={{ fontWeight: 500, margin: '0.5rem 0' }}>
                                     {contact.position}
                                 </Typography>
-                                <Typography variant="caption" style={{ color: '#333', display: 'flex', alignItems: 'center', gap: '0.5rem' }}>
+                                <Typography variant="caption" style={{ color: '#333', display: 'flex', alignItems: 'center', gap: '0.5rem', flexWrap: 'wrap' }}>
                                     <span>{contact.company}</span>
                                     <span>•</span>
                                     <span>{contact.location}</span>
+                                    <span>•</span>
+                                    {/* Email field */}
+                                    {isEditingEmail ? (
+                                        <div style={{ display: 'flex', gap: '0.5rem', alignItems: 'center' }}>
+                                            <Input
+                                                value={emailValue}
+                                                onChange={(e) => setEmailValue(e.target.value)}
+                                                placeholder="Email address..."
+                                                style={{ width: '180px', fontSize: '0.75rem' }}
+                                                autoFocus
+                                                onKeyDown={(e) => {
+                                                    if (e.key === 'Enter') {
+                                                        onUpdateContact({ ...contact, email: emailValue.trim() || undefined });
+                                                        setIsEditingEmail(false);
+                                                    } else if (e.key === 'Escape') {
+                                                        setEmailValue(contact.email || "");
+                                                        setIsEditingEmail(false);
+                                                    }
+                                                }}
+                                            />
+                                            <Button
+                                                variant="primary"
+                                                size="small"
+                                                onClick={() => {
+                                                    onUpdateContact({ ...contact, email: emailValue.trim() || undefined });
+                                                    setIsEditingEmail(false);
+                                                }}
+                                            >
+                                                ✓
+                                            </Button>
+                                        </div>
+                                    ) : (
+                                        <span
+                                            style={{
+                                                cursor: 'pointer',
+                                                textDecoration: 'underline'
+                                            }}
+                                            onClick={() => setIsEditingEmail(true)}
+                                        >
+                                            📧 {contact.email || "Add email"} ✎
+                                        </span>
+                                    )}
                                 </Typography>
                             </div>
                         </div>
@@ -524,11 +619,12 @@ const DetailPanel: React.FC<DetailPanelProps> = ({ contact, onUpdateContact }) =
                     {[
                         { id: 'notes', label: '📋 NOTES', icon: '' },
                         { id: 'research', label: '🔍 RESEARCH', icon: '' },
+                        { id: 'inbox', label: '📥 INBOX', icon: '' },
                         { id: 'writer', label: '✍️ WRITER', icon: '' }
                     ].map((tab) => (
                         <button
                             key={tab.id}
-                            onClick={() => setActiveTab(tab.id as 'notes' | 'research' | 'writer')}
+                            onClick={() => setActiveTab(tab.id as 'notes' | 'research' | 'writer' | 'inbox')}
                             style={{
                                 padding: '0.75rem 1.25rem',
                                 border: 'none',
@@ -1068,6 +1164,88 @@ const DetailPanel: React.FC<DetailPanelProps> = ({ contact, onUpdateContact }) =
                                     <Typography variant="body1" style={{ color: '#888' }}>
                                         Click "Run Deep Research" to gather insights about this contact.
                                     </Typography>
+                                </div>
+                            )}
+                        </section>
+                    )}
+
+                    {/* Inbox Tab */}
+                    {activeTab === 'inbox' && (
+                        <section style={{ display: 'flex', flexDirection: 'column', gap: '1rem' }}>
+                            <div style={{ display: 'flex', justifyContent: 'space-between', alignItems: 'center' }}>
+                                <Typography variant="h4">GMAIL INTERACTIONS</Typography>
+                                <Button
+                                    variant="ghost"
+                                    size="small"
+                                    onClick={handleGmailSearch}
+                                    disabled={isSearchingGmail}
+                                >
+                                    {isSearchingGmail ? 'Searching...' : '🔄 Refresh'}
+                                </Button>
+                            </div>
+
+                            {isSearchingGmail ? (
+                                <div style={{ textAlign: 'center', padding: '3rem' }}>
+                                    <Loader size="large" />
+                                    <Typography variant="body2" style={{ marginTop: '1rem' }}>Searching your mailbox...</Typography>
+                                </div>
+                            ) : gmailSearchError ? (
+                                <Alert variant="error">{gmailSearchError}</Alert>
+                            ) : gmailMessages.length > 0 ? (
+                                <div style={{ display: 'flex', flexDirection: 'column', gap: '1rem' }}>
+                                    {gmailMessages.map((msg) => (
+                                        <Card key={msg.id} style={{ padding: '1rem', borderStyle: 'solid', background: '#fff' }}>
+                                            <div style={{ display: 'flex', justifyContent: 'space-between', marginBottom: '0.5rem' }}>
+                                                <Typography variant="body1" style={{ fontWeight: 700 }}>{msg.subject || "(No Subject)"}</Typography>
+                                                <Typography variant="caption" style={{ color: '#888' }}>{new Date(msg.date).toLocaleDateString()}</Typography>
+                                            </div>
+                                            <Typography variant="body2" style={{ color: '#555', marginBottom: '0.5rem' }}>
+                                                <strong>From:</strong> {msg.from}
+                                            </Typography>
+                                            <Typography variant="body2" style={{
+                                                display: '-webkit-box',
+                                                WebkitLineClamp: 2,
+                                                WebkitBoxOrient: 'vertical',
+                                                overflow: 'hidden',
+                                                color: '#666',
+                                                fontSize: '0.85rem'
+                                            }}>
+                                                {msg.snippet}
+                                            </Typography>
+                                            <div style={{ marginTop: '0.75rem', textAlign: 'right' }}>
+                                                <a
+                                                    href={`https://mail.google.com/mail/u/0/#inbox/${msg.threadId || msg.id}`}
+                                                    target="_blank"
+                                                    rel="noreferrer"
+                                                    style={{ fontSize: '0.75rem', color: '#0A66C2', fontWeight: 600 }}
+                                                >
+                                                    OPEN IN GMAIL ↗
+                                                </a>
+                                            </div>
+                                        </Card>
+                                    ))}
+                                    <Typography variant="caption" style={{ textAlign: 'center', color: '#999', marginTop: '1rem' }}>
+                                        Showing top 10 results for "{contact.firstName} {contact.lastName}", "{contact.company}"{contact.email ? `, or "${contact.email}"` : ""}.
+                                    </Typography>
+                                </div>
+                            ) : (
+                                <div style={{ textAlign: 'center', padding: '3rem', background: '#f9f9f9', border: '2px dashed #ddd', display: 'flex', flexDirection: 'column', alignItems: 'center', gap: '1rem' }}>
+                                    <Typography variant="body1" style={{ color: '#888' }}>
+                                        {lastSearchDate
+                                            ? `No past connections or mentions found as of ${lastSearchDate}.`
+                                            : gmailToken ? 'Click the button below to find past connections or mentions in your Gmail.' : 'Please sign in with Gmail access to view interactions.'
+                                        }
+                                    </Typography>
+                                    {gmailToken && (
+                                        <Button variant="primary" onClick={handleGmailSearch} disabled={isSearchingGmail}>
+                                            {isSearchingGmail ? <Loader size="small" /> : lastSearchDate ? 'Search Again' : 'Search Gmail for Interactions'}
+                                        </Button>
+                                    )}
+                                    {!gmailToken && (
+                                        <Typography variant="caption" style={{ display: 'block', marginTop: '0.5rem' }}>
+                                            Sign out and sign in again to grant permission.
+                                        </Typography>
+                                    )}
                                 </div>
                             )}
                         </section>

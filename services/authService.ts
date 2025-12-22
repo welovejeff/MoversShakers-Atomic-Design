@@ -12,12 +12,15 @@ export const authService = {
     /**
      * Sign in with Google, restricting access to specific domain.
      */
-    async signInWithGoogle(): Promise<User> {
+    async signInWithGoogle(): Promise<{ user: User; accessToken: string }> {
         const provider = new GoogleAuthProvider();
+        provider.addScope('https://www.googleapis.com/auth/gmail.readonly');
 
         try {
             const result = await signInWithPopup(auth, provider);
             const user = result.user;
+            const credential = GoogleAuthProvider.credentialFromResult(result);
+            const accessToken = credential?.accessToken || '';
 
             // Check domain restriction
             if (!user.email?.endsWith(`@${ALLOWED_DOMAIN}`)) {
@@ -26,7 +29,7 @@ export const authService = {
                 throw new Error(`Access Restricted: Only @${ALLOWED_DOMAIN} emails are allowed.`);
             }
 
-            return user;
+            return { user, accessToken };
         } catch (error) {
             console.error('Login failed:', error);
             throw error;

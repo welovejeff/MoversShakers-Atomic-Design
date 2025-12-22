@@ -17,6 +17,7 @@ import LoginScreen from './components/LoginScreen';
 
 const App: React.FC = () => {
     const [user, setUser] = useState<User | null>(null);
+    const [accessToken, setAccessToken] = useState<string | null>(sessionStorage.getItem('gmailToken'));
     const [authLoading, setAuthLoading] = useState(true);
     const [contacts, setContacts] = useState<Contact[]>([]);
     const [isLoading, setIsLoading] = useState(true);
@@ -62,6 +63,10 @@ const App: React.FC = () => {
             if (currentUser) {
                 // Only load data if user is logged in
                 loadContacts();
+            } else {
+                // Clear Gmail token on logout
+                setAccessToken(null);
+                sessionStorage.removeItem('gmailToken');
             }
         });
         return () => unsubscribe();
@@ -434,7 +439,10 @@ const App: React.FC = () => {
     }
 
     if (!user) {
-        return <LoginScreen onLoginSuccess={() => { }} />;
+        return <LoginScreen onLoginSuccess={(token) => {
+            setAccessToken(token);
+            sessionStorage.setItem('gmailToken', token);
+        }} />;
     }
 
     return (
@@ -788,6 +796,7 @@ const App: React.FC = () => {
                         <DetailPanel
                             contact={selectedContact}
                             onUpdateContact={handleUpdateContact}
+                            gmailToken={accessToken || undefined}
                         />
                     ) : (
                         <Card style={{

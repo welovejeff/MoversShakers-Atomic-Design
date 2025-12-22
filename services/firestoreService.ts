@@ -26,6 +26,23 @@ const tasksCollection = collection(db, 'outreachTasks');
 const researchCollection = collection(db, 'research');
 
 /**
+ * Utility to remove undefined values from objects before sending to Firestore
+ */
+const stripUndefined = (obj: any): any => {
+    const newObj: any = {};
+    Object.keys(obj).forEach(key => {
+        if (obj[key] !== undefined) {
+            if (obj[key] && typeof obj[key] === 'object' && !Array.isArray(obj[key]) && !(obj[key] instanceof Timestamp)) {
+                newObj[key] = stripUndefined(obj[key]);
+            } else {
+                newObj[key] = obj[key];
+            }
+        }
+    });
+    return newObj;
+};
+
+/**
  * Contact Operations
  */
 export const contactsService = {
@@ -81,10 +98,11 @@ export const contactsService = {
 
     async update(id: string, updates: Partial<Contact>): Promise<void> {
         const docRef = doc(contactsCollection, id);
-        await updateDoc(docRef, {
+        const data = stripUndefined({
             ...updates,
             updatedAt: Timestamp.now(),
         });
+        await updateDoc(docRef, data);
     },
 
     async delete(id: string): Promise<void> {
@@ -184,10 +202,11 @@ export const tasksService = {
 
     async update(id: string, updates: Partial<OutreachTask>): Promise<void> {
         const docRef = doc(tasksCollection, id);
-        await updateDoc(docRef, {
+        const data = stripUndefined({
             ...updates,
             updatedAt: Timestamp.now(),
         });
+        await updateDoc(docRef, data);
     },
 
     async delete(id: string): Promise<void> {

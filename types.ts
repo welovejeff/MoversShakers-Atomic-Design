@@ -13,6 +13,16 @@ export interface Note {
   createdAt: string; // ISO timestamp
 }
 
+export interface GmailMessage {
+  id: string;
+  threadId: string;
+  snippet: string;
+  date: string;
+  from: string;
+  to: string;
+  subject: string;
+}
+
 export interface Contact {
   id: string;
   firstName: string;
@@ -21,6 +31,7 @@ export interface Contact {
   position: string;
   location: string;
   linkedInUrl: string;
+  email?: string;
   familiarity: string;
   comments: string; // Legacy single comment (for backward compat)
   category: string;
@@ -36,6 +47,10 @@ export interface Contact {
   draftMessage?: string;
   researchSources?: Array<{ uri: string, title: string }>;
   researchCitations?: Citation[];
+
+  // Gmail Persistence
+  gmailMessages?: GmailMessage[];
+  lastGmailSearchDate?: string;
 }
 
 export interface PrioritizationResult {

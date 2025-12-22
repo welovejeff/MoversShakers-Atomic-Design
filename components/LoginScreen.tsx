@@ -3,7 +3,7 @@ import { Card, Button, Typography, Loader, useToast } from '@welovejeff/movers-r
 import { authService } from '../services/authService';
 
 interface LoginScreenProps {
-    onLoginSuccess: () => void;
+    onLoginSuccess: (accessToken: string) => void;
 }
 
 const LoginScreen: React.FC<LoginScreenProps> = ({ onLoginSuccess }) => {
@@ -13,8 +13,8 @@ const LoginScreen: React.FC<LoginScreenProps> = ({ onLoginSuccess }) => {
     const handleLogin = async () => {
         setIsLoading(true);
         try {
-            await authService.signInWithGoogle();
-            onLoginSuccess();
+            const { accessToken } = await authService.signInWithGoogle();
+            onLoginSuccess(accessToken);
         } catch (error: any) {
             console.error(error);
             // Display friendly error for domain restriction
